@@ -1,0 +1,10 @@
+S@E
+E@i:=T
+T@T+T
+T@T-T
+T@T*T
+T@T/T
+T@(T)
+T@i
+T@n
+#
