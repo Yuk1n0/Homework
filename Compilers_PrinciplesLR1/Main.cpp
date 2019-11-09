@@ -35,7 +35,8 @@ int main(void)
 		int rank = 0;
 		cout << "文法:" << endl;
 		while (fin.getline(str, sizeof(str))) 
-        {	//读取文件
+        {	
+            //读取文件
 			s = str;
 			if (s == "#") 
             {
