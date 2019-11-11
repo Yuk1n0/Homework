@@ -1,14 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
-#define StuNum1 4 //ºê¶¨ÒåÑ§ÉúÊıÁ¿1
-#define StuNum2 4 //ºê¶¨ÒåÑ§ÉúÊıÁ¿2
+#define StuNum1 4 //å®å®šä¹‰å­¦ç”Ÿæ•°é‡1
+#define StuNum2 4 //å®å®šä¹‰å­¦ç”Ÿæ•°é‡2
 
 typedef struct student
 {
     int xuehao;
     int score;
-    struct student* next;
-}Student, * Pstudent;
+    struct student *next;
+} Student, *Pstudent;
 
 void CreatLink(Pstudent head, int size)
 {
@@ -24,7 +24,7 @@ void CreatLink(Pstudent head, int size)
     }
 }
 
-//°´³É¼¨´óĞ¡ÅÅĞò£¬ Ö»ÊÇ½«Ô­Ê¼ÊäÈëµÄÄÇÁ½¸ö±íÅÅĞò¡£
+//æŒ‰æˆç»©å¤§å°æ’åºï¼Œ åªæ˜¯å°†åŸå§‹è¾“å…¥çš„é‚£ä¸¤ä¸ªè¡¨æ’åºã€‚
 void Sort(Pstudent pstu, int size)
 {
     for (int i = 0; i < size - 1; i++)
@@ -49,13 +49,13 @@ void print(Pstudent head)
     head = head->next;
     while (head)
     {
-        printf("Ñ§ºÅ£º%d£¬ ³É¼¨£º%d\n", head->xuehao, head->score);
+        printf("å­¦å·ï¼š%dï¼Œ æˆç»©ï¼š%d\n", head->xuehao, head->score);
         head = head->next;
     }
     return;
 }
 
-//ºÏ²¢Á´±íºÍÅÅĞòÓÃÁ´±íÊµÏÖ
+//åˆå¹¶é“¾è¡¨å’Œæ’åºç”¨é“¾è¡¨å®ç°
 Pstudent Combination(Pstudent head1, Pstudent head2)
 {
     Pstudent pCom = (Pstudent)malloc(sizeof(student));
@@ -97,18 +97,18 @@ Pstudent Combination(Pstudent head1, Pstudent head2)
 int main(void)
 {
     Student stu1[StuNum1], stu2[StuNum2];
-    printf("ÇëÊäÈëµÚÒ»×éÑ§ÉúĞÅÏ¢£º");
+    printf("è¯·è¾“å…¥ç¬¬ä¸€ç»„å­¦ç”Ÿä¿¡æ¯ï¼š");
     for (int i = 0; i < StuNum1; i++)
     {
-        printf("µÚ1. %d ¸öÍ¬Ñ§µÄÑ§ºÅ,³É¼¨Îª £º", i + 1);
+        printf("ç¬¬1. %d ä¸ªåŒå­¦çš„å­¦å·,æˆç»©ä¸º ï¼š", i + 1);
         scanf("%d", &stu1[i].xuehao);
         scanf("%d", &stu1[i].score);
         stu1[i].next = NULL;
     }
-    printf("ÇëÊäÈëµÚ¶ş×éÑ§ÉúĞÅÏ¢£º");
+    printf("è¯·è¾“å…¥ç¬¬äºŒç»„å­¦ç”Ÿä¿¡æ¯ï¼š");
     for (int i = 0; i < StuNum2; i++)
     {
-        printf("µÚ2. %d ¸öÍ¬Ñ§µÄÑ§ºÅ,³É¼¨Îª £º", i + 1);
+        printf("ç¬¬2. %d ä¸ªåŒå­¦çš„å­¦å·,æˆç»©ä¸º ï¼š", i + 1);
         scanf("%d", &stu2[i].xuehao);
         scanf("%d", &stu2[i].score);
         stu2[i].next = NULL;
@@ -118,7 +118,7 @@ int main(void)
     CreatLink(stu1, StuNum1);
     CreatLink(stu2, StuNum2);
     Pstudent ps = Combination(stu1, stu2);
-    printf("ºÏ²¢ºóµÄµÄÓĞĞò±í£º\n");
+    printf("åˆå¹¶åçš„çš„æœ‰åºè¡¨ï¼š\n");
     print(ps);
     return 0;
 }

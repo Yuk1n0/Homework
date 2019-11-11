@@ -1,5 +1,13 @@
-#include<stdio.h>
-#include<stdlib.h>
+/*
+ * POJ 1068 Parencodings
+ * ç®€å•æ¨¡æ‹Ÿ
+ * ç”¨æ•°ç»„temp[i]è¡¨ç¤ºç¬¬iä¸ªå³æ‹¬å·å’Œç¬¬i+1ä¸ªå³æ‹¬å·é—´çš„å·¦æ‹¬å·æ•°
+ * ç„¶åé€æ¸æ‰¾å’Œå³æ‹¬å·åŒ¹é…çš„å·¦æ‹¬å·æ‰€å¤„çš„ä½ç½®
+ * i-j
+ */
+
+#include <stdio.h>
+#include <stdlib.h>
 
 const int MAX = 50;
 int a[MAX];
@@ -39,14 +47,5 @@ int main(void)
             printf("%d ", b[i]);
         printf("%d\n", b[count2]);
     }
-    system("pause");
     return 0;
 }
-
-/*
- * POJ 1068 Parencodings
- * ¼òµ¥Ä£Äâ
- * ÓÃÊı×étemp[i]±íÊ¾µÚi¸öÓÒÀ¨ºÅºÍµÚi+1¸öÓÒÀ¨ºÅ¼äµÄ×óÀ¨ºÅÊı
- * È»ºóÖğ½¥ÕÒºÍÓÒÀ¨ºÅÆ¥ÅäµÄ×óÀ¨ºÅËù´¦µÄÎ»ÖÃ
- * i-j
- */

@@ -2,26 +2,30 @@
 #include <cmath>
 #include "Bisection.h"
 using namespace std;
+
 double f(double z);
 
 void Bisection(void)
 {
     cout << endl;
-    cout << "=======¶þ·Ö·¨=======" << endl;
+    cout << "=======äºŒåˆ†æ³•=======" << endl;
     double a, b, e;
     double x, y, y0;
     bool judge = true;
-    cout << "ÇëÊäÈëaµÄÖµ£º"; cin >> a;
-    cout << "ÇëÊäÈëbµÄÖµ£º"; cin >> b;
-    cout << "ÇëÊäÈëeµÄÖµ£º"; cin >> e;
+    cout << "è¯·è¾“å…¥açš„å€¼ï¼š";
+    cin >> a;
+    cout << "è¯·è¾“å…¥bçš„å€¼ï¼š";
+    cin >> b;
+    cout << "è¯·è¾“å…¥eçš„å€¼ï¼š";
+    cin >> e;
     y0 = f(a);
-    
+
     while (judge)
     {
         x = (a + b) / 2;
         y = f(x);
-        
-        if ((y*y0) > 0)
+
+        if ((y * y0) > 0)
         {
             a = x;
         }
@@ -29,20 +33,20 @@ void Bisection(void)
         {
             b = x;
         }
-        
+
         if ((b - a) < e)
         {
             judge = false;
         }
     }
-    cout << "xµÄÖµÎª£º" << x << endl;
-    cout << "yµÄÖµÎª£º" << y << endl;
+    cout << "xçš„å€¼ä¸ºï¼š" << x << endl;
+    cout << "yçš„å€¼ä¸ºï¼š" << y << endl;
     cout << endl;
 }
 
 double f(double z)
 {
     double result;
-    result = (z*z*z) - z - 1;
+    result = (z * z * z) - z - 1;
     return result;
 }

@@ -1,7 +1,7 @@
-#include"LR(1).h"
-/*Program*/
-/*Program¹¹Ôìº¯Êı*/
-Program::Program(char l, string r, set<char> s, int rank) 
+#include "LR(1).h"
+
+/*Programæ„é€ å‡½æ•°*/
+Program::Program(char l, string r, set<char> s, int rank)
 {
     this->left = l;
     this->right = r;
@@ -9,22 +9,22 @@ Program::Program(char l, string r, set<char> s, int rank)
     this->rank = rank;
 }
 
-/*ÅĞ¶ÏÁ½¸öProgramÊÇ·ñÏàµÈ*/
-bool operator == (const Program& a, const  Program& b) 
+/*åˆ¤æ–­ä¸¤ä¸ªProgramæ˜¯å¦ç›¸ç­‰*/
+bool operator==(const Program &a, const Program &b)
 {
-    if (a.left == b.left) 
+    if (a.left == b.left)
     {
-        if (a.right == b.right && a.rank == b.rank) 
-        {	//²úÉúÊ½×ó²¿£¬ÓÒ²¿£¬ÓÉÎÄ·¨ÄÄ¸ö²úÉúµÃÀ´µÄ
+        if (a.right == b.right && a.rank == b.rank)
+        { //äº§ç”Ÿå¼å·¦éƒ¨ï¼Œå³éƒ¨ï¼Œç”±æ–‡æ³•å“ªä¸ªäº§ç”Ÿå¾—æ¥çš„
             return true;
         }
     }
     return false;
 }
 
-Program& Program::operator = (const Program& b) 
-{	
-    //ÖØÔØ¸³ÖµÔËËã·û£¬½«Ò»¸öÏîÄ¿¸³Öµ¸øÁíÒ»¸ö
+Program &Program::operator=(const Program &b)
+{
+    //é‡è½½èµ‹å€¼è¿ç®—ç¬¦ï¼Œå°†ä¸€ä¸ªé¡¹ç›®èµ‹å€¼ç»™å¦ä¸€ä¸ª
     left = b.left;
     right = b.right;
     search = b.search;
@@ -32,32 +32,32 @@ Program& Program::operator = (const Program& b)
 }
 
 /*Item*/
-/*ÅĞ¶ÏÁ½¸öItemÊÇ·ñÏàµÈ*/
-bool operator == (const Item& a, const Item& b) 
-{	
-    //ÖØÔØ==ÔËËã·û£¬½«Á½¸öÏîÄ¿¼¯ÖĞµÄÏîÄ¿Ò»Ò»±È¶Ô
+/*åˆ¤æ–­ä¸¤ä¸ªItemæ˜¯å¦ç›¸ç­‰*/
+bool operator==(const Item &a, const Item &b)
+{
+    //é‡è½½==è¿ç®—ç¬¦ï¼Œå°†ä¸¤ä¸ªé¡¹ç›®é›†ä¸­çš„é¡¹ç›®ä¸€ä¸€æ¯”å¯¹
     vector<Program> pa = a.pro, pb = b.pro;
-    if (pa.size() != pb.size()) 
+    if (pa.size() != pb.size())
     {
         return false;
     }
-    
-    else 
+
+    else
     {
-        for (vector<Program> ::iterator it = pa.begin(); it != pa.end(); it++) 
+        for (vector<Program>::iterator it = pa.begin(); it != pa.end(); it++)
         {
-            vector<Program> ::iterator res = find(pb.begin(), pb.end(), *it);
-            if (res == pb.end()) 
+            vector<Program>::iterator res = find(pb.begin(), pb.end(), *it);
+            if (res == pb.end())
             {
                 return false;
             }
-            else 
+            else
             {
-                if ((*it).search == (*res).search) 
+                if ((*it).search == (*res).search)
                 {
                     return true;
                 }
-                else 
+                else
                 {
                     return false;
                 }
@@ -67,73 +67,73 @@ bool operator == (const Item& a, const Item& b)
     }
 }
 
-/*ÍùItemµÄÏîÄ¿¼¯ÖĞ¼ÓÈëĞÂµÄÏîÄ¿*/
-bool Item::addPro(const Program& p, Item& i) 
+/*å¾€Itemçš„é¡¹ç›®é›†ä¸­åŠ å…¥æ–°çš„é¡¹ç›®*/
+bool Item::addPro(const Program &p, Item &i)
 {
-    vector<Program>::iterator res = find(i.pro.begin(), i.pro.end(), p);	//ÅĞ¶Ï²»´æÔÚ
-    if (res == i.pro.end()) 
+    vector<Program>::iterator res = find(i.pro.begin(), i.pro.end(), p); //åˆ¤æ–­ä¸å­˜åœ¨
+    if (res == i.pro.end())
     {
         i.pro.push_back(p);
         return true;
     }
-    else 
+    else
     {
         return false;
     }
 }
 
-/*¹¹ÔìÏîÄ¿¼¯µÄ·ÇÖÕ½á·û¼¯*/
-void Item::insertVN(Item& i) 
+/*æ„é€ é¡¹ç›®é›†çš„éç»ˆç»“ç¬¦é›†*/
+void Item::insertVN(Item &i)
 {
-    for (vector<Program>::size_type j = 0; j < i.pro.size(); j++) 
-    {	//½«ÎÄ·¨ÖĞµÄ·ÇÖÕ½á·û¸úÏîÄ¿µÄ²úÉúÊ½×ó²¿Ò»Ò»±È¶Ô
+    for (vector<Program>::size_type j = 0; j < i.pro.size(); j++)
+    { //å°†æ–‡æ³•ä¸­çš„éç»ˆç»“ç¬¦è·Ÿé¡¹ç›®çš„äº§ç”Ÿå¼å·¦éƒ¨ä¸€ä¸€æ¯”å¯¹
         vector<char>::iterator res = find(i.vn.begin(), i.vn.end(), i.pro[j].left);
-        if (res == i.vn.end()) 
+        if (res == i.vn.end())
         {
             i.vn.push_back(i.pro[j].left);
         }
     }
 }
 
-/*¹¹ÔìÏîÄ¿¼¯µÄÖÕ½á·û¼¯*/
-void Item::insertVT(Item& i, Item g) 
+/*æ„é€ é¡¹ç›®é›†çš„ç»ˆç»“ç¬¦é›†*/
+void Item::insertVT(Item &i, Item g)
 {
-    for (vector<Program>::size_type j = 0; j < i.pro.size(); j++) 
+    for (vector<Program>::size_type j = 0; j < i.pro.size(); j++)
     {
-        string r = i.pro[j].right;	//µÃµ½²úÉúÊ½ÓÒ²¿£¬Ò»¸öÒ»¸ö×Ö·ûÅĞ¶Ï
-        for (unsigned int j = 0; j < r.size(); j++) 
+        string r = i.pro[j].right; //å¾—åˆ°äº§ç”Ÿå¼å³éƒ¨ï¼Œä¸€ä¸ªä¸€ä¸ªå­—ç¬¦åˆ¤æ–­
+        for (unsigned int j = 0; j < r.size(); j++)
         {
             vector<char>::iterator res1 = find(g.vn.begin(), g.vn.end(), r[j]);
-            if (res1 == g.vn.end()) 
+            if (res1 == g.vn.end())
             {
                 vector<char>::iterator res2 = find(i.vt.begin(), i.vt.end(), r[j]);
-                if (res2 == i.vt.end()) 
+                if (res2 == i.vt.end())
                 {
                     i.vt.push_back(r[j]);
                 }
             }
         }
     }
-    i.vt.push_back('#');	//×îºóÔÙ²åÈë¡®#¡¯
+    i.vt.push_back('#'); //æœ€åå†æ’å…¥â€˜#â€™
 }
 
-/*¹¹ÔìÏîÄ¿¼¯ËùÓĞ·ûºÅ¼¯*/
-void Item::insertV(Item& i) 
-{	
-    //½«ÖÕ½á·û¼¯ºÍ·ÇÖÕ½á·û¼¯ºÏ²¢
-    for (vector<char>::iterator it = i.vn.begin(); it != i.vn.end(); it++) 
+/*æ„é€ é¡¹ç›®é›†æ‰€æœ‰ç¬¦å·é›†*/
+void Item::insertV(Item &i)
+{
+    //å°†ç»ˆç»“ç¬¦é›†å’Œéç»ˆç»“ç¬¦é›†åˆå¹¶
+    for (vector<char>::iterator it = i.vn.begin(); it != i.vn.end(); it++)
     {
         i.v.push_back(*it);
     }
-    for (vector<char>::iterator it = i.vt.begin(); it != i.vt.end(); it++) 
+    for (vector<char>::iterator it = i.vt.begin(); it != i.vt.end(); it++)
     {
         i.v.push_back(*it);
     }
 }
 
 /*LR(1)*/
-/*¹¹Ôìº¯Êı*/
-LR::LR(char start, Item g, string input) 
+/*æ„é€ å‡½æ•°*/
+LR::LR(char start, Item g, string input)
 {
     this->start = start;
     this->g = g;
@@ -147,67 +147,67 @@ LR::LR(char start, Item g, string input)
     M.push_back(i);
 }
 
-/*ºÏ²¢ËÑË÷·û¼¯*/
-void LR::unionSet(Program& a, const Program& b) 
+/*åˆå¹¶æœç´¢ç¬¦é›†*/
+void LR::unionSet(Program &a, const Program &b)
 {
-    for (set<char>::iterator it = b.search.begin(); it != b.search.end(); it++) 
+    for (set<char>::iterator it = b.search.begin(); it != b.search.end(); it++)
     {
         set<char>::iterator res = find(a.search.begin(), a.search.end(), (*it));
-        if (res == a.search.end()) 
+        if (res == a.search.end())
         {
             a.search.insert((*it));
         }
     }
 }
-/*µÃµ½ÏîÄ¿¼¯µÄCLOSURE±Õ°ü*/
-Item LR::getClosure(Item& i) 
+/*å¾—åˆ°é¡¹ç›®é›†çš„CLOSUREé—­åŒ…*/
+Item LR::getClosure(Item &i)
 {
     vector<Program> p = i.pro;
     int len = p.size();
-    if (len == 0) 
-    {	//Èç¹û¸ÃÏîÄ¿¼¯ÖĞÃ»ÓĞÏîÄ¿ÔòÖ±½Ó·µ»Ø
+    if (len == 0)
+    { //å¦‚æœè¯¥é¡¹ç›®é›†ä¸­æ²¡æœ‰é¡¹ç›®åˆ™ç›´æ¥è¿”å›
         return i;
     }
-    else 
+    else
     {
-        int l_length = p.size();	//Çó±Õ°üÇ°µÄÏîÄ¿¼¯³¤¶È
-        int n_length = p.size();	//Çó±Õ°üºóµÄÏîÄ¿¼¯³¤¶È
-        for (vector<Program>::size_type k = 0; k < p.size(); k++) 
+        int l_length = p.size(); //æ±‚é—­åŒ…å‰çš„é¡¹ç›®é›†é•¿åº¦
+        int n_length = p.size(); //æ±‚é—­åŒ…åçš„é¡¹ç›®é›†é•¿åº¦
+        for (vector<Program>::size_type k = 0; k < p.size(); k++)
         {
-            set<char> last = p[k].search;	//±£´æ²Ù×÷Ö®Ç°µÄËÑË÷·û¼¯
-            string r = p[k].right;	//µÃµ½¸ÃÏîÄ¿²úÉúÊ½µÄÓÒ²¿
-            if (r.size() == 0) 
+            set<char> last = p[k].search; //ä¿å­˜æ“ä½œä¹‹å‰çš„æœç´¢ç¬¦é›†
+            string r = p[k].right;        //å¾—åˆ°è¯¥é¡¹ç›®äº§ç”Ÿå¼çš„å³éƒ¨
+            if (r.size() == 0)
             {
                 continue;
             }
             vector<char>::iterator res1 = find(g.vn.begin(), g.vn.end(), r[0]);
-            if (res1 != g.vn.end()) 
-            {	//Èç¹û²úÉúÊ½ÓÒ²¿µÄµÚÒ»¸ö×Ö·ûÊÇ·ÇÖÕ½á·û
-                for (vector<Program>::size_type j = 0; j < g.pro.size(); j++) 
+            if (res1 != g.vn.end())
+            { //å¦‚æœäº§ç”Ÿå¼å³éƒ¨çš„ç¬¬ä¸€ä¸ªå­—ç¬¦æ˜¯éç»ˆç»“ç¬¦
+                for (vector<Program>::size_type j = 0; j < g.pro.size(); j++)
                 {
-                    if (r[0] == g.pro[j].left) 
-                    {	//´ÓÎÄ·¨ÖĞÕÒµ½¸Ã·ÇÖÕ½á·û¶ÔÓ¦µÄ²úÉúÊ½
+                    if (r[0] == g.pro[j].left)
+                    { //ä»æ–‡æ³•ä¸­æ‰¾åˆ°è¯¥éç»ˆç»“ç¬¦å¯¹åº”çš„äº§ç”Ÿå¼
                         Program pg = g.pro[j];
-                        if (r.size() != 1) 
-                        {	//Èç¹û¸Ã·ÇÖÕ½á·ûºóÃæ»¹ÓĞ·ûºÅÔòÇóĞÂµÄËÑË÷·û¼¯
+                        if (r.size() != 1)
+                        { //å¦‚æœè¯¥éç»ˆç»“ç¬¦åé¢è¿˜æœ‰ç¬¦å·åˆ™æ±‚æ–°çš„æœç´¢ç¬¦é›†
                             string temp = r;
                             temp = temp.substr(1);
                             pg.search = getFirst(temp, temp[0]);
                             last = pg.search;
                         }
-                        pg.search = last;	//¸üĞÂËÑË÷·û¼¯
-                        
+                        pg.search = last; //æ›´æ–°æœç´¢ç¬¦é›†
+
                         vector<Program>::iterator res2 = find(i.pro.begin(), i.pro.end(), pg);
-                        if (res2 == i.pro.end()) 
-                        {	//Èç¹û¸ÄÏîÄ¿ÔÚÏîÄ¿¼¯ÖĞ²»´æÔÚ
-                            i.pro.push_back(pg);	//²åÈëĞÂÏîÄ¿
+                        if (res2 == i.pro.end())
+                        {                        //å¦‚æœæ”¹é¡¹ç›®åœ¨é¡¹ç›®é›†ä¸­ä¸å­˜åœ¨
+                            i.pro.push_back(pg); //æ’å…¥æ–°é¡¹ç›®
                             n_length = i.pro.size();
                             p = i.pro;
                         }
-                        else 
+                        else
                         {
-                            if ((*res2).search != pg.search) 
-                            {	//Èç¹û×ó²¿ÓÒ²¿¶¼ÏàµÈ¶øËÑË÷·û¼¯²»ÏàµÈ£¬ÔòºÏ²¢
+                            if ((*res2).search != pg.search)
+                            { //å¦‚æœå·¦éƒ¨å³éƒ¨éƒ½ç›¸ç­‰è€Œæœç´¢ç¬¦é›†ä¸ç›¸ç­‰ï¼Œåˆ™åˆå¹¶
                                 unionSet(*res2, pg);
                                 p = i.pro;
                             }
@@ -220,112 +220,112 @@ Item LR::getClosure(Item& i)
     }
 }
 
-/*µÃµ½ÏòÇ°ËÑË÷·û¼¯*/
-set<char> LR::getFirst(const string& s, const char& N) 
-{ 
-    //sÎª.ºóÃæµÄ·ûºÅ´®£¬NÎª.ºóµÚÒ»¸ö×Ö·û
+/*å¾—åˆ°å‘å‰æœç´¢ç¬¦é›†*/
+set<char> LR::getFirst(const string &s, const char &N)
+{
+    //sä¸º.åé¢çš„ç¬¦å·ä¸²ï¼ŒNä¸º.åç¬¬ä¸€ä¸ªå­—ç¬¦
     vector<char>::iterator it = find(g.vn.begin(), g.vn.end(), s[0]);
-    if (it != g.vn.end()) {	//Èç¹ûÕâ¸ö×Ö·ûÊÇ·ÇÖÕ½á·û
-        for (vector<Program>::size_type i = 0; i < g.pro.size(); i++) 
+    if (it != g.vn.end())
+    { //å¦‚æœè¿™ä¸ªå­—ç¬¦æ˜¯éç»ˆç»“ç¬¦
+        for (vector<Program>::size_type i = 0; i < g.pro.size(); i++)
         {
-            if (g.pro[i].left == s[0]) 
-            {	//ÓÃÎÄ·¨µÄ·ûºÏÌõ¼şµÄ²úÉúÊ½
-                getFirst(g.pro[i].right, s[0]);	//µİ¹éÇóFIRST
+            if (g.pro[i].left == s[0])
+            {                                   //ç”¨æ–‡æ³•çš„ç¬¦åˆæ¡ä»¶çš„äº§ç”Ÿå¼
+                getFirst(g.pro[i].right, s[0]); //é€’å½’æ±‚FIRST
             }
         }
     }
-    FIRST[N].insert(s[0]);	//Èç¹ûÊÇ·ÇÖÕ½á·û£¬ÔòÖ±½Ó¾ÍÎªÕâ¸ö·ÇÖÕ½á·û
+    FIRST[N].insert(s[0]); //å¦‚æœæ˜¯éç»ˆç»“ç¬¦ï¼Œåˆ™ç›´æ¥å°±ä¸ºè¿™ä¸ªéç»ˆç»“ç¬¦
     return FIRST[N];
 }
 
-/*¹¹ÔìGOº¯Êı*/
-void LR::go() 
+/*æ„é€ GOå‡½æ•°*/
+void LR::go()
 {
-    for (vector<Item>::size_type it = 0; it < M.size(); it++) 
-    {	//Ñ­»·±éÀúËùÓĞÏîÄ¿¼¯À´ÅĞ¶Ï
+    for (vector<Item>::size_type it = 0; it < M.size(); it++)
+    { //å¾ªç¯éå†æ‰€æœ‰é¡¹ç›®é›†æ¥åˆ¤æ–­
         int r1 = it;
-        vector<char> V = M[it].v;	//È¡³öÏîÄ¿¼¯µÄËùÓĞ·ûºÅ¼¯
-        for (vector<char>::iterator w = V.begin(); w != V.end(); w++) 
-        {	//¶ÔËùÓĞ·ûºÅ¼¯½øĞĞÑ­»·±éÀúÅĞ¶Ï
+        vector<char> V = M[it].v; //å–å‡ºé¡¹ç›®é›†çš„æ‰€æœ‰ç¬¦å·é›†
+        for (vector<char>::iterator w = V.begin(); w != V.end(); w++)
+        { //å¯¹æ‰€æœ‰ç¬¦å·é›†è¿›è¡Œå¾ªç¯éå†åˆ¤æ–­
             char word;
             Item i;
-            for (vector<Program>::iterator p = M[it].pro.begin(); p != M[it].pro.end(); p++) 
+            for (vector<Program>::iterator p = M[it].pro.begin(); p != M[it].pro.end(); p++)
             {
-                string r = (*p).right;	//ÏîÄ¿µÄÓÒ²¿·ûºÅ´®
-                if (r.size() != 0) 
+                string r = (*p).right; //é¡¹ç›®çš„å³éƒ¨ç¬¦å·ä¸²
+                if (r.size() != 0)
                 {
-                    if ((*w) == r[0]) 
-                    {	//Èç¹û·ûºÅ´®ÓÒ²¿Óë·ûºÅ¼¯ÖĞµÄÄ³Ò»·ûºÅÏàµÈ
+                    if ((*w) == r[0])
+                    { //å¦‚æœç¬¦å·ä¸²å³éƒ¨ä¸ç¬¦å·é›†ä¸­çš„æŸä¸€ç¬¦å·ç›¸ç­‰
                         word = (*w);
                         Program pro((*p).left, r.substr(1), (*p).search, (*p).rank);
-                        i.addPro(pro, i);	//ÍùÏîÄ¿¼¯ÖĞ²åÈëÕâ¸öĞÂÏîÄ¿
+                        i.addPro(pro, i); //å¾€é¡¹ç›®é›†ä¸­æ’å…¥è¿™ä¸ªæ–°é¡¹ç›®
                     }
                 }
             }
-            
-            if (i.pro.size() != 0) 
-            {	//ÏîÄ¿¼¯ÖĞÓĞÏîÄ¿
-                getClosure(i);	//¶ÔÕâ¸öÏîÄ¿¼¯ÇóCLOSURE±Õ°ü
+
+            if (i.pro.size() != 0)
+            {                  //é¡¹ç›®é›†ä¸­æœ‰é¡¹ç›®
+                getClosure(i); //å¯¹è¿™ä¸ªé¡¹ç›®é›†æ±‚CLOSUREé—­åŒ…
                 int temp = M.size() - 1;
                 int r2 = 0;
-                for (vector<Item>::size_type mx = 0; mx < M.size(); mx++) 
+                for (vector<Item>::size_type mx = 0; mx < M.size(); mx++)
                 {
                     r2 = mx;
-                    if (i == M[mx]) 
-                    {	//Èç¹û¸ÃÏîÄ¿¼¯ÒÑ´æÔÚ
+                    if (i == M[mx])
+                    { //å¦‚æœè¯¥é¡¹ç›®é›†å·²å­˜åœ¨
                         break;
                     }
-                    
                 }
-                if (r2 == temp) 
-                {	//Èç¹ûËùÓĞÏîÄ¿¼¯ÖĞ²»´æÔÚÏàÍ¬µÄÏîÄ¿£¬Ôò²åÈëĞÂÏîÄ¿
-                    i.insertVN(i);	//µÃµ½ÏîÄ¿¼¯µÄ·ÇÖÕ½á·û¼¯
-                    i.insertVT(i, g);	//µÃµ½ÏîÄ¿¼¯µÄÖÕ½á·û¼¯
-                    i.insertV(i);	//µÃµ½ÏîÄ¿¼¯µÄËùÓĞ·ûºÅ¼¯£¬Õâ¸öËùÓĞ·ûºÅ£¬ÖÕ½á»ò·ÇÖÕ½á·û¼¯ÖĞµÄÔªËØÖ»°üº¬.ºóÃæµÄ·ûºÅ£¬.Ç°ÃæµÄ·ûºÅ¶ÔÓÚºóÃæµÄ³ÌĞòÔËĞĞÃ»ÓĞÓ°Ïì
+                if (r2 == temp)
+                {                     //å¦‚æœæ‰€æœ‰é¡¹ç›®é›†ä¸­ä¸å­˜åœ¨ç›¸åŒçš„é¡¹ç›®ï¼Œåˆ™æ’å…¥æ–°é¡¹ç›®
+                    i.insertVN(i);    //å¾—åˆ°é¡¹ç›®é›†çš„éç»ˆç»“ç¬¦é›†
+                    i.insertVT(i, g); //å¾—åˆ°é¡¹ç›®é›†çš„ç»ˆç»“ç¬¦é›†
+                    i.insertV(i);     //å¾—åˆ°é¡¹ç›®é›†çš„æ‰€æœ‰ç¬¦å·é›†ï¼Œè¿™ä¸ªæ‰€æœ‰ç¬¦å·ï¼Œç»ˆç»“æˆ–éç»ˆç»“ç¬¦é›†ä¸­çš„å…ƒç´ åªåŒ…å«.åé¢çš„ç¬¦å·ï¼Œ.å‰é¢çš„ç¬¦å·å¯¹äºåé¢çš„ç¨‹åºè¿è¡Œæ²¡æœ‰å½±å“
                     M.push_back(i);
                     r2 += 1;
                 }
-                GO[pair<int, char>(r1, word)] = r2;	//Í¬Ê±½«ÏîÄ¿¼¯µÄ¹ØÏµ±£´æµ½GO±íÖĞ
+                GO[pair<int, char>(r1, word)] = r2; //åŒæ—¶å°†é¡¹ç›®é›†çš„å…³ç³»ä¿å­˜åˆ°GOè¡¨ä¸­
             }
         }
     }
 }
 
-/*¹¹ÔìACTION±í*/
-void LR::getAction() 
+/*æ„é€ ACTIONè¡¨*/
+void LR::getAction()
 {
-    for (unsigned int i = 0; i < M.size(); i++) 
+    for (unsigned int i = 0; i < M.size(); i++)
     {
-        for (vector<char>::iterator it = g.vt.begin(); it != g.vt.end(); it++) 
-        {	//Ñ­»·±éÀúÖÕ½á·û
-            if (GO[pair<int, char>(i, (*it))] != NULL) 
-            {	//Èç¹ûGO±íÖĞ´æÔÚ¸ÃÖÕ½á·ûµÄ¹ØÏµ£¬ÔòËüµÄ¶¯×÷ÎªÒÆ½ø
+        for (vector<char>::iterator it = g.vt.begin(); it != g.vt.end(); it++)
+        { //å¾ªç¯éå†ç»ˆç»“ç¬¦
+            if (GO[pair<int, char>(i, (*it))] != NULL)
+            { //å¦‚æœGOè¡¨ä¸­å­˜åœ¨è¯¥ç»ˆç»“ç¬¦çš„å…³ç³»ï¼Œåˆ™å®ƒçš„åŠ¨ä½œä¸ºç§»è¿›
                 int S = GO[pair<int, char>(i, (*it))];
                 ACTION[pair<int, char>(i, (*it))] = pair<act, int>(shift, S);
             }
-            else 
+            else
             {
-                ACTION[pair<int, char>(i, (*it))] = pair<act, int>(error, -1);	//·ñÔò¾ÍÊÇ³ö´í
+                ACTION[pair<int, char>(i, (*it))] = pair<act, int>(error, -1); //å¦åˆ™å°±æ˜¯å‡ºé”™
             }
         }
     }
-    
-    //²úÉúÊ½ÓÒ²¿³¤¶ÈÎª0µÄÏîÄ¿¾ÍÊÇ¹æÔ¼ÏîÄ¿
-    for (vector<Item>::size_type mx = 0; mx < M.size(); mx++) 
+
+    //äº§ç”Ÿå¼å³éƒ¨é•¿åº¦ä¸º0çš„é¡¹ç›®å°±æ˜¯è§„çº¦é¡¹ç›®
+    for (vector<Item>::size_type mx = 0; mx < M.size(); mx++)
     {
-        for (vector<Program>::size_type px = 0; px < M[mx].pro.size(); px++) 
+        for (vector<Program>::size_type px = 0; px < M[mx].pro.size(); px++)
         {
-            if (M[mx].pro[px].right.size() == 0) 
+            if (M[mx].pro[px].right.size() == 0)
             {
                 for (set<char>::iterator it = M[mx].pro[px].search.begin(); it != M[mx].pro[px].search.end(); it++)
                 {
-                    if (M[mx].pro[px].left == this->start) 
+                    if (M[mx].pro[px].left == this->start)
                     {
-                        ACTION[pair<int, char>(mx, (*it))] = pair<act, int>(accept, -1);	//Èç¹û×ó²¿Îª¿ªÊ¼·ûºÅ£¬Ôò¶¯×÷¾ÍÎªaccept
+                        ACTION[pair<int, char>(mx, (*it))] = pair<act, int>(accept, -1); //å¦‚æœå·¦éƒ¨ä¸ºå¼€å§‹ç¬¦å·ï¼Œåˆ™åŠ¨ä½œå°±ä¸ºaccept
                     }
-                    else 
+                    else
                     {
-                        ACTION[pair<int, char>(mx, (*it))] = pair<act, int>(reduce, M[mx].pro[px].rank);	//¹æÔ¼µ½ÎÄ·¨ÖĞ¶ÔÓ¦µÄ²úÉúÊ½
+                        ACTION[pair<int, char>(mx, (*it))] = pair<act, int>(reduce, M[mx].pro[px].rank); //è§„çº¦åˆ°æ–‡æ³•ä¸­å¯¹åº”çš„äº§ç”Ÿå¼
                     }
                 }
             }
@@ -333,23 +333,23 @@ void LR::getAction()
     }
 }
 
-/*¹¹ÔìGOTO±í*/
-void LR::getGoto() 
+/*æ„é€ GOTOè¡¨*/
+void LR::getGoto()
 {
-    for (unsigned int i = 0; i < M.size(); i++) 
+    for (unsigned int i = 0; i < M.size(); i++)
     {
-        for (vector<char>::iterator it = g.vn.begin(); it != g.vn.end(); it++) 
-        {	//¶Ô·ÇÖÕ½á·û½øĞĞ±éÀú£¬²¢¸ù¾İGO±íÅĞ¶Ï
-            if ((*it) == start) 
+        for (vector<char>::iterator it = g.vn.begin(); it != g.vn.end(); it++)
+        { //å¯¹éç»ˆç»“ç¬¦è¿›è¡Œéå†ï¼Œå¹¶æ ¹æ®GOè¡¨åˆ¤æ–­
+            if ((*it) == start)
             {
                 continue;
             }
-            if (GO[pair<int, char>(i, (*it))] != NULL) 
+            if (GO[pair<int, char>(i, (*it))] != NULL)
             {
                 int G = GO[pair<int, char>(i, (*it))];
                 GOTO[pair<int, char>(i, (*it))] = G;
             }
-            else 
+            else
             {
                 GOTO[pair<int, char>(i, (*it))] = -1;
             }
@@ -357,73 +357,72 @@ void LR::getGoto()
     }
 }
 
-/*½«Õ»ÖĞµÄÔªËØ×ª»¯Îª×Ö·û´®*/
+/*å°†æ ˆä¸­çš„å…ƒç´ è½¬åŒ–ä¸ºå­—ç¬¦ä¸²*/
 template <typename T>
-string LR::turnFromStack(stack<T> s, int type) 
-{	
-    //typeµÄÖµÈç¹ûÎªINTÔò¶Ô×´Ì¬Õ»½øĞĞ×ª»¯£¬CHARÔò¶Ô·ûºÅÕ»½øĞĞ×ª»¯
+string LR::turnFromStack(stack<T> s, int type)
+{
+    //typeçš„å€¼å¦‚æœä¸ºINTåˆ™å¯¹çŠ¶æ€æ ˆè¿›è¡Œè½¬åŒ–ï¼ŒCHARåˆ™å¯¹ç¬¦å·æ ˆè¿›è¡Œè½¬åŒ–
     int len = s.size();
     string str = "";
-    switch (type) 
+    switch (type)
     {
-        case INT:
-            while (len--) 
-            {
-                int n = s.top();
-                s.pop();
-                str.append(to_string(static_cast<long long>(n)));
-            }
-            break;
-        case CHAR:
-            char* t = new char[len + 1];
-            int i = 0;
-            while (len--) 
-            {
-                char w = s.top();
-                s.pop();
-                t[i] = w;
-                i++;
-            }
-            t[i] = '\0';
-            str = t;
-            break;
+    case INT:
+        while (len--)
+        {
+            int n = s.top();
+            s.pop();
+            str.append(to_string(static_cast<long long>(n)));
+        }
+        break;
+    case CHAR:
+        char *t = new char[len + 1];
+        int i = 0;
+        while (len--)
+        {
+            char w = s.top();
+            s.pop();
+            t[i] = w;
+            i++;
+        }
+        t[i] = '\0';
+        str = t;
+        break;
     }
     reverse(str.begin(), str.end());
     return str;
 }
 
-/*Êä³ö·ÖÎö±í*/
-void LR::showTable() 
-{	
-    //´ÓACTIONºÍGOTO±íÖĞÈ¡³ö¶ÔÓ¦µÄ¹ØÏµ
+/*è¾“å‡ºåˆ†æè¡¨*/
+void LR::showTable()
+{
+    //ä»ACTIONå’ŒGOTOè¡¨ä¸­å–å‡ºå¯¹åº”çš„å…³ç³»
     string tabAct = "";
     string tabGoto = "";
     unsigned int j, k;
-    for (j = 0; j <= (g.vt.size() / 2 + 1); j++) 
+    for (j = 0; j <= (g.vt.size() / 2 + 1); j++)
     {
         tabAct.append("\t");
-        
     }
-    for (k = 0; k <= g.vt.size() - j + 1; k++) 
+    for (k = 0; k <= g.vt.size() - j + 1; k++)
     {
         tabGoto.append("\t");
     }
     cout << tabAct << "ACTION" << tabGoto << "GOTO" << endl;
     cout << '\t';
-    char* VT = new char[g.vt.size() + 1];
-    char* VN = new char[g.vn.size() - 1];
+    char *VT = new char[g.vt.size() + 1];
+    char *VN = new char[g.vn.size() - 1];
     int i = 0;
     cout << "\t";
-    for (vector<char>::iterator it = g.vt.begin(); it != g.vt.end(); it++) 
+    for (vector<char>::iterator it = g.vt.begin(); it != g.vt.end(); it++)
     {
         cout << (*it) << '\t';
         VT[i] = (*it);
         i++;
     }
     i = 0;
-    for (vector<char>::iterator it = g.vn.begin(); it != g.vn.end(); it++) 
+    for (vector<char>::iterator it = g.vn.begin(); it != g.vn.end(); it++)
     {
-        if ((*it) != start) 
+        if ((*it) != start)
         {
             cout << (*it) << '\t';
             VN[i] = (*it);
@@ -433,30 +432,30 @@ void LR::showTable()
     cout << '\n';
     int len = M.size();
     i = 0;
-    while (len--) 
+    while (len--)
     {
         cout << '\t' << i;
         int j = g.vt.size();
         int c = 0;
         cout << '\t';
-        while (j--) 
+        while (j--)
         {
             pair<act, int> a = ACTION[pair<int, char>(i, VT[c])];
             act fir = a.first;
             int sec = a.second;
-            if (fir == shift) 
+            if (fir == shift)
             {
                 cout << "S" + to_string(static_cast<long long>(sec)) << '\t';
             }
-            else if (fir == reduce) 
+            else if (fir == reduce)
             {
                 cout << "R" + to_string(static_cast<long long>(sec)) << '\t';
             }
-            else if (fir == error) 
+            else if (fir == error)
             {
                 cout << " " << '\t';
             }
-            else if (fir == accept) 
+            else if (fir == accept)
             {
                 cout << "acc" << '\t';
             }
@@ -464,14 +463,14 @@ void LR::showTable()
         }
         j = g.vn.size() - 1;
         c = 0;
-        while (j--) 
+        while (j--)
         {
             int a = GOTO[pair<int, char>(i, VN[c])];
-            if (a != -1) 
+            if (a != -1)
             {
                 cout << a << '\t';
             }
-            else if (a == -1) 
+            else if (a == -1)
             {
                 cout << " " << '\t';
             }
@@ -484,13 +483,13 @@ void LR::showTable()
     free(VN);
 }
 
-/*ÉèÖÃtab£¬¿ØÖÆÊä³ö¸ñÊ½*/
-void setFormat(const string& STATE, const string& SYMBOL, const string& in, string& tabSym, string& tabIn, string& tabAct);
+/*è®¾ç½®tabï¼Œæ§åˆ¶è¾“å‡ºæ ¼å¼*/
+void setFormat(const string &STATE, const string &SYMBOL, const string &in, string &tabSym, string &tabIn, string &tabAct);
 
-/*¶ÔÊäÈë´®½øĞĞ·ÖÎö*/
-bool LR::analyse() 
-{	
-    //Í¨¹ıACTION±íºÍGOTO±í½øĞĞÅĞ¶Ï
+/*å¯¹è¾“å…¥ä¸²è¿›è¡Œåˆ†æ*/
+bool LR::analyse()
+{
+    //é€šè¿‡ACTIONè¡¨å’ŒGOTOè¡¨è¿›è¡Œåˆ¤æ–­
     int STEP = 1;
     string STATE = "0";
     string SYMBOL = "#";
@@ -502,7 +501,7 @@ bool LR::analyse()
     string tabSym = "";
     string tabIn = "";
     string tabAct = "";
-    while (true) 
+    while (true)
     {
         STATE = turnFromStack(state, INT);
         SYMBOL = turnFromStack(symbol, CHAR);
@@ -512,22 +511,22 @@ bool LR::analyse()
         pair<act, int> a = ACTION[pair<int, char>(sta, in[0])];
         act action = a.first;
         int nextSta = a.second;
-        
-        /*Èç¹ûÊÇÒÆ½ø*/
-        if (action == shift) 
+
+        /*å¦‚æœæ˜¯ç§»è¿›*/
+        if (action == shift)
         {
             ACT = "S" + to_string(static_cast<long long>(nextSta));
             symbol.push(in[0]);
             state.push(nextSta);
             in = in.substr(1);
         }
-        
-        /*Èç¹ûÊÇ¹æÔ¼*/
-        else if (action == reduce) 
+
+        /*å¦‚æœæ˜¯è§„çº¦*/
+        else if (action == reduce)
         {
             ACT = "R" + to_string(static_cast<long long>(nextSta));
             int length = g.pro[nextSta].right.size();
-            while (length--) 
+            while (length--)
             {
                 state.pop();
                 symbol.pop();
@@ -537,26 +536,26 @@ bool LR::analyse()
             state.push(nextSta_gt);
             symbol.push(g.pro[nextSta].left);
         }
-        
-        /*Èç¹ûÊÇ´íÎó*/
-        else if (action == error) 
+
+        /*å¦‚æœæ˜¯é”™è¯¯*/
+        else if (action == error)
         {
-            ACT = "³ö´í";
+            ACT = "å‡ºé”™";
         }
-        
-        /*Èç¹ûÊÇ½ÓÊÜ*/
-        else if (action == accept) 
+
+        /*å¦‚æœæ˜¯æ¥å—*/
+        else if (action == accept)
         {
             ACT = "acc";
         }
         STEP++;
         cout << tabAct << ACT << "\t\t" << GT << endl;
         GT = "";
-        if (ACT == "³ö´í") 
+        if (ACT == "å‡ºé”™")
         {
             break;
         }
-        else if (ACT == "acc") 
+        else if (ACT == "acc")
         {
             return true;
         }
@@ -564,30 +563,30 @@ bool LR::analyse()
     return false;
 }
 
-/*ÉèÖÃtab£¬¿ØÖÆÊä³ö¸ñÊ½*/
-void setFormat(const string& STATE, const string& SYMBOL, const string& in, string& tabSym, string& tabIn, string& tabAct) 
+/*è®¾ç½®tabï¼Œæ§åˆ¶è¾“å‡ºæ ¼å¼*/
+void setFormat(const string &STATE, const string &SYMBOL, const string &in, string &tabSym, string &tabIn, string &tabAct)
 {
-    if (STATE.size() >= 8) 
+    if (STATE.size() >= 8)
     {
         tabSym = "\t\t";
     }
-    else 
+    else
     {
         tabSym = "\t\t\t";
     }
-    if (SYMBOL.size() >= 8) 
+    if (SYMBOL.size() >= 8)
     {
         tabIn = "\t";
     }
-    else 
+    else
     {
         tabIn = "\t\t";
     }
-    if (in.size() >= 8) 
+    if (in.size() >= 8)
     {
         tabAct = "\t";
     }
-    else 
+    else
     {
         tabAct = "\t\t";
     }

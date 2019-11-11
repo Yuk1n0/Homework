@@ -1,35 +1,43 @@
 #include <iostream>
 #include "Euler.h"
 using namespace std;
+
 double f1(double a, double b);
 
 void Euler(void)
 {
     cout << endl;
-    cout << "=====¸Ä½øÅ·À­·½·¨=====\n";
+    cout << "=====æ”¹è¿›æ¬§æ‹‰æ–¹æ³•=====\n";
     double x0, y0, h, x1, y1, yp, yc;
     int N, n;
-    cout << "ÇëÊäÈëx0µÄÖµ£º"; cin >> x0;
-    cout << "ÇëÊäÈëy0µÄÖµ£º"; cin >> y0;
-    cout << "ÇëÊäÈë²½³¤h£º"; cin >> h;
-    cout << "ÇëÊäÈë²½ÊýN£º"; cin >> N;
+    cout << "è¯·è¾“å…¥x0çš„å€¼ï¼š";
+    cin >> x0;
+    cout << "è¯·è¾“å…¥y0çš„å€¼ï¼š";
+    cin >> y0;
+    cout << "è¯·è¾“å…¥æ­¥é•¿hï¼š";
+    cin >> h;
+    cout << "è¯·è¾“å…¥æ­¥æ•°Nï¼š";
+    cin >> N;
     n = 1;
-    
+
     x1 = x0 + h;
-    yp = y0 + h*f1(x0, y0);
-    yc = y0 + h*f1(x1, yp);
+    yp = y0 + h * f1(x0, y0);
+    yc = y0 + h * f1(x1, yp);
     y1 = (yp + yc) / 2;
-    cout << "x1=" << x1 << "  " << "y1=" << y1 << endl;
+    cout << "x1=" << x1 << "  "
+         << "y1=" << y1 << endl;
     while (n != N)
     {
         n = n + 1;
-        x0 = x1; y0 = y1;
-        
+        x0 = x1;
+        y0 = y1;
+
         x1 = x0 + h;
         yp = y0 + h * f1(x0, y0);
         yc = y0 + h * f1(x1, yp);
         y1 = (yp + yc) / 2;
-        cout << "x1=" << x1 << "  " << "y1=" << y1 << endl;
+        cout << "x1=" << x1 << "  "
+             << "y1=" << y1 << endl;
     }
     cout << endl;
 }

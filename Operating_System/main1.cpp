@@ -1,33 +1,37 @@
-#include<iostream>  
-#include<iomanip>  
+#include <iostream>
+#include <iomanip>
 using namespace std;
 
 static const int MaxNum = 100;
-double  ArrivalTime[MaxNum];
-double  ServiceTime[MaxNum];
-double  FinishTime[MaxNum];
+double ArrivalTime[MaxNum];
+double ServiceTime[MaxNum];
+double FinishTime[MaxNum];
 int Priority[MaxNum];
-double  WholeTime[MaxNum];
-double  WeightWholeTime[MaxNum];
+double WholeTime[MaxNum];
+double WeightWholeTime[MaxNum];
 double AverageWT, AverageWWT;
 double WT, WWT;
 
 void FCFS(int n)
 {
     double min = 5000.0;
-    int m[MaxNum] = { 0 };
+    int m[MaxNum] = {0};
     cout << endl;
     cout << "FCFS:" << endl;
-    cout << "   ½ø³ÌID" << "         µ½´ïÊ±¼ä" << "         Íê³ÉÊ±¼ä" << "         ÖÜ×ªÊ±¼ä" << "      ´øÈ¨ÖÜ×ªÊ±¼ä" << endl;
-    //Íê³ÉÊ±¼ä¼ÆËã  
-    
+    cout << "   è¿›ç¨‹ID"
+         << "         åˆ°è¾¾æ—¶é—´"
+         << "         å®Œæˆæ—¶é—´"
+         << "         å‘¨è½¬æ—¶é—´"
+         << "      å¸¦æƒå‘¨è½¬æ—¶é—´" << endl;
+
+    //å®Œæˆæ—¶é—´è®¡ç®—
     FinishTime[0] = ArrivalTime[0] + ServiceTime[0];
-    double temp[MaxNum] = { 0 };
+    double temp[MaxNum] = {0};
     for (int i = 1; i < n; i++)
     {
         temp[i] = ArrivalTime[i];
     }
-    
+
     ////////////////////////////////////////////////////////
     m[0] = 0;
     double temps;
@@ -42,7 +46,7 @@ void FCFS(int n)
             }
     }
     ////////////////////////////////////////////////////////
-    
+
     for (int k = 1; k < n; k++)
     {
         for (int l = 0; l < n; l++)
@@ -51,7 +55,7 @@ void FCFS(int n)
                 m[k] = l;
         }
     }
-    
+
     for (int i = 1; i < n; i++)
     {
         double t = 0.0;
@@ -64,7 +68,7 @@ void FCFS(int n)
             FinishTime[m[i]] = FinishTime[m[i - 1]] + ServiceTime[m[i]];
         }
     }
-    
+
     for (int i = 0; i < n; i++)
     {
         WholeTime[i] = FinishTime[i] - ArrivalTime[i];
@@ -77,28 +81,33 @@ void FCFS(int n)
     cout << endl;
     AverageWWT = WWT / n;
     AverageWT = WT / n;
-    cout << "Æ½¾ùÖÜ×ªÊ±¼äÎª£º        " << setprecision(3) << AverageWT << endl;
-    cout << "Æ½¾ù´øÈ¨ÖÜ×ªÊ±¼äÎª:     " << setprecision(3) << AverageWWT << endl;
-    cout << "Ö´ĞĞË³Ğò£º";
+    cout << "å¹³å‡å‘¨è½¬æ—¶é—´ä¸ºï¼š        " << setprecision(3) << AverageWT << endl;
+    cout << "å¹³å‡å¸¦æƒå‘¨è½¬æ—¶é—´ä¸º:     " << setprecision(3) << AverageWWT << endl;
+    cout << "æ‰§è¡Œé¡ºåºï¼š";
     for (int i = 0; i < n - 1; i++)
     {
         cout << m[i] + 1 << " -> ";
     }
     cout << m[n - 1] + 1;
-    WT = 0;                         //WTºÍWWT×îºóÒªÖÃÁã£¬ÒòÎªµ¥¶À°Ñ¼ÆËãÖÜ×ªÊ±¼äµÈ×÷ÎªÒ»¸öº¯Êı  
-    WWT = 0;                        //Èç¹û²»ÖÃÁã½«µ¼ÖÂºóĞøÒıÓÃ¸Ãº¯ÊıµÄ³ö´í  
+    WT = 0;  //WTå’ŒWWTæœ€åè¦ç½®é›¶ï¼Œå› ä¸ºå•ç‹¬æŠŠè®¡ç®—å‘¨è½¬æ—¶é—´ç­‰ä½œä¸ºä¸€ä¸ªå‡½æ•°
+    WWT = 0; //å¦‚æœä¸ç½®é›¶å°†å¯¼è‡´åç»­å¼•ç”¨è¯¥å‡½æ•°çš„å‡ºé”™
     cout << endl;
 }
 
 void SJF(int n)
 {
     cout << endl;
-    cout << "SJF(·ÇÇÀÕ¼Ê½):" << endl;
-    cout << "   ½ø³ÌID" << "         µ½´ïÊ±¼ä" << "         Íê³ÉÊ±¼ä" << "         ÖÜ×ªÊ±¼ä" << "      ´øÈ¨ÖÜ×ªÊ±¼ä" << endl;
+    cout << "SJF(éæŠ¢å å¼):" << endl;
+    cout << "   è¿›ç¨‹ID"
+         << "         åˆ°è¾¾æ—¶é—´"
+         << "         å®Œæˆæ—¶é—´"
+         << "         å‘¨è½¬æ—¶é—´"
+         << "      å¸¦æƒå‘¨è½¬æ—¶é—´" << endl;
     double min = 5000.0;
-    int m[MaxNum] = { 0 };
-    
-    bool judge = false;;
+    int m[MaxNum] = {0};
+
+    bool judge = false;
+    ;
     for (int i = 1; i < n; i++)
     {
         if (ArrivalTime[i] < ArrivalTime[0])
@@ -106,16 +115,16 @@ void SJF(int n)
             judge = true;
         }
     }
-    
+
     if (judge == false)
     {
         FinishTime[0] = ArrivalTime[0] + ServiceTime[0];
-        double temp[MaxNum] = { 0 };
+        double temp[MaxNum] = {0};
         for (int i = 1; i < n; i++)
         {
             temp[i] = ServiceTime[i];
         }
-        
+
         ////////////////////////////////////////////////////////
         m[0] = 0;
         double temps;
@@ -130,7 +139,7 @@ void SJF(int n)
                 }
         }
         ////////////////////////////////////////////////////////
-        
+
         for (int k = 1; k < n; k++)
         {
             for (int l = 0; l < n; l++)
@@ -139,7 +148,7 @@ void SJF(int n)
                     m[k] = l;
             }
         }
-        
+
         for (int i = 1; i < n; i++)
         {
             double t = 0.0;
@@ -152,10 +161,10 @@ void SJF(int n)
                 FinishTime[m[i]] = FinishTime[m[i - 1]] + ServiceTime[m[i]];
             }
         }
-        
+
         for (int i = 0; i < n; i++)
         {
-            
+
             WholeTime[i] = FinishTime[i] - ArrivalTime[i];
             WeightWholeTime[i] = WholeTime[i] / ServiceTime[i];
             WT = WT + WholeTime[i];
@@ -165,38 +174,43 @@ void SJF(int n)
         }
         AverageWWT = WWT / n;
         AverageWT = WT / n;
-        cout << "Æ½¾ùÖÜ×ªÊ±¼äÎª£º        " << setprecision(3) << AverageWT << endl;
-        cout << "Æ½¾ù´øÈ¨ÖÜ×ªÊ±¼äÎª:     " << setprecision(3) << AverageWWT << endl;
-        cout << "Ö´ĞĞË³Ğò£º";
+        cout << "å¹³å‡å‘¨è½¬æ—¶é—´ä¸ºï¼š        " << setprecision(3) << AverageWT << endl;
+        cout << "å¹³å‡å¸¦æƒå‘¨è½¬æ—¶é—´ä¸º:     " << setprecision(3) << AverageWWT << endl;
+        cout << "æ‰§è¡Œé¡ºåºï¼š";
         for (int i = 0; i < n - 1; i++)
         {
             cout << m[i] + 1 << " -> ";
         }
         cout << m[n - 1] + 1;
-        WT = 0;                         //WTºÍWWT×îºóÒªÖÃÁã£¬ÒòÎªÎÒµ¥¶À°Ñ¼ÆËãÖÜ×ªÊ±¼äµÈ×÷ÎªÒ»¸öº¯Êı  
-        WWT = 0;                        //Èç¹û²»ÖÃÁã½«µ¼ÖÂºóĞøÒıÓÃ¸Ãº¯ÊıµÄ³ö´í  
+        WT = 0;  //WTå’ŒWWTæœ€åè¦ç½®é›¶ï¼Œå› ä¸ºæˆ‘å•ç‹¬æŠŠè®¡ç®—å‘¨è½¬æ—¶é—´ç­‰ä½œä¸ºä¸€ä¸ªå‡½æ•°
+        WWT = 0; //å¦‚æœä¸ç½®é›¶å°†å¯¼è‡´åç»­å¼•ç”¨è¯¥å‡½æ•°çš„å‡ºé”™
         cout << endl;
     }
     else
     {
-        
     }
 }
 
 void HRN(int n)
 {
     double min = 5000.0;
-    int m[MaxNum] = { 0 }; m[0] = 0;
-    double ResponseRatio[MaxNum] = { 600000.0 };
+    int m[MaxNum] = {0};
+    m[0] = 0;
+    double ResponseRatio[MaxNum] = {600000.0};
     cout << endl;
     cout << "HRN:" << endl;
-    cout << "   ½ø³ÌID" << "         µ½´ïÊ±¼ä" << "         Íê³ÉÊ±¼ä" << "         ÖÜ×ªÊ±¼ä" << "      ´øÈ¨ÖÜ×ªÊ±¼ä" << endl;
-    FinishTime[0] = ArrivalTime[0] + ServiceTime[0];  //¼ÆËãµÚÒ»¸ö½ø³ÌµÄÖÕÖ¹Ê±¼ä
-    double temp[MaxNum] = { 0 };
-    int var = 0; double a = 500000.0;
+    cout << "   è¿›ç¨‹ID"
+         << "         åˆ°è¾¾æ—¶é—´"
+         << "         å®Œæˆæ—¶é—´"
+         << "         å‘¨è½¬æ—¶é—´"
+         << "      å¸¦æƒå‘¨è½¬æ—¶é—´" << endl;
+    FinishTime[0] = ArrivalTime[0] + ServiceTime[0]; //è®¡ç®—ç¬¬ä¸€ä¸ªè¿›ç¨‹çš„ç»ˆæ­¢æ—¶é—´
+    double temp[MaxNum] = {0};
+    int var = 0;
+    double a = 500000.0;
     for (int i = 1; i < n - 1; i++)
     {
-        //¼ÆËãÃ¿´ÎÖ´ĞĞÏÂÒ»¸ö½ø³Ìµ÷¶ÈÊ±£¬Ê£Óà¸÷¸ö½ø³ÌµÄÏìÓ¦±È£¬Èô¸Ã½ø³ÌÒÑ¼ÆËã¹ı£¬ÔòºöÂÔ
+        //è®¡ç®—æ¯æ¬¡æ‰§è¡Œä¸‹ä¸€ä¸ªè¿›ç¨‹è°ƒåº¦æ—¶ï¼Œå‰©ä½™å„ä¸ªè¿›ç¨‹çš„å“åº”æ¯”ï¼Œè‹¥è¯¥è¿›ç¨‹å·²è®¡ç®—è¿‡ï¼Œåˆ™å¿½ç•¥
         for (int j = 1; j < n; j++)
         {
             if (j == m[i - 1])
@@ -207,12 +221,12 @@ void HRN(int n)
             }
             ResponseRatio[j] = 1 + ((FinishTime[m[i - 1]] - ArrivalTime[j]) / ServiceTime[j]);
         }
-        //tempÊı×é¿½±´ ResponseRatio½ø³ÌÏìÓ¦±ÈÊı×éµÄĞÅÏ¢
+        //tempæ•°ç»„æ‹·è´ ResponseRatioè¿›ç¨‹å“åº”æ¯”æ•°ç»„çš„ä¿¡æ¯
         for (int k = 0; k < n; k++)
         {
             temp[k] = ResponseRatio[k];
         }
-        //½«ÏìÓ¦±ÈÔËÓÃÃ°ÅİÅÅĞòÓÉ´óµ½Ğ¡ÅÅĞò
+        //å°†å“åº”æ¯”è¿ç”¨å†’æ³¡æ’åºç”±å¤§åˆ°å°æ’åº
         double temps;
         for (int x = 0; x < n; x++)
         {
@@ -224,7 +238,7 @@ void HRN(int n)
                     temp[y + 1] = temps;
                 }
         }
-        //¶ÔÅÅºÃĞòµÄÏìÓ¦±ÈÊı×é½øĞĞ¶ÔÓ¦£¬½«ÅÅÁĞºÃµÄ½ø³ÌË³ĞòÒ»Ò»¶ÔÓ¦£¬²¢½«½ø³ÌË³Ğò±£´æÕ¦mÊı×éÖĞ
+        //å¯¹æ’å¥½åºçš„å“åº”æ¯”æ•°ç»„è¿›è¡Œå¯¹åº”ï¼Œå°†æ’åˆ—å¥½çš„è¿›ç¨‹é¡ºåºä¸€ä¸€å¯¹åº”ï¼Œå¹¶å°†è¿›ç¨‹é¡ºåºä¿å­˜å’‹mæ•°ç»„ä¸­
         for (int x1 = 0; x1 < n; x1++)
         {
             for (int x2 = 0; x2 < n; x2++)
@@ -234,7 +248,7 @@ void HRN(int n)
             }
         }
         var = m[i];
-        //¼ÆËãÏÂÒ»¸öµ÷Èë½ø³ÌµÄÖÕÖ¹Ê±¼ä£¬Èô¸Ã½ø³ÌµÄµ½´ïÊ±¼ä±ÈÉÏÒ»¸ö½ø³ÌµÄÖÕÖ¹Ê±¼ä»¹ÒªÍí£¬Ôò¸ü¸ÄÖÕÖ¹Ê±¼äÎª¸Ã½ø³Ìµ½´ïÊ±¼ä+ÏìÓ¦Ê±¼ä
+        //è®¡ç®—ä¸‹ä¸€ä¸ªè°ƒå…¥è¿›ç¨‹çš„ç»ˆæ­¢æ—¶é—´ï¼Œè‹¥è¯¥è¿›ç¨‹çš„åˆ°è¾¾æ—¶é—´æ¯”ä¸Šä¸€ä¸ªè¿›ç¨‹çš„ç»ˆæ­¢æ—¶é—´è¿˜è¦æ™šï¼Œåˆ™æ›´æ”¹ç»ˆæ­¢æ—¶é—´ä¸ºè¯¥è¿›ç¨‹åˆ°è¾¾æ—¶é—´+å“åº”æ—¶é—´
         double t = 0.0;
         if ((ArrivalTime[m[i]] - FinishTime[m[i - 1]]) > 0)
         {
@@ -245,7 +259,7 @@ void HRN(int n)
             FinishTime[m[i]] = FinishTime[m[i - 1]] + ServiceTime[m[i]];
         }
     }
-    //¼ÆËã×îºóÒ»¸öÊı×éµÄÖÕÖ¹Ê±¼ä
+    //è®¡ç®—æœ€åä¸€ä¸ªæ•°ç»„çš„ç»ˆæ­¢æ—¶é—´
     int x3 = n - 1;
     if ((ArrivalTime[m[x3]] - FinishTime[m[x3 - 1]]) > 0)
     {
@@ -255,7 +269,7 @@ void HRN(int n)
     {
         FinishTime[m[x3]] = FinishTime[m[x3 - 1]] + ServiceTime[m[x3]];
     }
-    //¼ÆËã½ø³Ìµ÷¶È½áÊøºóÃ¿¸ö½ø³ÌµÄÖÜ×ªÊ±¼äÓëÆ½¾ùÖÜ×ªÊ±¼ä£¬²¢¼ÆËãÕû¸ö¹ı³ÌµÄÆ½¾ùÖÜ×ªÊ±¼äºÍÆ½¾ù´øÈ¨ÖÜ×ªÊ±¼ä
+    //è®¡ç®—è¿›ç¨‹è°ƒåº¦ç»“æŸåæ¯ä¸ªè¿›ç¨‹çš„å‘¨è½¬æ—¶é—´ä¸å¹³å‡å‘¨è½¬æ—¶é—´ï¼Œå¹¶è®¡ç®—æ•´ä¸ªè¿‡ç¨‹çš„å¹³å‡å‘¨è½¬æ—¶é—´å’Œå¹³å‡å¸¦æƒå‘¨è½¬æ—¶é—´
     for (int i = 0; i < n; i++)
     {
         WholeTime[i] = FinishTime[i] - ArrivalTime[i];
@@ -268,35 +282,39 @@ void HRN(int n)
     cout << endl;
     AverageWWT = WWT / n;
     AverageWT = WT / n;
-    cout << "Æ½¾ùÖÜ×ªÊ±¼äÎª£º        " << setprecision(3) << AverageWT << endl;
-    cout << "Æ½¾ù´øÈ¨ÖÜ×ªÊ±¼äÎª:     " << setprecision(3) << AverageWWT << endl;
-    cout << "Ö´ĞĞË³Ğò£º";
+    cout << "å¹³å‡å‘¨è½¬æ—¶é—´ä¸ºï¼š        " << setprecision(3) << AverageWT << endl;
+    cout << "å¹³å‡å¸¦æƒå‘¨è½¬æ—¶é—´ä¸º:     " << setprecision(3) << AverageWWT << endl;
+    cout << "æ‰§è¡Œé¡ºåºï¼š";
     for (int i = 0; i < n - 1; i++)
     {
-        cout << m[i] + 1 << " -> "; //Êä³öµ÷¶ÈË³Ğò
+        cout << m[i] + 1 << " -> "; //è¾“å‡ºè°ƒåº¦é¡ºåº
     }
     cout << m[n - 1] + 1;
-    WT = 0;                         //WTºÍWWT×îºóÒªÖÃÁã£¬ÒòÎªµ¥¶À°Ñ¼ÆËãÖÜ×ªÊ±¼äµÈ×÷ÎªÒ»¸öº¯Êı  
-    WWT = 0;                        //Èç¹û²»ÖÃÁã½«µ¼ÖÂºóĞøÒıÓÃ¸Ãº¯ÊıµÄ³ö´í  
+    WT = 0;  //WTå’ŒWWTæœ€åè¦ç½®é›¶ï¼Œå› ä¸ºå•ç‹¬æŠŠè®¡ç®—å‘¨è½¬æ—¶é—´ç­‰ä½œä¸ºä¸€ä¸ªå‡½æ•°
+    WWT = 0; //å¦‚æœä¸ç½®é›¶å°†å¯¼è‡´åç»­å¼•ç”¨è¯¥å‡½æ•°çš„å‡ºé”™
     cout << endl;
 }
 
 void PriorityFunction(int n)
 {
     double min = 5000.0;
-    int m[MaxNum] = { 0 };
+    int m[MaxNum] = {0};
     cout << endl;
-    cout << "ÓÅÏÈ¼¶Ëã·¨:" << endl;
-    cout << "   ½ø³ÌID" << "         µ½´ïÊ±¼ä" << "         Íê³ÉÊ±¼ä" << "         ÖÜ×ªÊ±¼ä" << "      ´øÈ¨ÖÜ×ªÊ±¼ä" << endl;
-    
-    //Íê³ÉÊ±¼ä¼ÆËã  
+    cout << "ä¼˜å…ˆçº§ç®—æ³•:" << endl;
+    cout << "   è¿›ç¨‹ID"
+         << "         åˆ°è¾¾æ—¶é—´"
+         << "         å®Œæˆæ—¶é—´"
+         << "         å‘¨è½¬æ—¶é—´"
+         << "      å¸¦æƒå‘¨è½¬æ—¶é—´" << endl;
+
+    //å®Œæˆæ—¶é—´è®¡ç®—
     FinishTime[0] = ArrivalTime[0] + ServiceTime[0];
-    double temp[MaxNum] = { 0 };
+    double temp[MaxNum] = {0};
     for (int i = 1; i < n; i++)
     {
         temp[i] = Priority[i];
     }
-    
+
     ////////////////////////////////////////////////////////
     m[0] = 0;
     double temps;
@@ -311,7 +329,7 @@ void PriorityFunction(int n)
             }
     }
     ////////////////////////////////////////////////////////
-    
+
     for (int k = 1; k < n; k++)
     {
         for (int l = 0; l < n; l++)
@@ -320,7 +338,7 @@ void PriorityFunction(int n)
                 m[k] = l;
         }
     }
-    
+
     for (int i = 1; i < n; i++)
     {
         double t = 0.0;
@@ -333,7 +351,7 @@ void PriorityFunction(int n)
             FinishTime[m[i]] = FinishTime[m[i - 1]] + ServiceTime[m[i]];
         }
     }
-    
+
     for (int i = 0; i < n; i++)
     {
         WholeTime[i] = FinishTime[i] - ArrivalTime[i];
@@ -346,16 +364,16 @@ void PriorityFunction(int n)
     cout << endl;
     AverageWWT = WWT / n;
     AverageWT = WT / n;
-    cout << "Æ½¾ùÖÜ×ªÊ±¼äÎª£º        " << setprecision(3) << AverageWT << endl;
-    cout << "Æ½¾ù´øÈ¨ÖÜ×ªÊ±¼äÎª:     " << setprecision(3) << AverageWWT << endl;
-    cout << "Ö´ĞĞË³Ğò£º";
+    cout << "å¹³å‡å‘¨è½¬æ—¶é—´ä¸ºï¼š        " << setprecision(3) << AverageWT << endl;
+    cout << "å¹³å‡å¸¦æƒå‘¨è½¬æ—¶é—´ä¸º:     " << setprecision(3) << AverageWWT << endl;
+    cout << "æ‰§è¡Œé¡ºåºï¼š";
     for (int i = 0; i < n - 1; i++)
     {
         cout << m[i] + 1 << " -> ";
     }
     cout << m[n - 1] + 1;
-    WT = 0;                         //WTºÍWWT×îºóÒªÖÃÁã£¬ÒòÎªµ¥¶À°Ñ¼ÆËãÖÜ×ªÊ±¼äµÈ×÷ÎªÒ»¸öº¯Êı  
-    WWT = 0;                        //Èç¹û²»ÖÃÁã½«µ¼ÖÂºóĞøÒıÓÃ¸Ãº¯ÊıµÄ³ö´í  
+    WT = 0;  //WTå’ŒWWTæœ€åè¦ç½®é›¶ï¼Œå› ä¸ºå•ç‹¬æŠŠè®¡ç®—å‘¨è½¬æ—¶é—´ç­‰ä½œä¸ºä¸€ä¸ªå‡½æ•°
+    WWT = 0; //å¦‚æœä¸ç½®é›¶å°†å¯¼è‡´åç»­å¼•ç”¨è¯¥å‡½æ•°çš„å‡ºé”™
     cout << endl;
 }
 
@@ -363,35 +381,48 @@ int main(void)
 {
     int n;
     int k;
-    cout << "ÇëÊäÈë½ø³ÌµÄÊıÁ¿n£º";
+    cout << "è¯·è¾“å…¥è¿›ç¨‹çš„æ•°é‡nï¼š";
     cin >> n;
     for (int i = 0; i < n; i++)
     {
-        cout << "ÇëÊäÈë½ø³Ì" << i + 1 << "µÄµ½´ïÊ±¼ä,·şÎñÊ±¼äºÍÓÅÏÈ¼¶£¬²¢ÒÔ¿Õ¸ñ¼ä¸ô:";
+        cout << "è¯·è¾“å…¥è¿›ç¨‹" << i + 1 << "çš„åˆ°è¾¾æ—¶é—´,æœåŠ¡æ—¶é—´å’Œä¼˜å…ˆçº§ï¼Œå¹¶ä»¥ç©ºæ ¼é—´éš”:";
         cin >> ArrivalTime[i];
         cin >> ServiceTime[i];
         cin >> Priority[i];
     }
     cout << endl;
-    cout << "1.FCFSËã·¨  ";
-    cout << "2.SJFËã·¨  ";
-    cout << "3.HRNËã·¨  ";
-    cout << "4.ÓÅÏÈ¼¶Ëã·¨\n";
+    cout << "1.FCFSç®—æ³•  ";
+    cout << "2.SJFç®—æ³•  ";
+    cout << "3.HRNç®—æ³•  ";
+    cout << "4.ä¼˜å…ˆçº§ç®—æ³•\n";
     while (1)
     {
         cout << endl;
-        cout << "ÇëÊäÈëÒªÖ´ĞĞµÄËã·¨£º"; cin >> k;
+        cout << "è¯·è¾“å…¥è¦æ‰§è¡Œçš„ç®—æ³•ï¼š";
+        cin >> k;
         cout << endl;
         switch (k)
         {
-            case 1: FCFS(n); break;
-            case 2:SJF(n); break;
-            case 3:HRN(n); break;
-            case 4:PriorityFunction(n); break;
-            case 0:cout << "³ÌĞòÒÑÍË³ö£¡" << endl; goto s; break;
-            default:cout << "ÊäÈë´íÎó£¬ÇëÖØĞÂÊäÈë£¡" << endl;
+        case 1:
+            FCFS(n);
+            break;
+        case 2:
+            SJF(n);
+            break;
+        case 3:
+            HRN(n);
+            break;
+        case 4:
+            PriorityFunction(n);
+            break;
+        case 0:
+            cout << "ç¨‹åºå·²é€€å‡ºï¼" << endl;
+            goto s;
+            break;
+        default:
+            cout << "è¾“å…¥é”™è¯¯ï¼Œè¯·é‡æ–°è¾“å…¥ï¼" << endl;
         }
     }
-    s:	system("pause");
+s:
     return 0;
 }

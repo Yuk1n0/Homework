@@ -6,24 +6,26 @@ void QJS(void)
 {
     int n = 0, k;
     double v, x;
-    double a[MAX_SIZE] = { 0 };
+    double a[MAX_SIZE] = {0};
     cout << endl;
-    cout << "=====ÇØ¾ÅÉØËã·¨=====\n";
-    cout << "ÇëÊäÈënµÄ´óÐ¡£º"; cin >> n;
+    cout << "=====ç§¦ä¹éŸ¶ç®—æ³•=====\n";
+    cout << "è¯·è¾“å…¥nçš„å¤§å°ï¼š";
+    cin >> n;
     for (int i = 0; i <= n; i++)
     {
-        cout << "a" << i << "£º";
+        cout << "a" << i << "ï¼š";
         cin >> a[i];
     }
-    cout << "ÇëÊäÈëxµÄÖµ£º"; cin >> x;
+    cout << "è¯·è¾“å…¥xçš„å€¼ï¼š";
+    cin >> x;
     v = a[n];
     k = 1;
-    v = (x*v) + a[n - k];
+    v = (x * v) + a[n - k];
     while (k != n)
     {
         k = k + 1;
-        v = (x*v) + a[n - k];
+        v = (x * v) + a[n - k];
     }
-    cout << "½á¹ûÎª£º" << v << endl;
+    cout << "ç»“æžœä¸ºï¼š" << v << endl;
     cout << endl;
 }

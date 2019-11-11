@@ -1,13 +1,15 @@
-#include<stdio.h>
-#include<string.h>
+/* POJ 2488 A Knight's Journey */
+
+#include <stdio.h>
+#include <string.h>
 
 const int MAX = 64;
-//×ÖµäĞò×îĞ¡µÄĞĞ×ß·½Ïò
-const int Length[8] = { -1, 1, -2, 2, -2, 2, -1, 1 };
-const int Width[8] = { -2, -2, -1, -1, 1, 1, 2, 2 };
+//å­—å…¸åºæœ€å°çš„è¡Œèµ°æ–¹å‘
+const int Length[8] = {-1, 1, -2, 2, -2, 2, -1, 1};
+const int Width[8] = {-2, -2, -1, -1, 1, 1, 2, 2};
 int p, q;
 bool Visited[MAX][MAX];
-bool isTraveled; //ÊÇ·ñ³É¹¦±éÀúµÄ±ê¼Ç
+bool isTraveled; //æ˜¯å¦æˆåŠŸéå†çš„æ ‡è®°
 
 struct path
 {
@@ -17,8 +19,8 @@ struct path
 void DFS(int x, int y, int num)
 {
     path[num].x = x + '0';
-    path[num].y = y + 'A' - 1;   //int ×ªÎª char
-    
+    path[num].y = y + 'A' - 1; //int è½¬ä¸º char
+
     if (num == p * q)
     {
         isTraveled = true;
@@ -32,7 +34,7 @@ void DFS(int x, int y, int num)
         {
             Visited[x1][y1] = true;
             DFS(x1, y1, num + 1);
-            Visited[x1][y1] = false;    //³·Ïú¸Ã²½
+            Visited[x1][y1] = false; //æ’¤é”€è¯¥æ­¥
         }
     }
 }
@@ -46,7 +48,7 @@ int main(void)
         scanf("%d %d", &p, &q);
         isTraveled = false;
         memset(Visited, false, sizeof(Visited));
-        Visited[1][1] = true;    //Æğµã
+        Visited[1][1] = true; //èµ·ç‚¹
         DFS(1, 1, 1);
         printf("Scenario #%d:\n", i);
         if (isTraveled)

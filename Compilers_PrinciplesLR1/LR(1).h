@@ -1,87 +1,88 @@
 #pragma once
-#include<set>
-#include<string>
-#include<vector>
-#include<algorithm>
-#include<map>
-#include<stack>
-#include<iostream>
-#define INT 1
-#define CHAR 2
+#include <set>
+#include <string>
+#include <vector>
+#include <algorithm>
+#include <map>
+#include <stack>
+#include <iostream>
 using namespace std;
 
+#define INT 1
+#define CHAR 2
+
 /*action*/
-enum act 
+enum act
 {
-    error = 0,	//´íÎó
-    shift,	//ÒÆ½ø
-    reduce,	//¹æÔ¼	
-    accept	//½ÓÊÜ
+    error = 0, //é”™è¯¯
+    shift,     //ç§»è¿›
+    reduce,    //è§„çº¦
+    accept     //æ¥å—
 };
 
-/*ÏîÄ¿Àà*/
-class Program 
+/*é¡¹ç›®ç±»*/
+class Program
 {
-    /*ÏîÄ¿¼¯ÀàºÍLRÀà×÷ÎªÓÑÔª*/
+    /*é¡¹ç›®é›†ç±»å’ŒLRç±»ä½œä¸ºå‹å…ƒ*/
     friend class Item;
     friend class LR;
-    
-    friend bool operator == (const Program& a, const  Program& b);	//ÅĞ¶ÏÁ½¸öÏîÄ¿ÊÇ·ñÏàµÈ
-    friend bool operator == (const Item& a, const Item& b);		//ÅĞ¶ÏÁ½¸öÏîÄ¿¼¯ÊÇ·ñÏàµÈ
-    
+
+    friend bool operator==(const Program &a, const Program &b); //åˆ¤æ–­ä¸¤ä¸ªé¡¹ç›®æ˜¯å¦ç›¸ç­‰
+    friend bool operator==(const Item &a, const Item &b);       //åˆ¤æ–­ä¸¤ä¸ªé¡¹ç›®é›†æ˜¯å¦ç›¸ç­‰
+
 public:
     Program(char l, string r, set<char> s, int rank);
-    Program& operator = (const Program& b);	//ÖØÔØ¸³ÖµÔËËã·û
-    
+    Program &operator=(const Program &b); //é‡è½½èµ‹å€¼è¿ç®—ç¬¦
+
 private:
-    char left;	//²úÉúÊ½×ó²¿
-    string right;	//²úÉúÊ½ÓÒ²¿
-    int rank;	//ÓÉÎÄ·¨ÖĞµÄÄÄ¸ö²úÉúÊ½µÃÀ´
-    set<char> search;	//ËÑË÷·û¼¯
+    char left;        //äº§ç”Ÿå¼å·¦éƒ¨
+    string right;     //äº§ç”Ÿå¼å³éƒ¨
+    int rank;         //ç”±æ–‡æ³•ä¸­çš„å“ªä¸ªäº§ç”Ÿå¼å¾—æ¥
+    set<char> search; //æœç´¢ç¬¦é›†
 };
 
-/*ÏîÄ¿¼¯Àà*/
-class Item 
+/*é¡¹ç›®é›†ç±»*/
+class Item
 {
     friend class LR;
-    friend bool operator == (const Item& a, const Item& b);	//ÅĞ¶ÏÁ½¸öÏîÄ¿¼¯ÊÇ·ñÏàµÈ
-    
+    friend bool operator==(const Item &a, const Item &b); //åˆ¤æ–­ä¸¤ä¸ªé¡¹ç›®é›†æ˜¯å¦ç›¸ç­‰
+
 public:
-    bool addPro(const Program& pro, Item& i);	//ÍùÏîÄ¿¼¯ÖĞ¼ÓÈëÏîÄ¿
-    void insertVT(Item& i, Item g);	//¹¹Ôì¸ÃÏîÄ¿µÄÖÕ½á·û¼¯
-    void insertVN(Item& i);	//¹¹Ôì¸ÃÏîÄ¿¼¯µÄ·ÇÖÕ½á·û¼¯
-    void insertV(Item& i);	//¹¹Ôì¸ÃÏîÄ¿¼¯µÄËùÓĞ·ûºÅ¼¯
+    bool addPro(const Program &pro, Item &i); //å¾€é¡¹ç›®é›†ä¸­åŠ å…¥é¡¹ç›®
+    void insertVT(Item &i, Item g);           //æ„é€ è¯¥é¡¹ç›®çš„ç»ˆç»“ç¬¦é›†
+    void insertVN(Item &i);                   //æ„é€ è¯¥é¡¹ç›®é›†çš„éç»ˆç»“ç¬¦é›†
+    void insertV(Item &i);                    //æ„é€ è¯¥é¡¹ç›®é›†çš„æ‰€æœ‰ç¬¦å·é›†
 private:
-    vector<Program> pro;	//ÏîÄ¿¼¯
-    vector<char> vn;		//¸ÃÏîÄ¿¼¯µÄ·ÇÖÕ½á·û¼¯
-    vector<char> vt;		//¸ÃÏîÄ¿¼¯µÄÖÕ½á·û¼¯
-    vector<char> v;			//¸ÃÏîÄ¿¼¯µÄËùÓĞ·ûºÅ¼¯
+    vector<Program> pro; //é¡¹ç›®é›†
+    vector<char> vn;     //è¯¥é¡¹ç›®é›†çš„éç»ˆç»“ç¬¦é›†
+    vector<char> vt;     //è¯¥é¡¹ç›®é›†çš„ç»ˆç»“ç¬¦é›†
+    vector<char> v;      //è¯¥é¡¹ç›®é›†çš„æ‰€æœ‰ç¬¦å·é›†
 };
 
 /*LR(1)*/
-class LR 
+class LR
 {
 private:
-    Item g; //À©Õ¹ÎÄ·¨
-    char start;	//¿ªÊ¼·ûºÅ
-    vector<Item> M;	//ËùÓĞÏîÄ¿¼¯µÄ¼¯ºÏ
-    string input;	//ÊäÈë·ûºÅ´®
-    map<pair<int, char>, pair<act, int>> ACTION;	//ACTION±í£¬µÚÒ»¸öpairÖĞintÎªÔ­ÏîÄ¿¼¯µÄĞòºÅ£¬char±íÊ¾ÖÕ½á·û£¬µÚ¶ş¸öpairÖĞact±íÊ¾Í¨¹ıÕâ¸öÖÕ½á·ûËùÒª×öµÄ¶¯×÷£¬int±íÊ¾Ä¿µÄÏîÄ¿¼¯
-    map<pair<int, char>, int> GOTO;	//GOTO±í£¬pairÖĞµÄint±íÊ¾Ô­ÏîÄ¿¼¯ĞòºÅ£¬char±íÊ¾·ÇÖÕ½á·û£¬int±íÊ¾Í¨¹ı¸Ã·ûºÅËùµ½´ïµÄÏîÄ¿¼¯
-    map<char, set<char>> FIRST;	//ËÑË÷·û¼¯£¬Í¨¹ı·ÇÖÕ½áÀ´»ñÈ¡
-    map<pair<int, char>, int> GO;	//GO±í£¬Í¨¹ıÔ­ÏîÄ¿¼¯ºÍÏà¹Ø·ûºÅÀ´»ñÈ¡
-    stack<int> state;	//×´Ì¬Õ»
-    stack<char>symbol;	//·ûºÅÕ»
+    Item g;                                      //æ‰©å±•æ–‡æ³•
+    char start;                                  //å¼€å§‹ç¬¦å·
+    vector<Item> M;                              //æ‰€æœ‰é¡¹ç›®é›†çš„é›†åˆ
+    string input;                                //è¾“å…¥ç¬¦å·ä¸²
+    map<pair<int, char>, pair<act, int>> ACTION; //ACTIONè¡¨ï¼Œç¬¬ä¸€ä¸ªpairä¸­intä¸ºåŸé¡¹ç›®é›†çš„åºå·ï¼Œcharè¡¨ç¤ºç»ˆç»“ç¬¦ï¼Œç¬¬äºŒä¸ªpairä¸­actè¡¨ç¤ºé€šè¿‡è¿™ä¸ªç»ˆç»“ç¬¦æ‰€è¦åšçš„åŠ¨ä½œï¼Œintè¡¨ç¤ºç›®çš„é¡¹ç›®é›†
+    map<pair<int, char>, int> GOTO;              //GOTOè¡¨ï¼Œpairä¸­çš„intè¡¨ç¤ºåŸé¡¹ç›®é›†åºå·ï¼Œcharè¡¨ç¤ºéç»ˆç»“ç¬¦ï¼Œintè¡¨ç¤ºé€šè¿‡è¯¥ç¬¦å·æ‰€åˆ°è¾¾çš„é¡¹ç›®é›†
+    map<char, set<char>> FIRST;                  //æœç´¢ç¬¦é›†ï¼Œé€šè¿‡éç»ˆç»“æ¥è·å–
+    map<pair<int, char>, int> GO;                //GOè¡¨ï¼Œé€šè¿‡åŸé¡¹ç›®é›†å’Œç›¸å…³ç¬¦å·æ¥è·å–
+    stack<int> state;                            //çŠ¶æ€æ ˆ
+    stack<char> symbol;                          //ç¬¦å·æ ˆ
 public:
-    LR(char start, Item g, string input);	//¹¹Ôìº¯Êı
-    Item getClosure(Item& i);	//µÃµ½ÏîÄ¿¼¯µÄCLOSURE±Õ°ü
-    set<char> getFirst(const string& r, const char& N);	//µÃµ½ËÑË÷·û¼¯
-    void go();	//GOº¯Êı¹¹½¨GO±í
-    void getAction();	//¹¹½¨ACTION±í
-    void getGoto();	//¹¹½¨GOTO±í
-    void showTable();	//Êä³ö·ÖÎö±í
-    bool analyse();	//·ÖÎö¹ı³Ì
-    void unionSet(Program& a, const Program& b);	//ºÏ²¢ËÑË÷·û¼¯
+    LR(char start, Item g, string input);               //æ„é€ å‡½æ•°
+    Item getClosure(Item &i);                           //å¾—åˆ°é¡¹ç›®é›†çš„CLOSUREé—­åŒ…
+    set<char> getFirst(const string &r, const char &N); //å¾—åˆ°æœç´¢ç¬¦é›†
+    void go();                                          //GOå‡½æ•°æ„å»ºGOè¡¨
+    void getAction();                                   //æ„å»ºACTIONè¡¨
+    void getGoto();                                     //æ„å»ºGOTOè¡¨
+    void showTable();                                   //è¾“å‡ºåˆ†æè¡¨
+    bool analyse();                                     //åˆ†æè¿‡ç¨‹
+    void unionSet(Program &a, const Program &b);        //åˆå¹¶æœç´¢ç¬¦é›†
     template <typename T>
-    string turnFromStack(stack<T> s, int TYPE);	//½«Õ»ÖĞµÄÒ»¸ö¸öÔªËØÁ¬³É×Ö·û´®
+    string turnFromStack(stack<T> s, int TYPE); //å°†æ ˆä¸­çš„ä¸€ä¸ªä¸ªå…ƒç´ è¿æˆå­—ç¬¦ä¸²
 };

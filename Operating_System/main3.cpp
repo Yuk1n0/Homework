@@ -1,32 +1,33 @@
-#include<iostream>
-#include<iomanip>
-#include<math.h>
+#include <iostream>
+#include <iomanip>
+#include <stdlib.h>
+#include <math.h>
 using namespace std;
 
 const int MaxNumber = 100;
-int  TrackOrder[MaxNumber];
-int  MoveDistance[MaxNumber];    //----ÒÆ¶¯¾àÀë;
-int  FindOrder[MaxNumber];       //-----Ñ°ºÃĞòÁĞ¡£
-double  Distance;                //-----Æ½¾ùÑ°µÀ³¤¶È
-bool direction;                  //-----·½Ïò   trueÊ±ÎªÏòÍâ£¬falseÎªÏòÀï
-int BeginNum;                    //----¿ªÊ¼´ÅµÀºÅ¡£
-int M;                           //----´ÅµÀÊı¡£
-int N;                           //-----Ìá³ö´ÅÅÌI/OÉêÇëµÄ½ø³ÌÊı
-int SortOrder[MaxNumber];        //----ÅÅĞòºóµÄĞòÁĞ
+int TrackOrder[MaxNumber];
+int MoveDistance[MaxNumber]; //----ç§»åŠ¨è·ç¦»;
+int FindOrder[MaxNumber];    //-----å¯»å¥½åºåˆ—ã€‚
+double Distance;             //-----å¹³å‡å¯»é“é•¿åº¦
+bool direction;              //-----æ–¹å‘   trueæ—¶ä¸ºå‘å¤–ï¼Œfalseä¸ºå‘é‡Œ
+int BeginNum;                //----å¼€å§‹ç£é“å·ã€‚
+int M;                       //----ç£é“æ•°ã€‚
+int N;                       //-----æå‡ºç£ç›˜I/Oç”³è¯·çš„è¿›ç¨‹æ•°
+int SortOrder[MaxNumber];    //----æ’åºåçš„åºåˆ—
 bool Finished[MaxNumber];
 
 void Init()
 {
-    cout << "ÇëÊäÈë´ÅµÀÊı£º";
+    cout << "è¯·è¾“å…¥ç£é“æ•°ï¼š";
     cin >> M;
-    cout << "ÇëÊäÈëÌá³ö´ÅÅÌI/OÉêÇëµÄ½ø³ÌÊı:";
+    cout << "è¯·è¾“å…¥æå‡ºç£ç›˜I/Oç”³è¯·çš„è¿›ç¨‹æ•°:";
     cin >> N;
-    cout << "ÇëÒÀ´ÎÊäÈëÒª·ÃÎÊµÄ´ÅµÀºÅ£º";
+    cout << "è¯·ä¾æ¬¡è¾“å…¥è¦è®¿é—®çš„ç£é“å·ï¼š";
     for (int i = 0; i < N; i++)
         cin >> TrackOrder[i];
     for (int j = 0; j < N; j++)
         MoveDistance[j] = 0;
-    cout << "ÇëÊäÈë¿ªÊ¼´ÅµÀºÅ£º";
+    cout << "è¯·è¾“å…¥å¼€å§‹ç£é“å·ï¼š";
     cin >> BeginNum;
     for (int k = 0; k < N; k++)
         Finished[k] = false;
@@ -34,9 +35,9 @@ void Init()
         SortOrder[l] = TrackOrder[l];
 }
 
-//=====================ÅÅĞòº¯Êı£¬½«¸÷½ø³ÌÉêÇëµÄ´ÅµÀ°´´ÓĞ¡µ½´óÅÅÁĞ=================
+//=====================æ’åºå‡½æ•°ï¼Œå°†å„è¿›ç¨‹ç”³è¯·çš„ç£é“æŒ‰ä»å°åˆ°å¤§æ’åˆ—=================
 void Sort()
-{                 //------Ã°ÅİÅÅĞò
+{ //------å†’æ³¡æ’åº
     int temp;
     for (int i = N - 1; i >= 0; i--)
     {
@@ -52,58 +53,59 @@ void Sort()
     }
 }
 
-//============FCFS,ÏÈÀ´ÏÈ·şÎñ=================================
+//============FCFS,å…ˆæ¥å…ˆæœåŠ¡=================================
 void FCFS()
 {
     int temp;
-    temp = BeginNum;                   //--------½«BeginNum¸³¸øtemp×÷ÎªÑ°µÀÊ±µÄµ±Ç°ËùÔÚ´ÅµÀºÅ
+    temp = BeginNum; //--------å°†BeginNumèµ‹ç»™tempä½œä¸ºå¯»é“æ—¶çš„å½“å‰æ‰€åœ¨ç£é“å·
     for (int i = 0; i < N; i++)
     {
-        MoveDistance[i] = abs(TrackOrder[i] - temp);        //-------¼ÆËãÒÆ¶¯´ÅµÀÊı
-        temp = TrackOrder[i];                             //-------Ñ°µ½ºó£¬½«´ËµÀ×÷Îªµ±Ç°ËùÔÚ´ÅµÀºÅ£¬¸³¸øtemp
-        FindOrder[i] = TrackOrder[i];                     //-----Ñ°ºÃµÄ¸³¸øÑ°ºÃĞòÁĞ
+        MoveDistance[i] = abs(TrackOrder[i] - temp); //-------è®¡ç®—ç§»åŠ¨ç£é“æ•°
+        temp = TrackOrder[i];                        //-------å¯»åˆ°åï¼Œå°†æ­¤é“ä½œä¸ºå½“å‰æ‰€åœ¨ç£é“å·ï¼Œèµ‹ç»™temp
+        FindOrder[i] = TrackOrder[i];                //-----å¯»å¥½çš„èµ‹ç»™å¯»å¥½åºåˆ—
     }
 }
 
-//========SSTF,×î¶ÌÑ°µÀ·¨=============================
+//================SSTF,æœ€çŸ­å¯»é“æ³•=============================
 void SSTF()
 {
     int temp, n;
     int A = M;
-    temp = BeginNum;                  //--------½«BeginNum¸³¸øtemp×÷ÎªÑ°µÀÊ±µÄµ±Ç°ËùÔÚ´ÅµÀºÅ
+    temp = BeginNum; //--------å°†BeginNumèµ‹ç»™tempä½œä¸ºå¯»é“æ—¶çš„å½“å‰æ‰€åœ¨ç£é“å·
     for (int i = 0; i < N; i++)
     {
-        for (int j = 0; j < N; j++)                 //-------Ñ°ÕÒ×î¶ÌµÄÑ°µÀ³¤¶È
+        for (int j = 0; j < N; j++) //-------å¯»æ‰¾æœ€çŸ­çš„å¯»é“é•¿åº¦
         {
             if (abs(TrackOrder[j] - temp) < A && Finished[j] == false)
             {
                 A = abs(TrackOrder[j] - temp);
                 n = j;
             }
-            else continue;
+            else
+                continue;
         }
-        Finished[n] = true;            //-------½«ÒÑ¾­Ñ°ÕÒµ½µÄFinished¸³ÖµÎªtrue
-        MoveDistance[i] = A;           //-------Ñ°µÀ³¤¶È
-        temp = TrackOrder[n];          //-------µ±Ç°Ñ°µÀºÅ¡£
-        A = M;                         //-----ÖØÖÃAÖµ
-        FindOrder[i] = TrackOrder[n];  //----Ñ°ºÃµÄ¸³¸øÑ°ºÃĞòÁĞ
+        Finished[n] = true;           //-------å°†å·²ç»å¯»æ‰¾åˆ°çš„Finishedèµ‹å€¼ä¸ºtrue
+        MoveDistance[i] = A;          //-------å¯»é“é•¿åº¦
+        temp = TrackOrder[n];         //-------å½“å‰å¯»é“å·ã€‚
+        A = M;                        //-----é‡ç½®Aå€¼
+        FindOrder[i] = TrackOrder[n]; //----å¯»å¥½çš„èµ‹ç»™å¯»å¥½åºåˆ—
     }
 }
 
-//=====================SCAN,É¨ÃèËã·¨==========================
+//======================SCAN,æ‰«æç®—æ³•==========================
 void SCAN()
 {
     int m, n, temp;
     temp = BeginNum;
-    Sort();                                      //------ÅÅĞò
-    cout << "ÇëÑ¡Ôñ¿ªÊ¼·½Ïò£º1--ÏòÍâ;2---ÏòÀï    Select:";    //------Ñ¡ÔñÉ¨Ãè·½Ïò
+    Sort();                                                //------æ’åº
+    cout << "è¯·é€‰æ‹©å¼€å§‹æ–¹å‘ï¼š1--å‘å¤–;2---å‘é‡Œ    Select:"; //------é€‰æ‹©æ‰«ææ–¹å‘
     cin >> m;
     if (m == 1)
         direction = false;
     else if (m == 2)
         direction = true;
     else
-        cout << "ÊäÈë´íÎó";
+        cout << "è¾“å…¥é”™è¯¯";
     for (int i = 0; i < N; i++)
     {
         if (SortOrder[i] < BeginNum)
@@ -114,7 +116,7 @@ void SCAN()
             break;
         }
     }
-    if (direction == true)                     //------Ñ¡ÔñÏòÍâ
+    if (direction == true) //------é€‰æ‹©å‘å¤–
     {
         for (int i = n; i < N; i++)
         {
@@ -129,9 +131,9 @@ void SCAN()
             FindOrder[N - 1 - j] = SortOrder[j];
         }
     }
-    else                                  //-------Ñ¡ÔñÏòÀï
+    else //-------é€‰æ‹©å‘é‡Œ
     {
-        for (int i = n - 1; i >= 0; i--)//i=1
+        for (int i = n - 1; i >= 0; i--) //i=1
         {
             MoveDistance[abs(i + 1 - n)] = abs(SortOrder[i] - temp);
             temp = SortOrder[i];
@@ -146,20 +148,20 @@ void SCAN()
     }
 }
 
-//=================CSCAN,Ñ­»·É¨ÃèËã·¨=======================
+//=================CSCAN,å¾ªç¯æ‰«æç®—æ³•=======================
 void CSCAN()
 {
     int m, n, temp;
     temp = BeginNum;
     Sort();
-    cout << "ÇëÑ¡Ôñ¿ªÊ¼·½Ïò£º1--ÏòÍâ;2--ÏòÀï    Select:";
+    cout << "è¯·é€‰æ‹©å¼€å§‹æ–¹å‘ï¼š1--å‘å¤–;2--å‘é‡Œ    Select:";
     cin >> m;
     if (m == 1)
         direction = false;
     else if (m == 2)
         direction = true;
     else
-        cout << "ÊäÈë´íÎó";
+        cout << "è¾“å…¥é”™è¯¯";
     for (int i = 0; i < N; i++)
     {
         if (SortOrder[i] < BeginNum)
@@ -202,7 +204,7 @@ void CSCAN()
     }
 }
 
-//========¼ÆËãÑ°µÀÊ±¼ä==============
+//========è®¡ç®—å¯»é“æ—¶é—´==============
 void Count()
 {
     int Total = 0;
@@ -215,13 +217,13 @@ void Count()
 
 void Show()
 {
-    cout << "================´Ó" << BeginNum << "ºÅ´ÅµÀ¿ªÊ¼=====================" << endl;
-    cout << setw(20) << "±»·ÃÎÊµÄÏÂÒ»¸ö´ÅµÀºÅ" << setw(20) << "ÒÆ¶¯¾àÀë(´ÅµÀÊı)" << endl;
+    cout << "================ä»" << BeginNum << "å·ç£é“å¼€å§‹=====================" << endl;
+    cout << setw(20) << "è¢«è®¿é—®çš„ä¸‹ä¸€ä¸ªç£é“å·" << setw(20) << "ç§»åŠ¨è·ç¦»(ç£é“æ•°)" << endl;
     for (int i = 0; i < N; i++)
     {
         cout << setw(15) << FindOrder[i] << setw(15) << MoveDistance[i] << endl;
     }
-    cout << setw(20) << "×ÜÑ°µÀ³¤¶È:" << Distance << endl;
+    cout << setw(20) << "æ€»å¯»é“é•¿åº¦:" << Distance << endl;
     cout << endl;
 }
 
@@ -232,15 +234,27 @@ int main(void)
     Init();
     while (y)
     {
-        cout << "ÇëÑ¡ÔñÑ°µÀ·½Ê½£º1--FCFS; 2--SSTF; 3--SCAN    Select:";
+        cout << "è¯·é€‰æ‹©å¯»é“æ–¹å¼ï¼š1--FCFS; 2--SSTF; 3--SCAN    Select:";
         cin >> s;
         switch (s)
         {
-            case 1:FCFS(); Count(); Show(); break;
-            case 2:SSTF(); Count(); Show(); break;
-            case 3:SCAN(); Count(); Show(); break;
+        case 1:
+            FCFS();
+            Count();
+            Show();
+            break;
+        case 2:
+            SSTF();
+            Count();
+            Show();
+            break;
+        case 3:
+            SCAN();
+            Count();
+            Show();
+            break;
         }
-        cout << "ÊÇ·ñ¼ÌĞøÑ¡ÔñÑ°µÀËã·¨£¿1.ÊÇ£»2.·ñ    Select:";
+        cout << "æ˜¯å¦ç»§ç»­é€‰æ‹©å¯»é“ç®—æ³•ï¼Ÿ1.æ˜¯ï¼›2.å¦    Select:";
         int p;
         cin >> p;
         if (p == 1)
@@ -248,7 +262,7 @@ int main(void)
         else if (p == 2)
             y = false;
         else
-            cout << "ÊäÈë´íÎó£¡" << endl;
+            cout << "è¾“å…¥é”™è¯¯ï¼" << endl;
     }
     return 0;
 }

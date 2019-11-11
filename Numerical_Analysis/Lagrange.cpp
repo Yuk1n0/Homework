@@ -5,40 +5,45 @@ using namespace std;
 void Lagrange(void)
 {
     cout << endl;
-    cout << "=====À­¸ñÀÊÈÕ²åÖµ·¨=====\n";
+    cout << "=====æ‹‰æ ¼æœ—æ—¥æ’å€¼æ³•=====\n";
     double x, y, t;
-    double a[MAX_SIZE] = { 0 }, b[MAX_SIZE] = { 0 };
+    double a[MAX_SIZE] = {0}, b[MAX_SIZE] = {0};
     int k, n;
-    y = 0; k = 0; 
-    cout << "ÇëÊäÈëxµÄÖµ£º"; cin >> x;
-    cout << "ÇëÊäÈënµÄÖµ£º"; cin >> n;
+    y = 0;
+    k = 0;
+    cout << "è¯·è¾“å…¥xçš„å€¼ï¼š";
+    cin >> x;
+    cout << "è¯·è¾“å…¥nçš„å€¼ï¼š";
+    cin >> n;
     for (int i = 0; i <= n; i++)
     {
-        cout << "ÇëÊäÈëx" << i << "µÄÖµ£º"; cin >> a[i];
-        cout << "ÇëÊäÈëy" << i << "µÄÖµ£º"; cin >> b[i];
+        cout << "è¯·è¾“å…¥x" << i << "çš„å€¼ï¼š";
+        cin >> a[i];
+        cout << "è¯·è¾“å…¥y" << i << "çš„å€¼ï¼š";
+        cin >> b[i];
     }
-    
+
     t = 1;
-    for (int j=0; j<= n; j++)
+    for (int j = 0; j <= n; j++)
     {
         if (j == k)
             continue;
         t = t * ((x - a[j]) / (a[k] - a[j]));
     }
-    y = y + (t*b[k]);
+    y = y + (t * b[k]);
     while (k != n)
     {
         k = k + 1;
-        
+
         t = 1;
-        for (int j=0; j <= n; j++)
+        for (int j = 0; j <= n; j++)
         {
             if (j == k)
                 continue;
             t = t * ((x - a[j]) / (a[k] - a[j]));
         }
-        y = y + (t*b[k]);
+        y = y + (t * b[k]);
     }
-    cout << "½á¹ûÎª£º" << y << endl;
+    cout << "ç»“æžœä¸ºï¼š" << y << endl;
     cout << endl;
 }

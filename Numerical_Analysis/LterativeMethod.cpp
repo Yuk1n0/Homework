@@ -14,15 +14,17 @@ double fi(double x)
 void LterativeMethod(void)
 {
     cout << endl;
-    cout << "=====µü´ú·¨=====\n";
+    cout << "=====è¿­ä»£æ³•=====\n";
     double x0, e, x1, temp;
     int k, N;
-    cout << "ÇëÊäÈëx0µÄÖµ£º"; cin >> x0;
-    cout << "ÇëÊäÈë¾«¶Èe£º"; cin >> e;
-    cout << "ÇëÊäÈë×î´óµü´ú´ÎÊýN:"; 
+    cout << "è¯·è¾“å…¥x0çš„å€¼ï¼š";
+    cin >> x0;
+    cout << "è¯·è¾“å…¥ç²¾åº¦eï¼š";
+    cin >> e;
+    cout << "è¯·è¾“å…¥æœ€å¤§è¿­ä»£æ¬¡æ•°N:";
     cin >> N;
     k = 1;
-    
+
     x1 = fi(x0);
     temp = abs(x1 - x0);
     cout << "x1=" << x1 << endl;
@@ -30,13 +32,13 @@ void LterativeMethod(void)
     {
         k = k + 1;
         x0 = x1;
-        
+
         x1 = fi(x0);
         temp = abs(x1 - x0);
         cout << "x1=" << x1 << endl;
         if (k == N)
         {
-            cout << "µü´úÊ§°Ü" << endl;
+            cout << "è¿­ä»£å¤±è´¥" << endl;
             break;
         }
     }

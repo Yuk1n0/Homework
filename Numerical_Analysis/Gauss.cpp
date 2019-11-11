@@ -5,31 +5,32 @@ using namespace std;
 void Gauss(void)
 {
     cout << endl;
-    cout << "=====¸ßË¹ÏûÈ¥·¨=====" << endl;
-    cout << "ÇëÊäÈënÔª·½³ÌÖÐnµÄÖµ£º";
+    cout << "=====é«˜æ–¯æ¶ˆåŽ»æ³•=====" << endl;
+    cout << "è¯·è¾“å…¥nå…ƒæ–¹ç¨‹ä¸­nçš„å€¼ï¼š";
     int n;
     cin >> n;
-    double **a = new double*[n];
+    double **a = new double *[n];
     for (int i = 0; i != n; i++)
     {
         a[i] = new double[n];
     }
     double *b = new double[n];
-    cout << "ÇëÊäÈë¸÷ÏîµÄÏµÊý£º" << endl;
+    cout << "è¯·è¾“å…¥å„é¡¹çš„ç³»æ•°ï¼š" << endl;
     for (int i = 0; i != n; i++)
     {
         for (int j = 0; j != n; j++)
         {
-            cout << "a[" << i + 1 << "]" << "[" << j + 1 << "]:";
+            cout << "a[" << i + 1 << "]"
+                 << "[" << j + 1 << "]:";
             cin >> a[i][j];
         }
     }
     for (int i = 0; i != n; i++)
     {
-        cout << "b[" << i + 1 << "]£º";
+        cout << "b[" << i + 1 << "]ï¼š";
         cin >> b[i];
     }
-    
+
     for (int i = 0; i != n; i++)
     {
         for (int j = i + 1; j != n; j++)
@@ -46,7 +47,8 @@ void Gauss(void)
             b[s] = b[s] - a[s][i] * b[i];
         }
     }
-    double t = 0;;
+    double t = 0;
+    ;
     for (int i = n - 1; i > 0; i--)
     {
         for (int j = i + 1; j < n; j++)
@@ -57,7 +59,7 @@ void Gauss(void)
     }
     for (int i = 0; i < n; i++)
     {
-        cout << "·½³ÌµÄ½âx" << i + 1 << "=" << b[i];
+        cout << "æ–¹ç¨‹çš„è§£x" << i + 1 << "=" << b[i];
     }
     cout << endl;
 }

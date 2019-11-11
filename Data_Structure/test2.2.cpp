@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 #define error 0
 #define ok 1
 #define overflow -1
@@ -8,61 +9,63 @@
 #define STACKINCREMENT 10
 #define OPSETSIZE 7
 
-char OPSET[OPSETSIZE] = { '+','-','*','/','(',')','#' };
-unsigned char Prior[7][7] = 
-{ // Ëã·û¼äµÄÓÅÏÈ¹ØÏµ
-    '>','>','<','<','<','>','>',
-    '>','>','<','<','<','>','>',
-    '>','>','>','>','<','>','>',
-    '>','>','>','>','<','>','>',
-    '<','<','<','<','<','=',' ',
-    '>','>','>','>',' ','>','>',
-    '<','<','<','<','<',' ','='
-};
+char OPSET[OPSETSIZE] = {'+', '-', '*', '/', '(', ')', '#'};
+unsigned char Prior[7][7] =
+    { // ç®—ç¬¦é—´çš„ä¼˜å…ˆå…³ç³»
+        '>', '>', '<', '<', '<', '>', '>',
+        '>', '>', '<', '<', '<', '>', '>',
+        '>', '>', '>', '>', '<', '>', '>',
+        '>', '>', '>', '>', '<', '>', '>',
+        '<', '<', '<', '<', '<', '=', ' ',
+        '>', '>', '>', '>', ' ', '>', '>',
+        '<', '<', '<', '<', '<', ' ', '='};
 
 typedef int Status;
 template <typename T>
 struct SqStack
 {
-    T* top;
-    T* base;
+    T *top;
+    T *base;
     int stacksize;
-};//Ë³ĞòÕ»½á¹¹Ä£°å
+}; //é¡ºåºæ ˆç»“æ„æ¨¡æ¿
 
 template <typename T1, typename T2>
 
-Status InitStack(T1& S)
+Status InitStack(T1 &S)
 {
-    S.base = (T2*)malloc(STACK_INIT_SIZE * sizeof(T2));
-    if (!S.base) exit(overflow);
+    S.base = (T2 *)malloc(STACK_INIT_SIZE * sizeof(T2));
+    if (!S.base)
+        exit(overflow);
     S.top = S.base;
     S.stacksize = STACK_INIT_SIZE;
     return ok;
-}//³õÊ¼»¯Õ»º¯ÊıÄ£°å
+} //åˆå§‹åŒ–æ ˆå‡½æ•°æ¨¡æ¿
 
 template <typename T1, typename T2>
 
-Status Push(T1& S, T2 e)
+Status Push(T1 &S, T2 e)
 {
     if (S.top - S.base >= S.stacksize)
     {
-        S.base = (T2*)realloc(S.base, (S.stacksize + STACKINCREMENT) * sizeof(T2));
-        if (!S.base) exit(overflow);
+        S.base = (T2 *)realloc(S.base, (S.stacksize + STACKINCREMENT) * sizeof(T2));
+        if (!S.base)
+            exit(overflow);
         S.top = S.base + S.stacksize;
         S.stacksize += STACKINCREMENT;
     }
     *S.top++ = e;
     return ok;
-}//ÈëÕ»º¯ÊıÄ£°å
+} //å…¥æ ˆå‡½æ•°æ¨¡æ¿
 
 template <typename T1, typename T2>
 
-Status Pop(T1& S, T2& e)
+Status Pop(T1 &S, T2 &e)
 {
-    if (S.top == S.base) return error;
+    if (S.top == S.base)
+        return error;
     e = *--S.top;
     return ok;
-}//³öÕ»º¯ÊıÄ£°å
+} //å‡ºæ ˆå‡½æ•°æ¨¡æ¿
 
 template <typename T1, typename T2>
 
@@ -72,36 +75,43 @@ T2 GetTop(T1 S)
         return error;
     else
         return *(S.top - 1);
-}//»ñÈ¡Õ»¶¥ÔªËØÄ£°å
+} //è·å–æ ˆé¡¶å…ƒç´ æ¨¡æ¿
 
-Status In(char Test, char* TestOp)
+Status In(char Test, char *TestOp)
 {
     bool Find = false;
     for (int i = 0; i < OPSETSIZE; i++)
     {
-        if (Test == TestOp[i]) Find = true;
+        if (Test == TestOp[i])
+            Find = true;
     }
     return Find;
-}//ÅĞ¶ÏÊÇ·ñÎªÔËËã·û
+} //åˆ¤æ–­æ˜¯å¦ä¸ºè¿ç®—ç¬¦
 
 float Operate(float a, unsigned char theta, float b)
 {
-    switch (theta) 
+    switch (theta)
     {
-        case '+': return a + b;
-        case '-': return a - b;
-        case '*': return a * b;
-        case '/': return a / b;
-        default: return 0;
+    case '+':
+        return a + b;
+    case '-':
+        return a - b;
+    case '*':
+        return a * b;
+    case '/':
+        return a / b;
+    default:
+        return 0;
     }
-}//ÔËËã
+} //è¿ç®—
 
-int ReturnOpOrd(char op, char* TestOp)
+int ReturnOpOrd(char op, char *TestOp)
 {
     int i;
     for (i = 0; i < OPSETSIZE; i++)
     {
-        if (op == TestOp[i]) return i;
+        if (op == TestOp[i])
+            return i;
     }
     return 0;
 }
@@ -109,31 +119,31 @@ int ReturnOpOrd(char op, char* TestOp)
 char precede(char Aop, char Bop)
 {
     return Prior[ReturnOpOrd(Aop, OPSET)][ReturnOpOrd(Bop, OPSET)];
-}//ReturnOpOrdºÍprecede×éºÏ£¬ÅĞ¶ÏÔËËã·ûÓÅÏÈ¼¶
+} //ReturnOpOrdå’Œprecedeç»„åˆï¼Œåˆ¤æ–­è¿ç®—ç¬¦ä¼˜å…ˆçº§
 
 float EvaluateExpression()
 {
-    // ËãÊõ±í´ïÊ½ÇóÖµµÄËã·ûÓÅÏÈËã·¨¡£
-    // ÉèOPTRºÍOPND·Ö±ğÎªÔËËã·ûÕ»ºÍÔËËãÊıÕ»£¬OPSETÎªÔËËã·û¼¯ºÏ¡£
-    SqStack<char> OPTR; // ÔËËã·ûÕ»£¬×Ö·ûÔªËØ
-    SqStack<float> OPND; // ÔËËãÊıÕ»£¬ÊµÊıÔªËØ
+    // ç®—æœ¯è¡¨è¾¾å¼æ±‚å€¼çš„ç®—ç¬¦ä¼˜å…ˆç®—æ³•ã€‚
+    // è®¾OPTRå’ŒOPNDåˆ†åˆ«ä¸ºè¿ç®—ç¬¦æ ˆå’Œè¿ç®—æ•°æ ˆï¼ŒOPSETä¸ºè¿ç®—ç¬¦é›†åˆã€‚
+    SqStack<char> OPTR;  // è¿ç®—ç¬¦æ ˆï¼Œå­—ç¬¦å…ƒç´ 
+    SqStack<float> OPND; // è¿ç®—æ•°æ ˆï¼Œå®æ•°å…ƒç´ 
     char TempData[20];
     float Data, a, b;
     char theta, c, x, Dr[2];
     InitStack<SqStack<char>, char>(OPTR);
     Push(OPTR, '#');
-    InitStack <SqStack<float>, float>(OPND);
-    strcpy(TempData, "\0");//½«TempDataÖÃÎª¿Õ
+    InitStack<SqStack<float>, float>(OPND);
+    strcpy(TempData, "\0"); //å°†TempDataç½®ä¸ºç©º
     c = getchar();
     while (c != '#' || GetTop<SqStack<char>, char>(OPTR) != '#')
     {
         if (!In(c, OPSET))
         {
             Dr[0] = c;
-            Dr[1] = '\0';//´æ·Åµ¥¸öÊı
-            strcat(TempData, Dr);//½«µ¥¸öÊıÁ¬µ½TempDataÖĞ£¬ĞÎ³É×Ö·û´®
+            Dr[1] = '\0';         //å­˜æ”¾å•ä¸ªæ•°
+            strcat(TempData, Dr); //å°†å•ä¸ªæ•°è¿åˆ°TempDataä¸­ï¼Œå½¢æˆå­—ç¬¦ä¸²
             c = getchar();
-            if (In(c, OPSET))//Èç¹ûÓöµ½ÔËËã·û£¬Ôò½«×Ö·û´®TempData×ª»»³ÉÊµÊı£¬ÈëÕ»£¬²¢ÖØĞÂÖÃ¿Õ
+            if (In(c, OPSET)) //å¦‚æœé‡åˆ°è¿ç®—ç¬¦ï¼Œåˆ™å°†å­—ç¬¦ä¸²TempDataè½¬æ¢æˆå®æ•°ï¼Œå…¥æ ˆï¼Œå¹¶é‡æ–°ç½®ç©º
             {
                 Data = (float)atof(TempData);
                 Push(OPND, Data);
@@ -141,24 +151,24 @@ float EvaluateExpression()
             }
         }
         else
-        { 
-            // ²»ÊÇÔËËã·ûÔò½øÕ»
+        {
+            // ä¸æ˜¯è¿ç®—ç¬¦åˆ™è¿›æ ˆ
             switch (precede(GetTop<SqStack<char>, char>(OPTR), c))
             {
-                case '<': // Õ»¶¥ÔªËØÓÅÏÈÈ¨µÍ
-                    Push(OPTR, c);
-                    c = getchar();
-                    break;
-                case '=': // ÍÑÀ¨ºÅ²¢½ÓÊÕÏÂÒ»×Ö·û
-                    Pop(OPTR, x);
-                    c = getchar();
-                    break;
-                case '>': // ÍËÕ»²¢½«ÔËËã½á¹ûÈëÕ»
-                    Pop(OPTR, theta);
-                    Pop(OPND, b);
-                    Pop(OPND, a);
-                    Push(OPND, Operate(a, theta, b));
-                    break;
+            case '<': // æ ˆé¡¶å…ƒç´ ä¼˜å…ˆæƒä½
+                Push(OPTR, c);
+                c = getchar();
+                break;
+            case '=': // è„±æ‹¬å·å¹¶æ¥æ”¶ä¸‹ä¸€å­—ç¬¦
+                Pop(OPTR, x);
+                c = getchar();
+                break;
+            case '>': // é€€æ ˆå¹¶å°†è¿ç®—ç»“æœå…¥æ ˆ
+                Pop(OPTR, theta);
+                Pop(OPND, b);
+                Pop(OPND, a);
+                Push(OPND, Operate(a, theta, b));
+                break;
             } // switch
         }
     } // while
@@ -167,7 +177,7 @@ float EvaluateExpression()
 
 int main(void)
 {
-    printf("ÇëÊäÈë±í´ïÊ½£¨end #£©£º\n");
+    printf("è¯·è¾“å…¥è¡¨è¾¾å¼ï¼ˆend #ï¼‰ï¼š\n");
     printf("%f\n", EvaluateExpression());
     return 0;
 }

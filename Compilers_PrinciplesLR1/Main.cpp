@@ -1,22 +1,24 @@
-#include"Lexical.h"
-#include<string>
-#include<iostream>
-#include"LR(1).h"
+#include "Lexical.h"
+#include <string>
+#include <iostream>
+#include "LR(1).h"
 using namespace std;
 
 int main(void)
 {
 	string input = "";
-	char* st[] = { (char*)"²»ÄÜÊ¶±ğµÄ×Ö·û\t", (char*)"×Ô¶¨Òå±êÊ¶·û\t", (char*)"Êı×Ö\t", (char*)"¼ÓºÅ\t", (char*)"¼õºÅ\t", (char*)"³ËºÅ\t", (char*)"³ıºÅ\t",(char*)"×óÀ¨ºÅ\t", (char*)"ÓÒÀ¨ºÅ\t", (char*)"µÈºÅ\t", (char*)"¶ººÅ\t",(char*) "¾äºÅ\t",(char*) "ÖÕ½á·û\t", (char*)"·ÖºÅ\t", (char*)"±£Áô×Öbegin\t",
-	(char*)"±£Áô×Öcall\t", (char*)"±£Áô×Öconst\t",(char*) "±£Áô×Ödo\t", (char*)"±£Áô×Öend\t",(char*)"±£Áô×Öif\t", (char*)"±£Áô×Öodd\t", (char*)"±£Áô×Öproc\t", (char*)"±£Áô×Öread\t", (char*) "±£Áô×Öthen\t",(char*) "±£Áô×Övar\t",(char*) "±£Áô×Öwhile\t",
-	(char*)"±£Áô×Öwrite\t", (char*)"¸³ÖµºÅ\t",(char*) "Ğ¡ÓÚµÈÓÚºÅ\t", (char*)"Ğ¡ÓÚºÅ\t",(char*) "´óÓÚµÈÓÚºÅ\t", (char*)"´óÓÚºÅ\t", (char*)"" };
+	char *st[] = {(char *)"ä¸èƒ½è¯†åˆ«çš„å­—ç¬¦\t", (char *)"è‡ªå®šä¹‰æ ‡è¯†ç¬¦\t", (char *)"æ•°å­—\t", (char *)"åŠ å·\t", (char *)"å‡å·\t", (char *)"ä¹˜å·\t", (char *)"é™¤å·\t", (char *)"å·¦æ‹¬å·\t", (char *)"å³æ‹¬å·\t", (char *)"ç­‰å·\t", (char *)"é€—å·\t", (char *)"å¥å·\t", (char *)"ç»ˆç»“ç¬¦\t", (char *)"åˆ†å·\t", (char *)"ä¿ç•™å­—begin\t",
+				  (char *)"ä¿ç•™å­—call\t", (char *)"ä¿ç•™å­—const\t", (char *)"ä¿ç•™å­—do\t", (char *)"ä¿ç•™å­—end\t", (char *)"ä¿ç•™å­—if\t", (char *)"ä¿ç•™å­—odd\t", (char *)"ä¿ç•™å­—proc\t", (char *)"ä¿ç•™å­—read\t", (char *)"ä¿ç•™å­—then\t", (char *)"ä¿ç•™å­—var\t", (char *)"ä¿ç•™å­—while\t",
+				  (char *)"ä¿ç•™å­—write\t", (char *)"èµ‹å€¼å·\t", (char *)"å°äºç­‰äºå·\t", (char *)"å°äºå·\t", (char *)"å¤§äºç­‰äºå·\t", (char *)"å¤§äºå·\t", (char *)""};
 	Lexical lexical;
-	cout << "µ¥´ÊÀàĞÍ¶ÔÕÕ±íÎª:" << endl;
+	cout << "å•è¯ç±»å‹å¯¹ç…§è¡¨ä¸º:" << endl;
 	lexical.printCompareTable(st);
-	cout << "\n\n" << "Ğè·ÖÎöµÄ×Ö·û´®Îª:" << endl;
+	cout << "\n\n"
+		 << "éœ€åˆ†æçš„å­—ç¬¦ä¸²ä¸º:" << endl;
 	lexical.getFileInfo();
-	cout << endl; cout << endl;
-	cout << "´Ê·¨·ÖÎö:" << endl;
+	cout << endl;
+	cout << endl;
+	cout << "è¯æ³•åˆ†æ:" << endl;
 	lexical.lexAnalysis(input);
 
 	ifstream fin("grammar.txt");
@@ -27,28 +29,28 @@ int main(void)
 	begin.insert('#');
 	if (!fin)
 	{
-		cout << "ÎÄ¼ş´ò¿ª´íÎó" << endl;
+		cout << "æ–‡ä»¶æ‰“å¼€é”™è¯¯" << endl;
 	}
 	else
 	{
 		char start;
 		int rank = 0;
-		cout << "ÎÄ·¨:" << endl;
-		while (fin.getline(str, sizeof(str))) 
-        {	
-            //¶ÁÈ¡ÎÄ¼ş
+		cout << "æ–‡æ³•:" << endl;
+		while (fin.getline(str, sizeof(str)))
+		{
+			//è¯»å–æ–‡ä»¶
 			s = str;
-			if (s == "#") 
-            {
+			if (s == "#")
+			{
 				break;
 			}
-			if (rank == 0) 
-            {
+			if (rank == 0)
+			{
 				start = s[0];
 			}
-			char left = s[0];	//µÃµ½²úÉúÊ½×ó²¿
-			string right = s.substr(2);	//µÃµ½²úÉúÊ½ÓÒ²¿
-			Program p(left, right, begin, rank);	//¹¹ÔìÎÄ·¨
+			char left = s[0];					 //å¾—åˆ°äº§ç”Ÿå¼å·¦éƒ¨
+			string right = s.substr(2);			 //å¾—åˆ°äº§ç”Ÿå¼å³éƒ¨
+			Program p(left, right, begin, rank); //æ„é€ æ–‡æ³•
 			grm.addPro(p, grm);
 			rank++;
 			cout << '\t' << " " << str << endl;
@@ -60,11 +62,26 @@ int main(void)
 		lr.go();
 		lr.getAction();
 		lr.getGoto();
-		cout << '\n' << "LR(1)·ÖÎö±í:" << "\n\n";
+		cout << '\n'
+			 << "LR(1)åˆ†æè¡¨:"
+			 << "\n\n";
 		lr.showTable();
-		cout << '\n' << "LR(1)·ÖÎö¹ı³Ì:" << "\n\n" << "\t" << "²½Öè" << "\t\t" << "×´Ì¬Õ»" << "\t\t\t" << "·ûºÅÕ»" << "\t\t" << "ÊäÈëÁ÷" << "\t\t" << "ACTION" << "\t\t" << "GOTO" << endl;
+		cout << '\n'
+			 << "LR(1)åˆ†æè¿‡ç¨‹:"
+			 << "\n\n"
+			 << "\t"
+			 << "æ­¥éª¤"
+			 << "\t\t"
+			 << "çŠ¶æ€æ ˆ"
+			 << "\t\t\t"
+			 << "ç¬¦å·æ ˆ"
+			 << "\t\t"
+			 << "è¾“å…¥æµ"
+			 << "\t\t"
+			 << "ACTION"
+			 << "\t\t"
+			 << "GOTO" << endl;
 		lr.analyse();
 	}
-	system("pause");
 	return 0;
 }

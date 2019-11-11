@@ -1,39 +1,39 @@
 #pragma once
 #include "pl0.h"
-#include<string>
-#include<fstream>
-#include<iostream>
-#include<vector>
-#include<iomanip>
+#include <string>
+#include <fstream>
+#include <iostream>
+#include <vector>
+#include <iomanip>
 using namespace std;
 
-class Lexical 
+class Lexical
 {
 private:
-    string LexFileName;	//ÎÄ¼şÃû
-    FILE* fin;	//FILEÖ¸Õë
-    char ch;	//±£´æ´Ê·¨·ÖÎöÖĞ¶ÁÈ¡µÄµ¥¸ö×Ö·û
-    int CC, LL;	//»º³åÇø³¤¶È
-    int num;	//±£´æ´Ê·¨·ÖÎöÖĞµÄÊı×Ö
-    vector<string>in;	//ÊäÈëÁ÷Ìá¹©¸øÓï·¨·ÖÎö
+    string LexFileName; //æ–‡ä»¶å
+    FILE *fin;          //FILEæŒ‡é’ˆ
+    char ch;            //ä¿å­˜è¯æ³•åˆ†æä¸­è¯»å–çš„å•ä¸ªå­—ç¬¦
+    int CC, LL;         //ç¼“å†²åŒºé•¿åº¦
+    int num;            //ä¿å­˜è¯æ³•åˆ†æä¸­çš„æ•°å­—
+    vector<string> in;  //è¾“å…¥æµæä¾›ç»™è¯­æ³•åˆ†æ
     ;
-    char a[11];	//¶ÁÈ¡×é³É±êÊ¶·û»ò±£Áô×ÖµÄµ¥¸ö×Ö·û
-    char id[11];	//±£´æ±£Áô×Ö»ò±êÊ¶·û
-    char line[81];	//»º³åÇø
-    char word[13][10];	//±£´æ±£Áô×Ö
-    enum symbol wsym[13];	//±£´æÃ¶¾ÙÀàĞÍÖĞ¶¨ÒåµÄ±£Áô×Ö
-    enum symbol ssym[256];	//±£´æÃ¶¾ÙÀàĞÍÖĞ¶¨ÒåµÄ·ûºÅ
-    enum symbol sym;	//µ¥´ÊÀàĞÍ£¬´ÓÃ¶¾ÙÀàĞÍÖĞÈ¡³ö
-    
+    char a[11];            //è¯»å–ç»„æˆæ ‡è¯†ç¬¦æˆ–ä¿ç•™å­—çš„å•ä¸ªå­—ç¬¦
+    char id[11];           //ä¿å­˜ä¿ç•™å­—æˆ–æ ‡è¯†ç¬¦
+    char line[81];         //ç¼“å†²åŒº
+    char word[13][10];     //ä¿å­˜ä¿ç•™å­—
+    enum symbol wsym[13];  //ä¿å­˜æšä¸¾ç±»å‹ä¸­å®šä¹‰çš„ä¿ç•™å­—
+    enum symbol ssym[256]; //ä¿å­˜æšä¸¾ç±»å‹ä¸­å®šä¹‰çš„ç¬¦å·
+    enum symbol sym;       //å•è¯ç±»å‹ï¼Œä»æšä¸¾ç±»å‹ä¸­å–å‡º
+
 public:
-    Lexical();	//¹¹Ôìº¯Êı
-    void init();	//³õÊ¼»¯º¯Êı
-    void getFileInfo();		//¶ÁÈ¡ÎÄ¼şµÄĞÅÏ¢²¢Êä³ö
-    int getch();	//¶Á³öÎÄ¼şÖĞµÄµ¥¸ö×Ö·û²¢±£´æÔÚ»º³åÇøÖĞ
-    void doNumberPro();	//Êı×Ö´Ê·¨·ÖÎö×Ó³ÌĞò
-    void doLetterPro();	//±êÊ¶·ûºÍ±£Áô×ÖµÄ´Ê·¨·ÖÎö×Ó³ÌĞò
-    void doSymbolPro(int& tag);	//·ûºÅµÄ´Ê·¨·ÖÎö×Ó³ÌĞò
-    int getsym();	//´Ê·¨·ÖÎöÖ÷³ÌĞò
-    void printCompareTable(char** s); //Êä³öµ¥´ÊÀàĞÍ¶ÔÕÕ±í
-    void lexAnalysis(string& input); //´Ê·¨·ÖÎö
+    Lexical();                        //æ„é€ å‡½æ•°
+    void init();                      //åˆå§‹åŒ–å‡½æ•°
+    void getFileInfo();               //è¯»å–æ–‡ä»¶çš„ä¿¡æ¯å¹¶è¾“å‡º
+    int getch();                      //è¯»å‡ºæ–‡ä»¶ä¸­çš„å•ä¸ªå­—ç¬¦å¹¶ä¿å­˜åœ¨ç¼“å†²åŒºä¸­
+    void doNumberPro();               //æ•°å­—è¯æ³•åˆ†æå­ç¨‹åº
+    void doLetterPro();               //æ ‡è¯†ç¬¦å’Œä¿ç•™å­—çš„è¯æ³•åˆ†æå­ç¨‹åº
+    void doSymbolPro(int &tag);       //ç¬¦å·çš„è¯æ³•åˆ†æå­ç¨‹åº
+    int getsym();                     //è¯æ³•åˆ†æä¸»ç¨‹åº
+    void printCompareTable(char **s); //è¾“å‡ºå•è¯ç±»å‹å¯¹ç…§è¡¨
+    void lexAnalysis(string &input);  //è¯æ³•åˆ†æ
 };

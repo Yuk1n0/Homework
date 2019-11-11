@@ -2,20 +2,20 @@
 #include <stdlib.h>
 
 struct first_fit
-{ 
-    /*ÃèÊö·ÖÇøĞÅÏ¢*/
+{
+    /*æè¿°åˆ†åŒºä¿¡æ¯*/
     int begin;
     int size;
     int No;
-    struct first_fit* next;
-    first_fit() /*Ä¬ÈÏ¹¹Ôìº¯Êı*/
+    struct first_fit *next;
+    first_fit() /*é»˜è®¤æ„é€ å‡½æ•°*/
     {
         begin = 0;
         size = 0;
         No = 0;
         next = NULL;
     }
-    void set_data(int size, int begin = 0, int No = 0) /*ÉèÖÃ·ÖÇøĞÅÏ¢*/
+    void set_data(int size, int begin = 0, int No = 0) /*è®¾ç½®åˆ†åŒºä¿¡æ¯*/
     {
         this->size = size;
         this->begin = begin;
@@ -24,46 +24,46 @@ struct first_fit
     }
 };
 
-void init(struct first_fit* head, int size) /*³õÊ¼»¯¿ÕÏĞ·ÖÇø*/
+void init(struct first_fit *head, int size) /*åˆå§‹åŒ–ç©ºé—²åˆ†åŒº*/
 {
-    struct first_fit* temp = new first_fit();
+    struct first_fit *temp = new first_fit();
     temp->set_data(size);
     head->next = temp;
     return;
 }
 
-void Print1(struct first_fit* t)
-{ 
-    /*Êä³öÒ»¸ö·ÖÇøĞÅÏ¢*/
-    printf("½ø³ÌºÅ=%d ,ÆğÊ¼µØÖ·=%d ,ÖÕÖ¹µØÖ·=%d ,¿é´óĞ¡=%d \n", t->No, t->begin, t->begin + t->size, t->size);
+void Print1(struct first_fit *t)
+{
+    /*è¾“å‡ºä¸€ä¸ªåˆ†åŒºä¿¡æ¯*/
+    printf("è¿›ç¨‹å·=%d ,èµ·å§‹åœ°å€=%d ,ç»ˆæ­¢åœ°å€=%d ,å—å¤§å°=%d \n", t->No, t->begin, t->begin + t->size, t->size);
     return;
 }
 
-void PrintAll(struct first_fit* head) /*Êä³öËùÓĞ·ÖÇøĞÅÏ¢*/
+void PrintAll(struct first_fit *head) /*è¾“å‡ºæ‰€æœ‰åˆ†åŒºä¿¡æ¯*/
 {
-    for (struct first_fit* t = head->next; t; t = t->next)
+    for (struct first_fit *t = head->next; t; t = t->next)
     {
         Print1(t);
     }
     printf("\n");
 }
 
-void best_fit(struct first_fit* create)//×î¼ÑÊÊÓ¦Ëã·¨
+void best_fit(struct first_fit *create) //æœ€ä½³é€‚åº”ç®—æ³•
 {
     if ((create->next == NULL) || (create->next->next == NULL))
     {
         return;
     }
-    
-    struct first_fit* head, * pre, * cur, * next, * end, * temp;
+
+    struct first_fit *head, *pre, *cur, *next, *end, *temp;
     head = create;
     end = NULL;
-    
+
     while (head->next != end)
     {
         for (pre = head, cur = pre->next, next = cur->next; next != end; pre = pre->next, cur = cur->next, next = next->next)
         {
-            //ÏàÁÚµÄ½Úµã±È½Ï
+            //ç›¸é‚»çš„èŠ‚ç‚¹æ¯”è¾ƒ
             if (cur->size < next->size)
             {
                 cur->next = next->next;
@@ -78,22 +78,22 @@ void best_fit(struct first_fit* create)//×î¼ÑÊÊÓ¦Ëã·¨
     }
 }
 
-void worst_fit(struct first_fit* create)//×î»µÊÊÓ¦Ëã·¨
+void worst_fit(struct first_fit *create) //æœ€åé€‚åº”ç®—æ³•
 {
     if ((create->next == NULL) || (create->next->next == NULL))
     {
         return;
     }
-    
-    struct first_fit* head, * pre, * cur, * next, * end, * temp;
+
+    struct first_fit *head, *pre, *cur, *next, *end, *temp;
     head = create;
     end = NULL;
-    
+
     while (head->next != end)
     {
         for (pre = head, cur = pre->next, next = cur->next; next != end; pre = pre->next, cur = cur->next, next = next->next)
         {
-            //ÏàÁÚµÄ½Úµã±È½Ï
+            //ç›¸é‚»çš„èŠ‚ç‚¹æ¯”è¾ƒ
             if (cur->size > next->size)
             {
                 cur->next = next->next;
@@ -108,172 +108,185 @@ void worst_fit(struct first_fit* create)//×î»µÊÊÓ¦Ëã·¨
     }
 }
 
-/*·ÖÅä·ÖÇø¸ø×÷Òµ*/
-void memory_malloc(struct first_fit* create, struct first_fit* free)
+/*åˆ†é…åˆ†åŒºç»™ä½œä¸š*/
+void memory_malloc(struct first_fit *create, struct first_fit *free)
 {
-    printf("ÇëÑ¡Ôñ¿ÕÏĞ·ÖÅäËã·¨ 1.×îÏÈÊÊÓ¦Ëã·¨ 2.×î¼ÑÊÊÓ¦Ëã·¨ 3.×î»µÊÊÓ¦Ëã·¨\n");
+    printf("è¯·é€‰æ‹©ç©ºé—²åˆ†é…ç®—æ³• 1.æœ€å…ˆé€‚åº”ç®—æ³• 2.æœ€ä½³é€‚åº”ç®—æ³• 3.æœ€åé€‚åº”ç®—æ³•\n");
     int choice;
     scanf("%d", &choice);
     switch (choice)
     {
-        case 1:break;
-        case 2: best_fit(create); break;
-        case 3: worst_fit(create); break;
-        default:break;
+    case 1:
+        break;
+    case 2:
+        best_fit(create);
+        break;
+    case 3:
+        worst_fit(create);
+        break;
+    default:
+        break;
     }
-    
+
     int No, size;
-    printf("ÇëÊäÈë½ø³ÌºÅ¼°ÆäËùĞèµÄÄÚ´æ´óĞ¡\n");
+    printf("è¯·è¾“å…¥è¿›ç¨‹å·åŠå…¶æ‰€éœ€çš„å†…å­˜å¤§å°\n");
     scanf("%d%d", &No, &size);
-    
-    struct first_fit* t = NULL;
+
+    struct first_fit *t = NULL;
     for (t = create; t->next; t = t->next)
-    { 
-        /*²éÕÒÄÜ¹»Âú×ã×÷ÒµÒªÇóµÄ¿ÕÏĞ·ÖÇø*/
+    {
+        /*æŸ¥æ‰¾èƒ½å¤Ÿæ»¡è¶³ä½œä¸šè¦æ±‚çš„ç©ºé—²åˆ†åŒº*/
         if (t->next->size >= size)
-        { /*ÄÜ¹»Âú×ãÒªÇó*/
-            struct first_fit* temp = new  first_fit();
+        { /*èƒ½å¤Ÿæ»¡è¶³è¦æ±‚*/
+            struct first_fit *temp = new first_fit();
             temp->begin = t->next->begin;
             temp->size = size;
             temp->No = No;
             temp->next = free->next;
-            free->next = temp; /*ÒÑ·ÖÅäµÄ·ÖÇø¼ÓÈëµ½ÒÑ·ÖÅä·ÖÇøÁ´±í*/
+            free->next = temp; /*å·²åˆ†é…çš„åˆ†åŒºåŠ å…¥åˆ°å·²åˆ†é…åˆ†åŒºé“¾è¡¨*/
             if (!(t->next->size - size))
-            { 
-                /*ÕıºÃÂú×ã*/
-                struct first_fit* p = t->next;
+            {
+                /*æ­£å¥½æ»¡è¶³*/
+                struct first_fit *p = t->next;
                 t->next = t->next->next;
                 delete p;
                 return;
             }
             else
-            { 
-                /*´óÓÚĞèÇó*/
+            {
+                /*å¤§äºéœ€æ±‚*/
                 t->next->set_data(t->next->size - size, t->next->begin + size);
                 return;
             }
         }
     }
     if (t->next == NULL)
-    { 
-        /*Ã»ÓĞÄÜ¹»Âú×ãĞèÇóµÄÔò·µ»Ø*/
-        printf("ÄÚ´æ·ÖÅäÊ§°Ü\n");
+    {
+        /*æ²¡æœ‰èƒ½å¤Ÿæ»¡è¶³éœ€æ±‚çš„åˆ™è¿”å›*/
+        printf("å†…å­˜åˆ†é…å¤±è´¥\n");
         return;
     }
     return;
 }
 
-/*»ØÊÕ·ÖÇø*/
-void  memory_free(struct first_fit* create, struct first_fit* free)
+/*å›æ”¶åˆ†åŒº*/
+void memory_free(struct first_fit *create, struct first_fit *free)
 {
     int No;
-    printf("ÇëÊäÈëÒª½áÊøµÄ½ø³ÌºÅ£º");
+    printf("è¯·è¾“å…¥è¦ç»“æŸçš„è¿›ç¨‹å·ï¼š");
     scanf("%d", &No);
-    
-    struct first_fit* p1 = NULL;
-    struct first_fit* p2 = NULL;
-    
-    for (p1 = free; p1->next; p1 = p1->next) /*±éÀúÒÑ·ÖÅäµÄ·ÖÇø*/
+
+    struct first_fit *p1 = NULL;
+    struct first_fit *p2 = NULL;
+
+    for (p1 = free; p1->next; p1 = p1->next) /*éå†å·²åˆ†é…çš„åˆ†åŒº*/
         if (p1->next->No == No)
         {
             p2 = p1->next;
             p1->next = p1->next->next;
             break;
         }
-        if (!p2)
-        { 
-            /*²éÕÒ²»µ½Ôò·µ»Ø*/
-            printf("¸Ã½ø³ÌÃ»ÓĞ±»´´½¨\n");
+    if (!p2)
+    {
+        /*æŸ¥æ‰¾ä¸åˆ°åˆ™è¿”å›*/
+        printf("è¯¥è¿›ç¨‹æ²¡æœ‰è¢«åˆ›å»º\n");
+        return;
+    }
+
+    for (struct first_fit *q1 = create->next; q1; q1 = q1->next)
+    {
+        /*éå†ç©ºé—²åˆ†åŒº*/
+        if (p2->begin + p2->size == q1->begin)
+        {
+            /*å·²åˆ†é…åˆ†åŒºä¸ç©ºé—²åˆ†åŒºç›¸é‚»ä¸”åœ¨ç©ºé—²åˆ†åŒºçš„ä¸Šæ–¹*/
+            printf("\nç©ºé—²åˆå¹¶æˆåŠŸï¼\n");
+            q1->set_data(q1->size + p2->size, p2->begin, q1->No);
+            delete p2;
             return;
         }
-        
-        for (struct first_fit* q1 = create->next; q1; q1 = q1->next)
-        { 
-            /*±éÀú¿ÕÏĞ·ÖÇø*/
-            if (p2->begin + p2->size == q1->begin)
-            { 
-                /*ÒÑ·ÖÅä·ÖÇøÓë¿ÕÏĞ·ÖÇøÏàÁÚÇÒÔÚ¿ÕÏĞ·ÖÇøµÄÉÏ·½*/
-                printf("\n¿ÕÏĞºÏ²¢³É¹¦£¡\n");
-                q1->set_data(q1->size + p2->size, p2->begin, q1->No);
-                delete p2;
-                return;
-            }
-            else if (q1->begin + q1->size == p2->begin)
-            { 
-                /*ÒÑ·ÖÅä·ÖÇøÓë¿ÕÏĞ·ÖÇøÏàÁÚÇÒÔÚ¿ÕÏĞ·ÖÇøµÄÏÂ·½*/
-                printf("\n¿ÕÏĞºÏ²¢³É¹¦£¡\n");
-                q1->set_data(q1->size + p2->size, q1->begin, q1->No);
-                delete p2;
-                return;
-            }
-            else if (q1->begin + q1->size == p2->begin && p2->begin + p2->size == q1->next->begin)
-            {
-                /*ÒÑ·ÖÅä·ÖÇøÓë¿ÕÏĞ·ÖÇøÏàÁÚÇÒÔÚ¿ÕÏĞ·ÖÇøµÄÖĞ¼ä*/
-                q1->set_data(q1->size + q1->next->size + p2->size, q1->begin, q1->No);
-                struct first_fit* q2 = q1->next;
-                q1->next = q1->next->next;
-                delete q2;
-                return;
-            }
+        else if (q1->begin + q1->size == p2->begin)
+        {
+            /*å·²åˆ†é…åˆ†åŒºä¸ç©ºé—²åˆ†åŒºç›¸é‚»ä¸”åœ¨ç©ºé—²åˆ†åŒºçš„ä¸‹æ–¹*/
+            printf("\nç©ºé—²åˆå¹¶æˆåŠŸï¼\n");
+            q1->set_data(q1->size + p2->size, q1->begin, q1->No);
+            delete p2;
+            return;
         }
-        p2->set_data(p2->size, p2->begin); /*ÉèÖÃ¿ÕÏĞ·ÖÇø×´Ì¬ÎªÎ´·ÖÅä*/
-        
-        struct first_fit* q = NULL;
-        for (q = create; q->next; q = q->next) /*°ÑÒÑ·ÖÇø²åÈëµ½µÚÒ»¸ö±ÈÆäÆğÊ¼µØÖ·´óµÄÎ´·ÖÅä·ÖÇøÇ°*/
-            if (q->next->begin > p2->begin)
-            {
-                p2->next = q->next;
-                q->next = p2;
-                return;
-            }
-            p2->next = NULL;
-        q->next = p2; /*°ÑÒÑ·ÖÅä·ÖÇø²åÈëµ½Î´·ÖÅä·ÖÇøÇ°*/
-        return;
+        else if (q1->begin + q1->size == p2->begin && p2->begin + p2->size == q1->next->begin)
+        {
+            /*å·²åˆ†é…åˆ†åŒºä¸ç©ºé—²åˆ†åŒºç›¸é‚»ä¸”åœ¨ç©ºé—²åˆ†åŒºçš„ä¸­é—´*/
+            q1->set_data(q1->size + q1->next->size + p2->size, q1->begin, q1->No);
+            struct first_fit *q2 = q1->next;
+            q1->next = q1->next->next;
+            delete q2;
+            return;
+        }
+    }
+    p2->set_data(p2->size, p2->begin); /*è®¾ç½®ç©ºé—²åˆ†åŒºçŠ¶æ€ä¸ºæœªåˆ†é…*/
+
+    struct first_fit *q = NULL;
+    for (q = create; q->next; q = q->next) /*æŠŠå·²åˆ†åŒºæ’å…¥åˆ°ç¬¬ä¸€ä¸ªæ¯”å…¶èµ·å§‹åœ°å€å¤§çš„æœªåˆ†é…åˆ†åŒºå‰*/
+        if (q->next->begin > p2->begin)
+        {
+            p2->next = q->next;
+            q->next = p2;
+            return;
+        }
+    p2->next = NULL;
+    q->next = p2; /*æŠŠå·²åˆ†é…åˆ†åŒºæ’å…¥åˆ°æœªåˆ†é…åˆ†åŒºå‰*/
+    return;
 }
 
 int menu()
 {
-    printf("1.´´½¨Ò»¸ö½ø³Ì\n");
-    printf("2.½áÊøÒ»¸ö½ø³Ì\n");
-    printf("0.ÍË³ö³ÌĞò\n");
-    printf("ÇëÊäÈëÊı×Ö: ");
+    printf("1.åˆ›å»ºä¸€ä¸ªè¿›ç¨‹\n");
+    printf("2.ç»“æŸä¸€ä¸ªè¿›ç¨‹\n");
+    printf("0.é€€å‡ºç¨‹åº\n");
+    printf("è¯·è¾“å…¥æ•°å­—: ");
     int m;
     scanf("%d", &m);
     switch (m)
     {
-        case 0:
-        case 1:
-        case 2:
-            return m; break;
-        default:
-            return 0;
+    case 0:
+    case 1:
+    case 2:
+        return m;
+        break;
+    default:
+        return 0;
     }
     return m;
 }
 
 int main(void)
 {
-    struct first_fit* create = new first_fit(); /*¿ÕÏĞ·ÖÇøÁ´±í*/
-    struct first_fit* free = new first_fit(); /*ÒÑ·ÖÅä·ÖÇøÁ´±í*/
+    struct first_fit *create = new first_fit(); /*ç©ºé—²åˆ†åŒºé“¾è¡¨*/
+    struct first_fit *free = new first_fit();   /*å·²åˆ†é…åˆ†åŒºé“¾è¡¨*/
     int size;
     int temp;
-    printf("ÇëÊäÈëÄÚ´æ´óĞ¡:");
+    printf("è¯·è¾“å…¥å†…å­˜å¤§å°:");
     scanf("%d", &size);
-    init(create, size); /*³õÊ¼»¯¿ÕÏĞ·ÖÇø*/
-    printf("ÄÚ´æÊ¹ÓÃÇé¿ö£º£¨½ø³ÌºÅÊıÎª0µÄ¿é±íÊ¾¿ÕÏĞÄÚ´æ£©\n");
-    PrintAll(create); /*Êä³ö¿ÕÏĞ·ÖÇøĞÅÏ¢*/
-    
+    init(create, size); /*åˆå§‹åŒ–ç©ºé—²åˆ†åŒº*/
+    printf("å†…å­˜ä½¿ç”¨æƒ…å†µï¼šï¼ˆè¿›ç¨‹å·æ•°ä¸º0çš„å—è¡¨ç¤ºç©ºé—²å†…å­˜ï¼‰\n");
+    PrintAll(create); /*è¾“å‡ºç©ºé—²åˆ†åŒºä¿¡æ¯*/
+
     while ((temp = menu()))
     {
         switch (temp)
         {
-            case 1: memory_malloc(create, free); break; /*·ÖÅä¿ÕÏĞ·ÖÇø*/
-            case 2: memory_free(create, free); break; /*»ØÊÕ¿ÕÏĞ·ÖÇø*/
-            case 0: printf("ÊäÈë´íÎó\n"); break;
+        case 1:
+            memory_malloc(create, free);
+            break; /*åˆ†é…ç©ºé—²åˆ†åŒº*/
+        case 2:
+            memory_free(create, free);
+            break; /*å›æ”¶ç©ºé—²åˆ†åŒº*/
+        case 0:
+            printf("è¾“å…¥é”™è¯¯\n");
+            break;
         }
-        printf("\n½ø³ÌËùÕ¼·ÖÇø\n");
+        printf("\nè¿›ç¨‹æ‰€å åˆ†åŒº\n");
         PrintAll(free);
-        printf("¿ÕÏĞ·ÖÇø\n");
+        printf("ç©ºé—²åˆ†åŒº\n");
         PrintAll(create);
     }
     return 0;

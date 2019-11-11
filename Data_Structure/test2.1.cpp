@@ -1,21 +1,21 @@
-#include<cstdio> 
-#include<iostream>
-#include<cstdlib>
-#include<string> 
-#include<string.h> 
-#include<stack>
+#include <cstdio>
+#include <iostream>
+#include <cstdlib>
+#include <string>
+#include <string.h>
+#include <stack>
 using namespace std;
 
 int getRank(char sign)
 {
     switch (sign)
     {
-        case '+':
-        case '-':
-            return 1;
-        case '*':
-        case '/':
-            return 2;
+    case '+':
+    case '-':
+        return 1;
+    case '*':
+    case '/':
+        return 2;
     }
     return -1;
 }
@@ -26,7 +26,7 @@ int main(void)
     stack<char> expStack;
     string expression;
     cin >> expression;
-    
+
     for (i = 0; i < expression.length(); i++)
     {
         if (expression[i] >= '0' && expression[i] <= '9')
@@ -66,7 +66,7 @@ int main(void)
             }
         }
     }
-    
+
     while (!expStack.empty())
     {
         cout << expStack.top();

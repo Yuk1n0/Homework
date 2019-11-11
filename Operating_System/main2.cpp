@@ -1,14 +1,14 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include<Windows.h>
-#include<pthread.h>
-#include<iostream>
+#include <stdio.h>
+#include <stdlib.h>
+#include <Windows.h>
+#include <pthread.h>
+#include <iostream>
 #pragma comment(lib, "pthreadVC2.lib")
 using namespace std;
 
 void pickup_forks(int i);
 void putdown_forks(int i);
-void* runner(void*);
+void *runner(void *);
 void test(int i);
 
 pthread_mutex_t mutex;
@@ -16,19 +16,21 @@ pthread_cond_t cond_var[5];
 
 enum
 {
-    THINKING, HUNGRY, EATING
+    THINKING,
+    HUNGRY,
+    EATING
 } state[5];
 
 int main(void)
 {
     int index[5];
     //	srand(time(NULL));
-    pthread_t tid[5]; /* the thread identifier */
+    pthread_t tid[5];    /* the thread identifier */
     pthread_attr_t attr; /* set of thread attributes */
-    
+
     pthread_mutex_init(&mutex, NULL);
     pthread_attr_init(&attr);
-    
+
     for (int i = 0; i < 5; i++)
     {
         state[i] = THINKING;
@@ -38,7 +40,7 @@ int main(void)
     {
         index[i] = i;
         pthread_create(&tid[i], &attr, runner, &index[i]);
-        //µÚÒ»¸ö²ÎÊýÎªÖ¸ÏòÏß³Ì±êÊ¶·ûµÄÖ¸Õë¡£µÚ¶þ¸ö²ÎÊýÓÃÀ´ÉèÖÃÏß³ÌÊôÐÔ¡£µÚÈý¸ö²ÎÊýÊÇÏß³ÌÔËÐÐº¯ÊýµÄÆðÊ¼µØÖ·¡£×îºóÒ»¸ö²ÎÊýÊÇÔËÐÐº¯ÊýµÄ²ÎÊý¡£
+        //ç¬¬ä¸€ä¸ªå‚æ•°ä¸ºæŒ‡å‘çº¿ç¨‹æ ‡è¯†ç¬¦çš„æŒ‡é’ˆã€‚ç¬¬äºŒä¸ªå‚æ•°ç”¨æ¥è®¾ç½®çº¿ç¨‹å±žæ€§ã€‚ç¬¬ä¸‰ä¸ªå‚æ•°æ˜¯çº¿ç¨‹è¿è¡Œå‡½æ•°çš„èµ·å§‹åœ°å€ã€‚æœ€åŽä¸€ä¸ªå‚æ•°æ˜¯è¿è¡Œå‡½æ•°çš„å‚æ•°ã€‚
     }
     for (int i = 0; i < 5; i++)
     {
@@ -48,32 +50,34 @@ int main(void)
     return 0;
 }
 
-void* runner(void* args)
+void *runner(void *args)
 {
-    int ind = *((int*)args);
+    int ind = *((int *)args);
     int cnt = 0;
     int temp, temp1, temp2;
-    
+
     while (cnt < 1)
     {
-        cnt++; temp = ind;
-        printf("ÕÜÑ§¼Ò%d½øÐÐË¼¿¼...\n", ind);
+        cnt++;
+        temp = ind;
+        printf("å“²å­¦å®¶%dè¿›è¡Œæ€è€ƒ...\n", ind);
         Sleep(500);
-        printf("ÕÜÑ§¼Ò%d½áÊøË¼¿¼\n", ind);
-        printf("ÕÜÑ§¼Ò%d½øÈë¼¢¶ö×´Ì¬...\n", ind);
+        printf("å“²å­¦å®¶%dç»“æŸæ€è€ƒ\n", ind);
+        printf("å“²å­¦å®¶%dè¿›å…¥é¥¥é¥¿çŠ¶æ€...\n", ind);
         pickup_forks(ind);
-        temp1 = (temp + 4) % 5; temp2 = (temp + 1) % 5;
-        printf("ÕÜÑ§¼Ò%dÄÃÆð¿ê×Ó½øÐÐ¾Í²Í...²¢Õ¼ÓÃÁË¿ê×Ó%dºÍ%d\n", ind, temp1, temp2);
+        temp1 = (temp + 4) % 5;
+        temp2 = (temp + 1) % 5;
+        printf("å“²å­¦å®¶%dæ‹¿èµ·ç­·å­è¿›è¡Œå°±é¤...å¹¶å ç”¨äº†ç­·å­%då’Œ%d\n", ind, temp1, temp2);
         Sleep(500);
-        printf("ÕÜÑ§¼Ò%d½áÊø¾Í²Í\n", ind);
+        printf("å“²å­¦å®¶%dç»“æŸå°±é¤\n", ind);
         putdown_forks(ind);
-        printf("ÕÜÑ§¼Ò%d·ÅÏÂ¿ê×Ó\n", ind);
+        printf("å“²å­¦å®¶%dæ”¾ä¸‹ç­·å­\n", ind);
     }
     pthread_exit(0);
     return NULL;
 }
 
-//ÄÃÆð¿ê×Ó£¬Ê×ÏÈÅÐ¶ÏµÚi¸öÕÜÑ§¼ÒÊÇ·ñ¿ÉÒÔ¾Í²Í£¬Èç¹û¿ÉÒÔ£¬Ôò½«Æä×´Ì¬¸ÄÎªEATING²¢½øÐÐ¾Í²Í£»·ñÔòµÈ´ýÁÚ×ù½áÊø¾Í²Í£¬·ÅÏÂ¿ê×Ó¡£
+//æ‹¿èµ·ç­·å­ï¼Œé¦–å…ˆåˆ¤æ–­ç¬¬iä¸ªå“²å­¦å®¶æ˜¯å¦å¯ä»¥å°±é¤ï¼Œå¦‚æžœå¯ä»¥ï¼Œåˆ™å°†å…¶çŠ¶æ€æ”¹ä¸ºEATINGå¹¶è¿›è¡Œå°±é¤ï¼›å¦åˆ™ç­‰å¾…é‚»åº§ç»“æŸå°±é¤ï¼Œæ”¾ä¸‹ç­·å­ã€‚
 void pickup_forks(int i)
 {
     pthread_mutex_lock(&mutex);
@@ -81,23 +85,23 @@ void pickup_forks(int i)
     test(i);
     while (state[i] != EATING)
     {
-        printf("ÕÜÑ§¼Ò%dµÈ´ý¿ê×Ó¿ÉÓÃ...\n", i);
+        printf("å“²å­¦å®¶%dç­‰å¾…ç­·å­å¯ç”¨...\n", i);
         pthread_cond_wait(&cond_var[i], &mutex);
     }
     pthread_mutex_unlock(&mutex);
 }
 
-//ÅÐ¶ÏµÚi¸öÕÜÑ§¼ÒÊÇ·ñ¿ÉÒÔ¾Í²Í¡£Èç¹û¿ÉÒÔ£¬Ôò½«Æä×´Ì¬¸ÄÎªEATING¡£
+//åˆ¤æ–­ç¬¬iä¸ªå“²å­¦å®¶æ˜¯å¦å¯ä»¥å°±é¤ã€‚å¦‚æžœå¯ä»¥ï¼Œåˆ™å°†å…¶çŠ¶æ€æ”¹ä¸ºEATINGã€‚
 void test(int i)
-{   //±ÜÃâËÀËø²ßÂÔÎª£º ÕÜÑ§¼Ò i ¿ÉÒÔ½øÐÐ¾Í²Í£¬µ±ÇÒ½öµ±Á½¸öÁÚ×ù²»´¦ÓÚ¾Í²Í×´Ì¬£¬¼´(state[(i + 4) % 5] != EATING)&&(state[(i+1) % 5] != EATING)
+{ //é¿å…æ­»é”ç­–ç•¥ä¸ºï¼š å“²å­¦å®¶ i å¯ä»¥è¿›è¡Œå°±é¤ï¼Œå½“ä¸”ä»…å½“ä¸¤ä¸ªé‚»åº§ä¸å¤„äºŽå°±é¤çŠ¶æ€ï¼Œå³(state[(i + 4) % 5] != EATING)&&(state[(i+1) % 5] != EATING)
     if ((state[(i + 4) % 5] != EATING) && (state[i] == HUNGRY) && (state[(i + 1) % 5] != EATING))
     {
         state[i] = EATING;
         pthread_cond_signal(&cond_var[i]);
     }
-}//stateÎªÃ¶¾ÙÊý×é
+} //stateä¸ºæžšä¸¾æ•°ç»„
 
-//·ÅÏÂ¿ê×Ó£¬¼´¸Ä±äµÚi¸öÕÜÑ§¼ÒµÄ×´Ì¬ÎªTHINKING£¬ÅÐ¶ÏÁÚ×ùµÄÁ½¸öÕÜÑ§¼ÒÊÇ·ñ¿ÉÒÔ¾Í²Í£¬Èç¹û¿ÉÒÔ£¬Ôò½«Æä×´Ì¬¸ÄÎªEATING¡£
+//æ”¾ä¸‹ç­·å­ï¼Œå³æ”¹å˜ç¬¬iä¸ªå“²å­¦å®¶çš„çŠ¶æ€ä¸ºTHINKINGï¼Œåˆ¤æ–­é‚»åº§çš„ä¸¤ä¸ªå“²å­¦å®¶æ˜¯å¦å¯ä»¥å°±é¤ï¼Œå¦‚æžœå¯ä»¥ï¼Œåˆ™å°†å…¶çŠ¶æ€æ”¹ä¸ºEATINGã€‚
 void putdown_forks(int i)
 {
     pthread_mutex_lock(&mutex);
