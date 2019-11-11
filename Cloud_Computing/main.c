@@ -17,21 +17,22 @@ void release(Word *head);
 
 int main(void)
 {
-    FILE *fp;
+    FILE *fp = NULL;
     char filename[] = "./file.txt";
     char str[50] = {0};
-    Word *head;
+    Word *head = NULL;
     head = (Word *)malloc(sizeof(Word));
     memset(head, 0, sizeof(Word));
     if ((fp = fopen(filename, "r")) == NULL)
     {
-        printf("Program can't open file!");
+        printf("Program can't open this file!");
         exit(0);
     }
     while (fscanf(fp, "%s", str) != EOF)
     {
         add(head, str);
     }
+    printf("头指针地址为:%p ,文件指针为地址:%p ,数组首地址为:%p\n",(void*)head,(void*)fp,(void*)str);
     fclose(fp);
     display(head);
     sort(head);
@@ -58,6 +59,11 @@ void add(Word *head, char *str)
             p->num++;
             return;
         }
+        else if (strcmp((p->word) + 1, str + 1) == 0)
+        {
+            p->num++;
+            return;
+        }
         else
         {
             if (p->next != NULL)
@@ -79,21 +85,19 @@ void add(Word *head, char *str)
 
 void sort(Word *head)
 {
-    Word *temp = head->next;
-    Word *tempnode = head;
-    Word *prenode;
+    Word *traversal, *tempnode, *prenode;
     for (int i = 0; i < 3; i++)
     {
-        temp = head;
+        traversal = head;
         tempnode = head;
-        while (temp->next != NULL)
+        while (traversal->next != NULL)
         {
-            if (tempnode->num < temp->next->num)
+            if (tempnode->num < traversal->next->num)
             {
-                prenode = temp;
-                tempnode = temp->next;
+                prenode = traversal;
+                tempnode = traversal->next;
             }
-            temp = temp->next;
+            traversal = traversal->next;
         }
         printf("%s %d\n", tempnode->word, tempnode->num);
         prenode->next = tempnode->next;
@@ -122,12 +126,12 @@ void display(Word *head)
 
 void release(Word *head)
 {
-    Word *newnode;
+    Word *curnode;
     Word *prenode = head;
     while (prenode != NULL)
     {
-        newnode = prenode->next;
+        curnode = prenode->next;
         free(prenode);
-        prenode = newnode;
+        prenode = curnode;
     }
 }
