@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
+#include <time.h>
 
 typedef struct Word
 {
@@ -17,6 +18,9 @@ void release(Word *head);
 
 int main(void)
 {
+    clock_t starttime, endtime;
+    double cost;
+    starttime = clock();
     FILE *fp = NULL;
     char filename[] = "./file.txt";
     char str[50] = {0};
@@ -32,11 +36,14 @@ int main(void)
     {
         add(head, str);
     }
-    printf("头指针地址为:%p ,文件指针为地址:%p ,数组首地址为:%p\n",(void*)head,(void*)fp,(void*)str);
+    printf("头指针地址为:%p ,文件指针为地址:%p ,数组首地址为:%p\n", (void *)head, (void *)fp, (void *)str);
     fclose(fp);
     display(head);
     sort(head);
     release(head);
+    endtime = clock();
+    cost = (double)(endtime - starttime) / CLOCKS_PER_SEC;
+    printf("程序运行时间为: %lf秒\n", cost);
     return 0;
 }
 
