@@ -22,14 +22,19 @@ int main(void)
     double cost;
     starttime = clock();
     FILE *fp = NULL;
-    char filename[] = "./file.txt";
+    char filename[] = "./data.dat";
     char str[50] = {0};
     Word *head = NULL;
     head = (Word *)malloc(sizeof(Word));
+    if (head == NULL)
+    {
+        printf("Can't initialize node !");
+        exit(0);
+    }
     memset(head, 0, sizeof(Word));
     if ((fp = fopen(filename, "r")) == NULL)
     {
-        printf("Program can't open this file!");
+        printf("Program can't open this file !");
         exit(0);
     }
     while (fscanf(fp, "%s", str) != EOF)
