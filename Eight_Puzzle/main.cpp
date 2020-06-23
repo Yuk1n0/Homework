@@ -51,7 +51,7 @@ public:
 typedef class Sets
 {
 public:
-    int f;	  //记录函数值
+    int f;    //记录函数值
     int step; //记录步数
     UDuilie d;
     int x;
