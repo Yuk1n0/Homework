@@ -1,5 +1,4 @@
 /* POJ 2488 A Knight's Journey */
-
 #include <stdio.h>
 #include <string.h>
 

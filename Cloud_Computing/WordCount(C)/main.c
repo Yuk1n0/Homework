@@ -47,7 +47,7 @@ int main(void)
     }
     fclose(fp);
 
-    /*display(head);*/
+    display(head);
     sort(head);
     release(head);
 

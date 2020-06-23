@@ -5,7 +5,6 @@
  * 然后逐渐找和右括号匹配的左括号所处的位置
  * i-j
  */
-
 #include <stdio.h>
 #include <stdlib.h>
 

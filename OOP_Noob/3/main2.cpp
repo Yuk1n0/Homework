@@ -30,7 +30,7 @@ ostream &operator<<(ostream &out, Point &a)
     return out;
 }
 
-int main()
+int main(void)
 {
     Point a;
     cin >> a;

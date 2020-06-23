@@ -30,7 +30,7 @@ void Complex::display()
          << ")" << endl;
 }
 
-int main()
+int main(void)
 {
     Complex c1(6, 7), c2(7, 8), c3;
     cout << "c1=";

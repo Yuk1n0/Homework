@@ -1,6 +1,6 @@
-#include "Lexical.h"
-#include <string>
 #include <iostream>
+#include <string>
+#include "Lexical.h"
 #include "LR(1).h"
 using namespace std;
 

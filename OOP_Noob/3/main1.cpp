@@ -22,7 +22,7 @@ private:
         T Top;         // 保存栈顶的当前位置
 };
 
-int main()
+int main(void)
 {
     IStack a;
     return 0;

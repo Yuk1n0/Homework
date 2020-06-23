@@ -30,7 +30,7 @@ private:
     double x, y;
 };
 
-int main()
+int main(void)
 {
     myPoint p1, p2(0, 1), p3(1, 0);
     p1.Printit();

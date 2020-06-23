@@ -24,7 +24,7 @@ private:
     float x, y, area, p;
 };
 
-int main()
+int main(void)
 {
     Test a(20, 50), b(3.6, 4.5);
     a.Area();

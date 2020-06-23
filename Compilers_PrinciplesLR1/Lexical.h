@@ -1,8 +1,8 @@
 #pragma once
+#include <iostream>
 #include "pl0.h"
 #include <string>
 #include <fstream>
-#include <iostream>
 #include <vector>
 #include <iomanip>
 using namespace std;

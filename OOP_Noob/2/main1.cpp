@@ -225,7 +225,7 @@ protected:
     double x, y, z, a, b, h;
 };
 
-int main()
+int main(void)
 {
     Geometric_shape *gs[] = {new Circle(10), new Rectangle(6, 8), new Triangle(3, 4, 5),
                              new Box(6, 8, 3), new class Cylinder(10, 3), new Cone(10, 3), new T_pyramid(3, 4, 5, 3), new T_prism(3, 4, 5, 3)};

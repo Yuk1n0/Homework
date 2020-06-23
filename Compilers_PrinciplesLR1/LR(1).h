@@ -1,11 +1,12 @@
 #pragma once
+#include <iostream>
 #include <set>
 #include <string>
 #include <vector>
 #include <algorithm>
 #include <map>
 #include <stack>
-#include <iostream>
+
 using namespace std;
 
 #define INT 1

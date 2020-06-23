@@ -285,8 +285,8 @@ int main(void)
     aim.getdata();
     bxulie = isReach(d.datas);
     axulie = isReach(aim.datas);
-    if (bxulie % 2 == axulie % 2)
-    { //判断初始状态与目标状态是否同奇或同偶数
+    if (bxulie % 2 == axulie % 2) //判断初始状态与目标状态是否同奇或同偶数
+    {
         cout << "状态可达！" << endl;
         cout << "准备搜索...\n";
         system("pause");
