@@ -12,8 +12,8 @@ typedef struct Word
 } Word;
 
 void add(Word *head, char *str);
-void sort(Word *head);
 void display(Word *head);
+void sort(Word *head);
 void release(Word *head);
 
 int main(void)
@@ -25,9 +25,9 @@ int main(void)
     FILE *fp = NULL;
     char filename[] = "./data.dat";
     char str[50] = {0};
+
     Word *head = NULL;
     head = (Word *)malloc(sizeof(Word));
-
     if (head == NULL)
     {
         printf("Can't initialize node !\n");
@@ -53,7 +53,7 @@ int main(void)
 
     endtime = clock();
     cost = (double)(endtime - starttime) / CLOCKS_PER_SEC;
-    printf("Runtime: %lf sec\n", cost);
+    printf("Running time: %lf sec\n", cost);
     return 0;
 }
 
@@ -89,12 +89,7 @@ void add(Word *head, char *str)
     Word *p = head;
     while (true)
     {
-        if (strcmp(p->word, str) == 0)
-        {
-            p->num++;
-            return;
-        }
-        else if (abs(((int)*(p->word) - (int)*str)) == 32 && *(str + 1) != 0 && strcmp((p->word) + 1, str + 1) == 0)
+        if (strcasecmp(p->word, str) == 0)
         {
             p->num++;
             return;
@@ -118,56 +113,56 @@ void add(Word *head, char *str)
     }
 }
 
+void display(Word *head)
+{
+    int count = 0;
+    Word *word = head->next;
+    while (word != NULL)
+    {
+        count++;
+        word = word->next;
+    }
+    printf("Words: %d\n", count);
+    printf("\n");
+    word = head->next;
+    for (word; word != NULL; word = word->next)
+    {
+        printf("%s %d\n", word->word, word->num);
+    }
+    printf("\n");
+}
+
 void sort(Word *head)
 {
     int i;
-    Word *traversal, *tempnode, *prenode;
+    Word *traversal, *maxnode, *curnode;
     for (i = 0; i < 3; i++)
     {
         traversal = head;
-        tempnode = head;
+        maxnode = head;
         while (traversal->next != NULL)
         {
-            if (tempnode->num < traversal->next->num)
+            if (maxnode->num < traversal->next->num)
             {
-                prenode = traversal;
-                tempnode = traversal->next;
+                curnode = traversal;
+                maxnode = traversal->next;
             }
             traversal = traversal->next;
         }
-        printf("%s %d\n", tempnode->word, tempnode->num);
-        prenode->next = tempnode->next;
-        free(tempnode);
+        printf("%s %d\n", maxnode->word, maxnode->num);
+        curnode->next = maxnode->next;
+        free(maxnode);
     }
-}
-
-void display(Word *head)
-{
-    int sum = 0;
-    Word *temp = head->next;
-    while (temp != NULL)
-    {
-        sum++;
-        temp = temp->next;
-    }
-    printf("Words: %d\n", sum);
-    printf("\n");
-    Word *show = head->next;
-    for (show; show != NULL; show = show->next)
-    {
-        printf("%s %d\n", show->word, show->num);
-    }
-    printf("\n");
 }
 
 void release(Word *head)
 {
-    Word *curnode;
-    Word *prenode = head;
-    while (prenode != NULL)
+    Word *cur;
+    Word *pre = head;
+    while (pre != NULL)
     {
-        curnode = prenode->next;
-        free(prenode);
-        prenode = curnode;
+        cur = pre->next;
+        free(pre);
+        pre = cur;
     }
 }
