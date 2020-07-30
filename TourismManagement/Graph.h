@@ -3,6 +3,7 @@
 #define GRAPH_H
 
 #define MAX_VERTEX_NUM 20
+
 struct Vex
 {
     int num;         //景点编号

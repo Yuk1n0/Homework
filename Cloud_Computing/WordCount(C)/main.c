@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <stdbool.h>
+#include <string.h>
 #include <time.h>
 
 typedef struct Word
@@ -23,7 +23,7 @@ int main(void)
     starttime = clock();
 
     FILE *fp = NULL;
-    char filename[] = "./data.dat";
+    char filename[] = "data.dat";
     char str[50] = {0};
 
     Word *head = NULL;

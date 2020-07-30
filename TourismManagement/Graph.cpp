@@ -1,6 +1,6 @@
 #include <iostream>
-#include <stdio.h>
-#include <stdlib.h>
+#include <cstdio>
+#include <cstdlib>
 #include <cstring>
 #include "Graph.h"
 using namespace std;
@@ -21,8 +21,8 @@ void CGraph::init()
     for (int k = 0; k < 20; k++)
     {
         m_aVex[k].num = k;
-        strcpy_s(m_aVex[k].name, " ");
-        strcpy_s(m_aVex[k].desc, " ");
+        strcpy(m_aVex[k].name, " ");
+        strcpy(m_aVex[k].desc, " ");
     }
 
     m_nVexNum = 0;

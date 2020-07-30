@@ -1,13 +1,11 @@
 #include <iostream>
-#include <fstream>
-#include <math.h>
-#include <string.h>
-#include <iomanip>
-#include <fstream>
+#include <cmath>
 #include <cstdlib>
+#include <cstring>
+#include <fstream>
+#include <iomanip>
 using namespace std;
 
-char Filename[100];
 struct wnode
 {
     char id;
@@ -22,6 +20,7 @@ struct Gnode //存储产生式
     int id;
 };
 
+char Filename[100];
 Gnode grammar[6];
 void initGrammar(); //初始化产生式表
 wnode *lexcial(wnode *head);

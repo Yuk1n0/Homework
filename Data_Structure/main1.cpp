@@ -1,11 +1,12 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include <cstdio>
+#include <cstdlib>
+
 #define StuNum1 4 //宏定义学生数量1
 #define StuNum2 4 //宏定义学生数量2
 
 typedef struct student
 {
-    int xuehao;
+    int stuid;
     int score;
     struct student *next;
 } Student, *Pstudent;
@@ -17,7 +18,7 @@ void CreatLink(Pstudent head, int size)
     {
         pstu = (Pstudent)malloc(sizeof(student));
         pstu->score = head[i].score;
-        pstu->xuehao = head[i].xuehao;
+        pstu->stuid = head[i].stuid;
         pstu->next = NULL;
         phead->next = pstu;
         phead = pstu;
@@ -34,11 +35,11 @@ void Sort(Pstudent pstu, int size)
             if (pstu[j].score < pstu[j + 1].score)
             {
                 int score = pstu[j].score;
-                int xh = pstu[j].xuehao;
+                int xh = pstu[j].stuid;
                 pstu[j].score = pstu[j + 1].score;
-                pstu[j].xuehao = pstu[j + 1].xuehao;
+                pstu[j].stuid = pstu[j + 1].stuid;
                 pstu[j + 1].score = score;
-                pstu[j + 1].xuehao = xh;
+                pstu[j + 1].stuid = xh;
             }
         }
     }
@@ -49,7 +50,7 @@ void print(Pstudent head)
     head = head->next;
     while (head)
     {
-        printf("学号：%d， 成绩：%d\n", head->xuehao, head->score);
+        printf("学号：%d， 成绩：%d\n", head->stuid, head->score);
         head = head->next;
     }
     return;
@@ -101,7 +102,7 @@ int main(void)
     for (int i = 0; i < StuNum1; i++)
     {
         printf("第1. %d 个同学的学号,成绩为 ：", i + 1);
-        scanf("%d", &stu1[i].xuehao);
+        scanf("%d", &stu1[i].stuid);
         scanf("%d", &stu1[i].score);
         stu1[i].next = NULL;
     }
@@ -109,7 +110,7 @@ int main(void)
     for (int i = 0; i < StuNum2; i++)
     {
         printf("第2. %d 个同学的学号,成绩为 ：", i + 1);
-        scanf("%d", &stu2[i].xuehao);
+        scanf("%d", &stu2[i].stuid);
         scanf("%d", &stu2[i].score);
         stu2[i].next = NULL;
     }

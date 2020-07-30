@@ -1,5 +1,6 @@
 #pragma once
 #include "Graph.h"
+
 void CreateGraph(void);
 void GetSpotInfo(void);
 void TravelPath(void);

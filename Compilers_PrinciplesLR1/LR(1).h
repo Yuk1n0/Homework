@@ -1,12 +1,11 @@
 #pragma once
 #include <iostream>
+#include <map>
 #include <set>
+#include <stack>
 #include <string>
 #include <vector>
 #include <algorithm>
-#include <map>
-#include <stack>
-
 using namespace std;
 
 #define INT 1
@@ -21,6 +20,7 @@ enum act
     accept     //接受
 };
 
+class Item;
 /*项目类*/
 class Program
 {

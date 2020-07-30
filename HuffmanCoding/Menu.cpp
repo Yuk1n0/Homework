@@ -1,10 +1,9 @@
-#include "Menu.h"
 #include "Compress.h"
+#include "Menu.h"
 
 void OutMenu()
 {
-    cout << "========="
-         << "Huffman文件压缩=========\n"
+    cout << "================Huffman文件压缩================\n"
          << "选择功能："
          << "1.压缩文件\t"
          << "2.解压文件\t"

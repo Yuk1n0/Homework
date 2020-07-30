@@ -1,6 +1,6 @@
 /* POJ 2488 A Knight's Journey */
-#include <stdio.h>
-#include <string.h>
+#include <cstdio>
+#include <cstring>
 
 const int MAX = 64;
 //字典序最小的行走方向

@@ -1,7 +1,7 @@
 #include <iostream>
+#include <cstdlib>
+#include <cmath>
 #include <iomanip>
-#include <stdlib.h>
-#include <math.h>
 using namespace std;
 
 const int MaxNumber = 100;

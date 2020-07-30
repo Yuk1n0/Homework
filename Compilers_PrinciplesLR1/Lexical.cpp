@@ -305,7 +305,7 @@ void Lexical::printCompareTable(char **s)
                      << '\t';
             }
         }
-        if (s[i] != "")
+        if (strcmp(s[i], "") != 0)
         {
             cout << setw(5) << i << "-" << s[i];
         }

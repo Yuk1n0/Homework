@@ -1,6 +1,7 @@
 #include <iostream>
-#include <time.h>
-#include <Windows.h>
+#include <climits>
+#include <cstdio>
+#include <ctime>
 #include <vector>
 using namespace std;
 
@@ -150,6 +151,5 @@ int main(void)
     else
         printf("%d %d", vec[0], vec[n - 1]);
     printf("\n");
-    system("pause");
     return 0;
 }

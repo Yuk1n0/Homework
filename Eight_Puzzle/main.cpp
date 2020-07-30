@@ -1,11 +1,11 @@
 #include <iostream>
+#include <ctime>
+#include <fstream>
 #include <queue>
 #include <set>
-#include <fstream>
-#include <ctime>
 using namespace std;
+
 //847652310
-int select; //用于选择启发式函数的类型
 
 typedef class UDuilie
 {
@@ -34,6 +34,7 @@ public:
         }
         return true;
     }
+
     bool operator<(UDuilie second) const
     {
         for (int i = 0; i <= 2; i++)
@@ -64,6 +65,7 @@ public:
     }
 } Sets;
 
+int selected;   //用于选择启发式函数的类型
 int total = -1; //最终多少步
 priority_queue<Sets> que;
 set<UDuilie> s;
@@ -162,7 +164,7 @@ void Search(Sets start)
     ofstream ofs;
     ofs.open("result.txt");
     start.step = 0;
-    switch (select)
+    switch (selected)
     {
     case 1:
         start.f = h1(start);
@@ -227,7 +229,7 @@ void Search(Sets start)
             if (temp.x >= 0 && temp.x <= 2 && temp.y >= 0 && temp.y <= 2)
             {
                 change(&temp, x, y, temp.x, temp.y);
-                switch (select)
+                switch (selected)
                 {
                 case 1:
                     temp.f = h1(temp) + temp.step + 1;
@@ -274,7 +276,7 @@ int main(void)
     cout << "4、启发函数 h(n)定义为位置不符数字个数的总和与 3 倍数字逆序数目相加" << endl;
     cout << endl;
     cout << "请选择启发式函数的类型：";
-    cin >> select;
+    cin >> selected;
     UDuilie d;
     int bxulie; //初始状态的奇偶性
     int axulie; //目标状态的奇偶性
@@ -289,12 +291,11 @@ int main(void)
     {
         cout << "状态可达！" << endl;
         cout << "准备搜索...\n";
-        system("pause");
-        startTime = clock(); //计时开始
         cout << "搜索中.....\n";
+        startTime = clock(); //计时开始
         Search(Sets(0, 0, d));
-        cout << endl;
         endTime = clock(); //计时结束
+        cout << endl;
         cout << "搜索完毕\n";
         cout << "运行时间是: " << (double)(endTime - startTime) / CLOCKS_PER_SEC << "s" << endl;
         cout << "一共经过了" << total << "步" << endl;
@@ -304,6 +305,5 @@ int main(void)
         cout << "目标状态不可达！" << endl;
         exit(0);
     }
-    system("pause");
     return 0;
 }

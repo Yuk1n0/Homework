@@ -1,12 +1,12 @@
 #include <iostream>
-#include "cstdio"
-#include "cstring"
-#include "math.h"
-#include "time.h"
-#include "stdlib.h"
-#include "algorithm"
-
+#include <cmath>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
+#include <ctime>
+#include <algorithm>
 using namespace std;
+
 #define eps 1e-8
 #define N 10000
 
@@ -22,13 +22,6 @@ point b[N];
 
 int cmp(point a, point b) //比较两点之间的y值
 {
-    return a.y < b.y;
-}
-
-int cmp1(point a, point b)
-{
-    if (a.x != b.x)
-        return a.x < b.x;
     return a.y < b.y;
 }
 
@@ -142,9 +135,8 @@ int main(void)
         closestPoints(node, n);
         closestPoints(node, n);
         end = clock();
-        cout << "分治法求最近对用时为" << double(end - start) / CLOCKS_PER_SEC << "ms" << endl;
+        cout << "分治法求最近对用时为" << double(end - start) / CLOCKS_PER_SEC << "s" << endl;
         cout << "===========================================================" << endl;
     }
-    system("pause");
     return 0;
 }

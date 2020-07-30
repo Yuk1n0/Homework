@@ -1,10 +1,11 @@
 #pragma once
 #include <iostream>
-#include "pl0.h"
-#include <string>
-#include <fstream>
-#include <vector>
 #include <iomanip>
+#include <cstring>
+#include <fstream>
+#include <string>
+#include <vector>
+#include "pl0.h"
 using namespace std;
 
 class Lexical
@@ -16,7 +17,7 @@ private:
     int CC, LL;         //缓冲区长度
     int num;            //保存词法分析中的数字
     vector<string> in;  //输入流提供给语法分析
-    ;
+    
     char a[11];            //读取组成标识符或保留字的单个字符
     char id[11];           //保存保留字或标识符
     char line[81];         //缓冲区

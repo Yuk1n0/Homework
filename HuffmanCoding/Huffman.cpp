@@ -1,6 +1,6 @@
-#include <stdio.h>
-#include <string.h>
-#include <malloc.h>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
 #include "Huffman.h"
 
 int HuffmanCoding(HuffCode &pHC, HuffmanTree &pHT)
@@ -72,7 +72,7 @@ void CreatHuffmanTree(HuffmanTree *pHT, const int weight[])
     for (int i = 1; i <= nNum; ++i)
     {
         cur[i].weight = i <= SIZE ? weight[i - 1] : 0;
-        cur[i].lchild = cur[i].rchild = cur[i].parent = NULL;
+        cur[i].lchild = cur[i].rchild = cur[i].parent = 0;
     }
     for (int i = SIZE + 1; i <= nNum; ++i)
     {

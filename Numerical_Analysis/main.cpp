@@ -1,19 +1,19 @@
 #include <iostream>
-#include "QJS.h"
-#include "Lagrange.h"
-#include "Newton.h"
-#include "Euler.h"
-#include "RungeKutta.h"
-#include "Bisection.h"
-#include "LterativeMethod.h"
 #include "Atiken.h"
+#include "Bisection.h"
+#include "Euler.h"
 #include "Gauss.h"
+#include "Lagrange.h"
+#include "LterativeMethod.h"
+#include "Newton.h"
+#include "QJS.h"
+#include "RungeKutta.h"
 using namespace std;
 
 int main(void)
 {
     int x = 1;
-    cout << "==========请选择需要执行的操作=========\n";
+    cout << "==========请选择需要执行的操作==========\n";
     cout << "1.秦九韶算法\n";
     cout << "2.拉格朗日插值法\n";
     cout << "3.牛顿插值法\n";
@@ -24,7 +24,7 @@ int main(void)
     cout << "8.埃特金加速方法\n";
     cout << "9.高斯消去法\n";
     cout << "0.退出系统\n";
-    cout << "=====================================\n";
+    cout << "====================================\n";
     while (x)
     {
         cout << "请输入要执行的操作：";

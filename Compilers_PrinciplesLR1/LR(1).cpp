@@ -41,7 +41,6 @@ bool operator==(const Item &a, const Item &b)
     {
         return false;
     }
-
     else
     {
         for (vector<Program>::iterator it = pa.begin(); it != pa.end(); it++)
@@ -159,6 +158,7 @@ void LR::unionSet(Program &a, const Program &b)
         }
     }
 }
+
 /*得到项目集的CLOSURE闭包*/
 Item LR::getClosure(Item &i)
 {
@@ -298,7 +298,7 @@ void LR::getAction()
     {
         for (vector<char>::iterator it = g.vt.begin(); it != g.vt.end(); it++)
         { //循环遍历终结符
-            if (GO[pair<int, char>(i, (*it))] != NULL)
+            if (GO[pair<int, char>(i, (*it))])
             { //如果GO表中存在该终结符的关系，则它的动作为移进
                 int S = GO[pair<int, char>(i, (*it))];
                 ACTION[pair<int, char>(i, (*it))] = pair<act, int>(shift, S);
@@ -344,7 +344,7 @@ void LR::getGoto()
             {
                 continue;
             }
-            if (GO[pair<int, char>(i, (*it))] != NULL)
+            if (GO[pair<int, char>(i, (*it))])
             {
                 int G = GO[pair<int, char>(i, (*it))];
                 GOTO[pair<int, char>(i, (*it))] = G;

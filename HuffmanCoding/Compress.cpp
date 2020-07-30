@@ -1,7 +1,7 @@
 #include <iostream>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
 #include "Compress.h"
 #include "Huffman.h"
 using namespace std;
@@ -135,6 +135,7 @@ char *Encode(const char *pFilename, const HuffCode pHC, char *pBuffer, const int
             }
         }
     }
+    
     if (strlen(cd) > 0)
     {
         pBuffer[pos++] = Str2byte(cd);

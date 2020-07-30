@@ -1,6 +1,6 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
 
 #define error 0
 #define ok 1
@@ -178,7 +178,7 @@ float EvaluateExpression()
 
 int main(void)
 {
-    printf("请输入表达式（end #）：\n");
+    printf("请输入表达式（end with #）：\n");
     printf("%f\n", EvaluateExpression());
     return 0;
 }

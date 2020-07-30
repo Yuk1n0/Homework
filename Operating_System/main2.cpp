@@ -1,9 +1,11 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <Windows.h>
-#include <pthread.h>
+/*
+gcc main2.cpp -lpthread -o main.out
+*/
 #include <iostream>
-#pragma comment(lib, "pthreadVC2.lib")
+#include <cstdio>
+#include <cstdlib>
+#include <pthread.h>
+#include <unistd.h>
 using namespace std;
 
 void pickup_forks(int i);
@@ -24,7 +26,6 @@ enum
 int main(void)
 {
     int index[5];
-    //	srand(time(NULL));
     pthread_t tid[5];    /* the thread identifier */
     pthread_attr_t attr; /* set of thread attributes */
 
@@ -46,7 +47,6 @@ int main(void)
     {
         pthread_join(tid[i], NULL);
     }
-    system("pause");
     return 0;
 }
 
@@ -61,14 +61,14 @@ void *runner(void *args)
         cnt++;
         temp = ind;
         printf("哲学家%d进行思考...\n", ind);
-        Sleep(500);
+        sleep(5);
         printf("哲学家%d结束思考\n", ind);
         printf("哲学家%d进入饥饿状态...\n", ind);
         pickup_forks(ind);
         temp1 = (temp + 4) % 5;
         temp2 = (temp + 1) % 5;
         printf("哲学家%d拿起筷子进行就餐...并占用了筷子%d和%d\n", ind, temp1, temp2);
-        Sleep(500);
+        sleep(5);
         printf("哲学家%d结束就餐\n", ind);
         putdown_forks(ind);
         printf("哲学家%d放下筷子\n", ind);

@@ -1,9 +1,9 @@
 #include <iostream>
 #include <cstdio>
 #include <cstdlib>
-#include <string>
-#include <string.h>
+#include <cstring>
 #include <stack>
+#include <string>
 using namespace std;
 
 int getRank(char sign)
