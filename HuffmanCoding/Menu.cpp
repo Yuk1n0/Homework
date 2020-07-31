@@ -31,7 +31,6 @@ void MenuSelect(int k)
 
 void CompFile()
 {
-    int root = 256 * 2 - 1;
     char filename[SIZE];
     cout << "\n=========Huffman文件压缩=========" << endl;
     cout << "请输入文件名： ";

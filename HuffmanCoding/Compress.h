@@ -12,7 +12,7 @@ struct HEAD
 };
 
 int InitHead(const char *pFilename, HEAD &sHead);
-int Compress(const char *pFilename); //
+int Compress(char *pFilename); //
 char Str2byte(const char *pBinStr);
 char *Encode(const char *pFilename, const HuffCode pHC, char *pBuffer, const int nSize);
 int WriteFile(const char *pFilename, const HEAD sHead, const char *pBuffer, const int nSzie);

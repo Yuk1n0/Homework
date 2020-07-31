@@ -6,7 +6,7 @@
 #include "Huffman.h"
 using namespace std;
 
-int Compress(const char *pFilename)
+int Compress(char *pFilename)
 {
     HTNode *pHT = NULL;
     HuffCode pHC = (char **)malloc((SIZE + 1) * sizeof(char *));
@@ -20,7 +20,15 @@ int Compress(const char *pFilename)
     int ch = 0;
     unsigned long nSize = 0; //缓冲区大小即文件所占字节
 
-    FILE *in = fopen(pFilename, "rb");
+    char *fileName = pFilename;
+    FILE *in = fopen(fileName, "rb");
+    while (in == NULL)
+    {
+        cout << "输入的文件名无效或文件不存在！" << endl;
+        cout << "请重新输入文件名：";
+        cin >> fileName;
+        in = fopen(fileName, "rb");
+    }
     while ((ch = getc(in)) != EOF)
     {
         weight[ch]++;
@@ -135,7 +143,7 @@ char *Encode(const char *pFilename, const HuffCode pHC, char *pBuffer, const int
             }
         }
     }
-    
+
     if (strlen(cd) > 0)
     {
         pBuffer[pos++] = Str2byte(cd);

@@ -7,9 +7,11 @@ using namespace std;
 
 int main(void)
 {
+    
     OutMenu();
     int nSelet;
     cin >> nSelet;
     MenuSelect(nSelet);
     return 0;
+    
 }
