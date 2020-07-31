@@ -7,7 +7,7 @@ using namespace std;
 
 //847652310
 
-typedef class UDuilie
+typedef class UQueue
 {
 public:
     char datas[3][3];
@@ -22,7 +22,7 @@ public:
         }
     }
 
-    bool equals(UDuilie second)
+    bool equals(UQueue second)
     {
         for (int i = 0; i <= 2; i++)
         {
@@ -35,7 +35,7 @@ public:
         return true;
     }
 
-    bool operator<(UDuilie second) const
+    bool operator<(UQueue second) const
     {
         for (int i = 0; i <= 2; i++)
         {
@@ -47,30 +47,30 @@ public:
         }
         return false;
     }
-} UDuilie;
+} UQueue;
 
 typedef class Sets
 {
 public:
-    int f;    //记录函数值
+    int func; //记录函数值
     int step; //记录步数
-    UDuilie d;
+    UQueue d;
     int x;
     int y;
-    Sets() : f(9), step(0) {}
-    Sets(int f, int step, UDuilie d) : f(f), step(step), d(d) {}
+    Sets() : func(9), step(0) {}
+    Sets(int func, int step, UQueue d) : func(func), step(step), d(d) {}
     bool operator<(Sets second) const
     {
-        return this->f > second.f;
+        return this->func > second.func;
     }
 } Sets;
 
 int selected;   //用于选择启发式函数的类型
 int total = -1; //最终多少步
 priority_queue<Sets> que;
-set<UDuilie> s;
+set<UQueue> s;
 int m[2][4] = {{1, 0, -1, 0}, {0, 1, 0, -1}}; //移动零
-UDuilie aim;
+UQueue aim;
 
 int isReach(char a[3][3])
 {
@@ -167,16 +167,16 @@ void Search(Sets start)
     switch (selected)
     {
     case 1:
-        start.f = h1(start);
+        start.func = h1(start);
         break;
     case 2:
-        start.f = h2(start);
+        start.func = h2(start);
         break;
     case 3:
-        start.f = h3(start);
+        start.func = h3(start);
         break;
     case 4:
-        start.f = h4(start);
+        start.func = h4(start);
         break;
     default:
         cout << "输入错误！" << endl;
@@ -232,16 +232,16 @@ void Search(Sets start)
                 switch (selected)
                 {
                 case 1:
-                    temp.f = h1(temp) + temp.step + 1;
+                    temp.func = h1(temp) + temp.step + 1;
                     break;
                 case 2:
-                    temp.f = h2(temp) + temp.step + 1;
+                    temp.func = h2(temp) + temp.step + 1;
                     break;
                 case 3:
-                    temp.f = h3(temp) + temp.step + 1;
+                    temp.func = h3(temp) + temp.step + 1;
                     break;
                 case 4:
-                    temp.f = h4(temp) + temp.step + 1;
+                    temp.func = h4(temp) + temp.step + 1;
                     break;
                 }
                 temp.step++;
@@ -277,15 +277,15 @@ int main(void)
     cout << endl;
     cout << "请选择启发式函数的类型：";
     cin >> selected;
-    UDuilie d;
+    UQueue uqueue;
     int bxulie; //初始状态的奇偶性
     int axulie; //目标状态的奇偶性
     clock_t startTime, endTime;
     cout << "请输入起始状态(0-8)：" << endl;
-    d.getdata();
+    uqueue.getdata();
     cout << "请输入终止状态(0-8)：" << endl;
     aim.getdata();
-    bxulie = isReach(d.datas);
+    bxulie = isReach(uqueue.datas);
     axulie = isReach(aim.datas);
     if (bxulie % 2 == axulie % 2) //判断初始状态与目标状态是否同奇或同偶数
     {
@@ -293,7 +293,7 @@ int main(void)
         cout << "准备搜索...\n";
         cout << "搜索中.....\n";
         startTime = clock(); //计时开始
-        Search(Sets(0, 0, d));
+        Search(Sets(0, 0, uqueue));
         endTime = clock(); //计时结束
         cout << endl;
         cout << "搜索完毕\n";
