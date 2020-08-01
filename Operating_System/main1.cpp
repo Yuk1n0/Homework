@@ -14,7 +14,6 @@ double WT, WWT;
 
 void FCFS(int n)
 {
-    double min = 5000.0;
     int m[MaxNum] = {0};
     cout << endl;
     cout << "FCFS:" << endl;
@@ -58,7 +57,6 @@ void FCFS(int n)
 
     for (int i = 1; i < n; i++)
     {
-        double t = 0.0;
         if ((ArrivalTime[m[i]] - FinishTime[m[i - 1]]) > 0)
         {
             FinishTime[m[i]] = ArrivalTime[m[i]] + ServiceTime[m[i]];
@@ -103,7 +101,6 @@ void SJF(int n)
          << "         完成时间"
          << "         周转时间"
          << "      带权周转时间" << endl;
-    double min = 5000.0;
     int m[MaxNum] = {0};
 
     bool judge = false;
@@ -151,7 +148,6 @@ void SJF(int n)
 
         for (int i = 1; i < n; i++)
         {
-            double t = 0.0;
             if ((ArrivalTime[m[i]] - FinishTime[m[i - 1]]) > 0)
             {
                 FinishTime[m[i]] = ArrivalTime[m[i]] + ServiceTime[m[i]];
@@ -193,7 +189,6 @@ void SJF(int n)
 
 void HRN(int n)
 {
-    double min = 5000.0;
     int m[MaxNum] = {0};
     m[0] = 0;
     double ResponseRatio[MaxNum] = {600000.0};
@@ -249,7 +244,6 @@ void HRN(int n)
         }
         var = m[i];
         //计算下一个调入进程的终止时间，若该进程的到达时间比上一个进程的终止时间还要晚，则更改终止时间为该进程到达时间+响应时间
-        double t = 0.0;
         if ((ArrivalTime[m[i]] - FinishTime[m[i - 1]]) > 0)
         {
             FinishTime[m[i]] = ArrivalTime[m[i]] + ServiceTime[m[i]];
@@ -297,7 +291,6 @@ void HRN(int n)
 
 void PriorityFunction(int n)
 {
-    double min = 5000.0;
     int m[MaxNum] = {0};
     cout << endl;
     cout << "优先级算法:" << endl;
@@ -341,7 +334,6 @@ void PriorityFunction(int n)
 
     for (int i = 1; i < n; i++)
     {
-        double t = 0.0;
         if ((ArrivalTime[m[i]] - FinishTime[m[i - 1]]) > 0)
         {
             FinishTime[m[i]] = ArrivalTime[m[i]] + ServiceTime[m[i]];

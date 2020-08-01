@@ -146,7 +146,6 @@ void CGraph::DFSTraverse(int nVex, PathList &pList)
 
 void CGraph::FindShortPath(int nVexStart, int nVexEnd, Edge *&aEdge)
 {
-    int nIndex = 0;
     int temp = 0;
     bool aVisit[MAX_VERTEX_NUM] = {false};
     aVisit[nVexStart] = true;

@@ -11,13 +11,12 @@ using namespace std;
 class Lexical
 {
 private:
-    string LexFileName; //文件名
-    FILE *fin;          //FILE指针
-    char ch;            //保存词法分析中读取的单个字符
-    int CC, LL;         //缓冲区长度
-    int num;            //保存词法分析中的数字
-    vector<string> in;  //输入流提供给语法分析
-    
+    string LexFileName;    //文件名
+    FILE *fin;             //FILE指针
+    unsigned char ch;      //保存词法分析中读取的单个字符
+    int CC, LL;            //缓冲区长度
+    int num;               //保存词法分析中的数字
+    vector<string> in;     //输入流提供给语法分析
     char a[11];            //读取组成标识符或保留字的单个字符
     char id[11];           //保存保留字或标识符
     char line[81];         //缓冲区

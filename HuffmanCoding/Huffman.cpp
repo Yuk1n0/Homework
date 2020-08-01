@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include <cstring>
 #include "Huffman.h"
+using namespace std;
 
 int HuffmanCoding(HuffCode &pHC, HuffmanTree &pHT)
 {

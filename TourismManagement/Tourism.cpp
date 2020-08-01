@@ -91,7 +91,6 @@ void TravelPath(void)
 void TravelPaths(void)
 {
     int nVex;
-    int k = 0;
     PathList pList, head;
     pList = (PathList)malloc(sizeof(Path));
     head = pList;

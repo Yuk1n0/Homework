@@ -1,5 +1,6 @@
 #include <cstdio>
 #include <cstdlib>
+using namespace std;
 
 #define StuNum1 4 //宏定义学生数量1
 #define StuNum2 4 //宏定义学生数量2

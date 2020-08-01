@@ -143,7 +143,7 @@ void Lexical::doLetterPro()
         }
         cout << ch;
         getch();
-    } while (ch >= 'a' && ch <= 'z' || ch >= '0' && ch <= '9');
+    } while ((ch >= 'a' && ch <= 'z') || (ch >= '0' && ch <= '9'));
     a[k] = 0;
     t = k;
     strcpy(id, a);

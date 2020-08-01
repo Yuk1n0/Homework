@@ -7,6 +7,7 @@
  */
 #include <cstdio>
 #include <cstdlib>
+using namespace std;
 
 const int MAX = 50;
 int a[MAX];

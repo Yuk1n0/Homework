@@ -16,15 +16,15 @@ public:
 istream &operator>>(istream &in, Point &a)
 {
     cout << "请输入一个电话号码：";
-    for (int i = 0; i < 13; i++)
+    for (int i = 0; i < 11; i++)
         in >> a.a[i];
     return in;
 }
 
 ostream &operator<<(ostream &out, Point &a)
 {
-    cout << "刚才输入的电话号码为：";
-    for (int i = 0; i < 13; i++)
+    cout << "输入的电话号码为：";
+    for (int i = 0; i < 11; i++)
         out << a.a[i];
     cout << endl;
     return out;

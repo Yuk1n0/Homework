@@ -125,9 +125,10 @@ void display(Word *head)
     printf("Words: %d\n", count);
     printf("\n");
     word = head->next;
-    for (word; word != NULL; word = word->next)
+    while (word != NULL)
     {
         printf("%s %d\n", word->word, word->num);
+        word = word->next;
     }
     printf("\n");
 }

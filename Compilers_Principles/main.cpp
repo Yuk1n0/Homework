@@ -116,7 +116,6 @@ bool ischar(char c) //检测是否为分界符
 int word()
 {
     char ch = ' ';
-    int num = 0;
     ifstream source("source.txt");
     ofstream analysis("analysis.txt");
     char yunsuanfu[11] = {'+', '-', '*', '/', '<', '>', '=', '!', '%', '&', '|'};
@@ -143,7 +142,6 @@ int word()
         (char *)"float",
         (char *)"char",
     };
-    char *biaoshifu[100] = {(char *)"\0"};
     while (!source.eof())
     {
         source.get(ch);
@@ -307,7 +305,7 @@ void gammarAnalysis(wnode *head)
     cout << "分析栈   输入串   操作" << endl;
     int opS[20];  //记录状态，状态栈
     char opC[20]; //记录符号，符号栈
-    int mark = -1, i, count = 0;
+    int mark = -1, i;
     int loc = 99; //指示程序指令地址
     char c;
     wnode *p;
@@ -426,7 +424,7 @@ void gammarAnalysis(wnode *head)
 
 void showS(int opS[], int tops, char opC[], int topc, wnode *hp)
 {
-    int i = 0, j = 0;
+    int i = 0;
     wnode *tp = hp;
     for (i = 0; i <= topc; i++)
         cout << opC[i];
@@ -488,7 +486,7 @@ int main(void)
     cout << "请输入文件名:";
     cin.getline(Filename, n);
     fp = fopen(Filename, "r");
-    while (fp == NULL) //若打入的文件没有，则提示继续打入有效的路径名
+    while (fp == NULL) //若输入的文件没有，则提示继续输入有效的路径名
     {
         cout << "Sorry,文件不存在!" << endl;
         cout << "请重新输入文件名:";
