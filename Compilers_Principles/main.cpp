@@ -20,7 +20,9 @@ struct Gnode //存储产生式
     int id;
 };
 
-char Filename[100];
+char *Pathname = (char *)"data/";
+char Filename[24];
+char *PathFile = new char;
 Gnode grammar[6];
 void initGrammar(); //初始化产生式表
 wnode *lexcial(wnode *head);
@@ -116,8 +118,8 @@ bool ischar(char c) //检测是否为分界符
 int word()
 {
     char ch = ' ';
-    ifstream source("source.txt");
-    ofstream analysis("analysis.txt");
+    ifstream source("data/source.txt");
+    ofstream analysis("data/analysis.txt");
     char yunsuanfu[11] = {'+', '-', '*', '/', '<', '>', '=', '!', '%', '&', '|'};
     char jiefu[9] = {',', ';', '(', ')', '{', '}', '[', ']', '#'};
     char *guanjianzi[20] = {
@@ -231,7 +233,7 @@ wnode *lexcial(wnode *head)
     q->text[0] = '\0';
     q->n = 0;
     q->next = NULL;
-    fstream infile(Filename); //根据输入的路径名来打开这个文件
+    fstream infile(PathFile); //根据输入的路径名来打开这个文件
     while (infile.get(c))
     {
         if (ischar(c))
@@ -295,7 +297,7 @@ void gammarAnalysis(wnode *head)
     char r, d1, d2;
     int tn = 0, en = head->n;
     ofstream table;
-    table.open("siyuanshi.txt");
+    table.open("data/siyuanshi.txt");
     if (!table)
     {
         cout << "Cannot open output file!" << endl;
@@ -477,21 +479,40 @@ int check(int s, char v)
     return r;
 }
 
+void LinkStrings(char *Pathname, char *Filename, char *PathFile)
+{
+    while (*Pathname != '\0')
+    {
+        *PathFile = *Pathname;
+        Pathname++;
+        PathFile++;
+    }
+    while (*Filename != '\0')
+    {
+        *PathFile = *Filename;
+        Filename++;
+        PathFile++;
+    }
+    *PathFile = '\0';
+}
+
 int main(void)
 {
-    FILE *fp;
-    int n = 100;
+    FILE *fp = NULL;
+    int n = 24;
     cout << "***IF-ELSE条件语句的翻译程序设计（LR方法、输出四元式）***" << endl;
     initGrammar();
     cout << "请输入文件名:";
     cin.getline(Filename, n);
-    fp = fopen(Filename, "r");
-    while (fp == NULL) //若输入的文件没有，则提示继续输入有效的路径名
+    LinkStrings(Pathname, Filename, PathFile);
+    fp = fopen(PathFile, "r");
+    while (fp == NULL)
     {
         cout << "Sorry,文件不存在!" << endl;
         cout << "请重新输入文件名:";
         cin.getline(Filename, n);
-        fp = fopen(Filename, "r");
+        LinkStrings(Pathname, Filename, PathFile);
+        fp = fopen(PathFile, "r");
     }
     wnode *wlist;
     wlist = new wnode;
@@ -503,12 +524,13 @@ int main(void)
     fclose(fp);
     word();
     gammarAnalysis(wlist);
-    ifstream fin("siyuanshi.txt");
+    ifstream fin("data/siyuanshi.txt");
     string s;
     cout << "输出四元式为：" << endl;
     while (getline(fin, s))
     {
         cout << s << endl;
     }
+    delete(PathFile);
     return 0;
 }
